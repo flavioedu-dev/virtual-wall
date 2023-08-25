@@ -1,0 +1,22 @@
+.btn {
+  align-self: center;
+  width: 132px;
+  height: 42px;
+  background: rgba(92, 208, 97, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .btn {
+    width: 110px;
+    font-size: 18px;
+  }
+}

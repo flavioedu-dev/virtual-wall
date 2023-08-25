@@ -1,0 +1,35 @@
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.img-darken{
+  mix-blend-mode: darken;
+}
+
+.auth{
+  text-align: center;
+  font-size: 15px;
+  margin-top: 32px;
+}
+
+.auth:hover{
+  color: #5cd062;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth a{
+  color: #5cd061e6;
+  text-decoration: none;
+}
+
+@media (min-width:600px){
+  .auth{
+      margin-top: 15px;
+  }
+}
