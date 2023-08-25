@@ -23,3 +23,9 @@
     line-height: 20px;
   }
 }
+
+@media (max-width: 599px) {
+  .auth_input {
+    width: 75%;
+  }
+}

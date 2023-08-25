@@ -1,0 +1,101 @@
+body{
+  background-color: #F2F2F2;
+}
+
+form input:nth-child(1){
+  margin-top: 2.5em;
+}
+
+.all {
+  position: relative;
+  text-align: center;
+}
+
+.auth:hover{
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth a{
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+#select-Iam{
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  padding: 1em;
+  margin-bottom: 1.5em;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  outline: none;
+}
+
+#select-Iam option:not(:disabled){
+  color: #000;
+}
+
+.res_register {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: -2rem;
+  left: 0;
+}
+
+@media (min-width:600px){
+  .all{
+      box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.174);
+      padding: 2.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      align-items: center;
+  }
+
+  .logo-login img{
+      width: 100%;
+  }
+
+  .logo-login{
+      width: 350px ;
+  }
+
+  .form{
+      margin: 0 10px;
+  }
+
+  .form input{
+      font-size: 16px;
+      line-height: 20px;
+  }
+
+  .form-container{
+      margin: 0 auto;
+      width: 100%;
+  }
+
+  .forgot-pass{
+      margin-top: 0;
+  }
+
+  .btn{
+      width: 110px;
+      font-size: 18px;
+  }
+
+  .res_register {
+      bottom: 1rem;
+  }
+}
+
+@media (max-width: 599px) {
+  #select-Iam {
+    max-width: 75%;
+  }
+}
