@@ -7,7 +7,7 @@ body{
   background-color: #f2f2f2;
 }
 
-.img-darken{
+.img_darken{
   mix-blend-mode: darken;
 }
 
@@ -18,18 +18,35 @@ body{
 }
 
 .auth:hover{
-  color: #5cd062;
+  color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .auth a{
-  color: #5cd061e6;
+  color: rgba(0, 0, 0, 0.5);
   text-decoration: none;
 }
 
 @media (min-width:600px){
+  .all {
+    box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.174);
+    padding: 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+  }
+
   .auth{
-      margin-top: 15px;
+    margin-top: 15px;
+  }
+
+  .logo_login img {
+    width: 100%;
+  }
+
+  .logo_login {
+    width: 350px;
   }
 }

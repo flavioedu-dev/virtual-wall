@@ -14,6 +14,9 @@ import { AuthInput } from "@/components/Input/AuthInput";
 // Images
 import logoImg from "public/Logo.png";
 
+import Link from "next/link";
+import AuthForm from "@/components/Form/AuthForm/AuthForm";
+
 export const metadata = {
   title: "Login",
 };
@@ -36,41 +39,40 @@ const LoginPage = () => {
 
   return (
     <main className="all">
-      <div className="logo-login">
+      <div className="logo_login">
         <Image
           src={logoImg}
           alt="Logo"
-          className="img-darken"
+          className="img_darken"
           style={{ objectFit: "contain" }}
         />
       </div>
-      <div className="form-container">
-        <form className="form">
-          <AuthInput
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onchange={handleEmail}
-          />
-          <AuthInput
-            type="password"
-            name="pass"
-            id="pass"
-            placeholder="Senha"
-            value={password}
-            onchange={handlePassword}
-          />
-          <a href="#" className="forgot-pass">
-            Esqueceu a senha?
-          </a>
-          <AuthButton authentication={logIn}>Login</AuthButton>
-        </form>
+      <AuthForm>
+        <AuthInput
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          value={email}
+          onchange={handleEmail}
+        />
+        <AuthInput
+          type="password"
+          name="pass"
+          id="pass"
+          placeholder="Senha"
+          value={password}
+          onchange={handlePassword}
+        />
+        <a href="#" className="forgot_pass">
+          Esqueceu a senha?
+        </a>
+        <AuthButton authentication={logIn}>Login</AuthButton>
         <p className="auth">
-          <a href="#">Cadastre-se</a>
+          <Link href={"/auth/register"}>Cadastre-se</Link>
         </p>
-      </div>
+      </AuthForm>
+
       <div className="res_login"></div>
     </main>
   );

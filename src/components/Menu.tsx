@@ -1,5 +1,6 @@
 "use client";
 
+// Images
 import profileLinkedin from "public/Perfil LinkedIn.png";
 import profileImg from "public/perfil.png";
 import leafImg from "public/copie-o-simbolo-de-interface-de-duas-folhas-de-papel.png";

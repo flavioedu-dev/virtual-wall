@@ -1,0 +1,54 @@
+.form input {
+  width: 100%;
+}
+
+.form input:nth-child(2) {
+  margin-bottom: 1em;
+}
+
+.form_container form button a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.img_darken {
+  margin-bottom: 2em;
+}
+
+.form_container {
+  margin: 0 auto;
+  width: 75%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.res_login {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: -2.5rem;
+}
+
+@media (min-width: 600px) {
+  .form {
+    margin: 0 10px;
+  }
+
+  .form input {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .form_container {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .btn {
+    width: 110px;
+    font-size: 18px;
+  }
+}
