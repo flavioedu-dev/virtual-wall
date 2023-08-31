@@ -11,6 +11,10 @@
   width: 3rem;
 }
 
+.nav_container > img {
+  cursor: pointer;
+}
+
 
 @media (min-width: 700px) {
   .nav_container {
@@ -20,7 +24,7 @@
     top: 1%;
   }
 
-  .nav_container img:nth-child(1) {
+  .nav_container > img:nth-child(1) {
     display: none;
   }
 

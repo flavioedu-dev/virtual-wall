@@ -14,6 +14,11 @@
 
 .profile_container {
   margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.profile_container > p {
+  font-size: 1.5rem;
 }
 
 .inner_container {
@@ -28,8 +33,16 @@
 .options > div {
   display: flex;
   align-items: center;
-  font-size: 2rem;
-  margin: 2.5rem 0;
+  font-size: 2.2rem;
+  margin: 3.5rem 0;
+}
+
+.options > div:first-child{
+  margin-top: 2rem;
+}
+
+.options > div:last-child{
+  margin-bottom: 2rem;
 }
 
 .options > div > img {
@@ -37,4 +50,56 @@
   height: auto;
   margin-right: 1rem;
   object-fit: contain;
+  transition: .3s;
+}
+
+.options > div > img:hover {
+  transform: scale(1.2);
+}
+
+.options > div > h1 {
+  font-size: 2.2rem;
+}
+
+@media (min-width: 700px) {
+  .menu {
+    position: fixed;
+    max-width: 7rem;
+  }
+
+  .profile_container {
+    margin-top: 2rem;
+  }
+
+  .profile_container > img {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .profile_container > h2, .profile_container p {
+    display: none;
+  }
+
+  .inner_container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .options > div {
+    margin: 4rem 0;
+  }
+
+  .options > div > h1 {
+    display: none;
+  }
+
+  .options > div > img {
+    width: 3rem;
+    margin-right: 0;
+    cursor: pointer;
+  }
 }

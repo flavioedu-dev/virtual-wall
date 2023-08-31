@@ -1,29 +1,28 @@
 "use client";
 
 // CSS
-import styles from "./navbar.module.css"
+import styles from "./navbar.module.css";
 
 // Images
 import menuImg from "public/menu.png";
 import boardLogoImg from "public/board-logo.png";
-import Image from 'next/image'
-import Menu from '../Menu/Menu';
+import Image from "next/image";
+import Menu from "../Menu/Menu";
 
 // Hooks and types
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 const Nav = () => {
-
   const [stateMenu, setStateMenu] = useState<boolean>(false);
-  const [size, setSize] = useState<number>(700);
+  const [size, setSize] = useState<number>(600);
 
   const openMenu = () => {
     setStateMenu(true);
-  }
+  };
 
   const closeMenu = () => {
     setStateMenu(false);
-  }
+  };
 
   useEffect(() => {
     function resizing() {
@@ -35,26 +34,27 @@ const Nav = () => {
 
     return () => {
       window.removeEventListener("resize", resizing);
-    }
-  }, [])
+    };
+  }, []);
 
   return (
-    <nav className={styles.nav_container} >
-      <Image
-        src={menuImg}
-        alt="menu-ico"
-        style={{objectFit: "contain"}}
-        onClick={openMenu}
-      />
+    <header>
+      <nav className={styles.nav_container}>
+        <Image
+          src={menuImg}
+          alt="menu-ico"
+          style={{ objectFit: "contain" }}
+          onClick={openMenu}
+        />
 
-      <Image
-        src={boardLogoImg}
-        alt="board-logo"
-      />
+        <Image src={boardLogoImg} alt="board-logo" />
 
-      {(stateMenu === true || size >= 700) ? <Menu closeMenu={closeMenu} /> : null}
-    </nav>
-  )
-}
+        {stateMenu === true || size >= 700 ? (
+          <Menu closeMenu={closeMenu} />
+        ) : null}
+      </nav>
+    </header>
+  );
+};
 
-export default Nav
+export default Nav;

@@ -13,6 +13,7 @@
   color: rgba(0, 0, 0, 0.5);
   margin-bottom: 24px;
   text-decoration: none;
+  font-size: 1.4rem;
 }
 .forgot_pass:hover {
   text-decoration: underline;
