@@ -8,7 +8,7 @@ type UserLayoutProps = {
 const layout = ({children} : UserLayoutProps) => {
   return (
     <>
-      <Menu />
+      {/* <Menu /> */}
       {children}
     </>
   )

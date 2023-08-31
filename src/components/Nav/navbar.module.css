@@ -1,0 +1,27 @@
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6rem;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid black;
+}
+
+.nav_container img:nth-child(1) {
+  width: 3rem;
+}
+
+
+@media (min-width: 700px) {
+  .nav_container {
+    border-bottom: none;
+    position: fixed;
+    right: 1%;
+    top: 1%;
+  }
+
+  .nav_container img:nth-child(1) {
+    display: none;
+  }
+
+}
