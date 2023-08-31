@@ -7,7 +7,7 @@
   border-bottom: 1px solid black;
 }
 
-.nav_container img:nth-child(1) {
+.nav_container > img:nth-child(1) {
   width: 3rem;
 }
 
