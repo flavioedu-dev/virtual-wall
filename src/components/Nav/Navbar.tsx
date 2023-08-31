@@ -10,11 +10,12 @@ import Image from 'next/image'
 import Menu from '../Menu/Menu';
 
 // Hooks and types
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Nav = () => {
 
   const [stateMenu, setStateMenu] = useState<boolean>(false);
+  const [size, setSize] = useState<number>(700);
 
   const openMenu = () => {
     setStateMenu(true);
@@ -23,6 +24,19 @@ const Nav = () => {
   const closeMenu = () => {
     setStateMenu(false);
   }
+
+  useEffect(() => {
+    function resizing() {
+      setSize(window.innerWidth);
+    }
+    window.addEventListener("resize", resizing);
+
+    resizing();
+
+    return () => {
+      window.removeEventListener("resize", resizing);
+    }
+  }, [])
 
   return (
     <nav className={styles.nav_container} >
@@ -38,7 +52,7 @@ const Nav = () => {
         alt="board-logo"
       />
 
-      {stateMenu && <Menu closeMenu={closeMenu} />}
+      {(stateMenu === true || size >= 700) ? <Menu closeMenu={closeMenu} /> : null}
     </nav>
   )
 }

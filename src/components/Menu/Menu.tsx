@@ -19,19 +19,22 @@ type MenuProps = {
 };
 
 const Menu = ({ closeMenu }: MenuProps) => {
-
   useEffect(() => {
-    const menu = document.querySelector("aside");
-    const menuImg = document.querySelector("nav")?.querySelector("img");
-
     function closingMenu(e: Event) {
+      const menu = document.querySelector("aside");
+      const menuImg = document.querySelector("nav")?.querySelector("img");
       const targetElement = e.target as Node;
+
       if (!menu?.contains(targetElement) && !menuImg?.contains(targetElement)) {
         closeMenu();
       }
     }
 
     document.addEventListener("click", (event) => closingMenu(event));
+
+    return () => {
+      document.removeEventListener("click", closingMenu);
+    };
   }, []);
 
   const options = [
