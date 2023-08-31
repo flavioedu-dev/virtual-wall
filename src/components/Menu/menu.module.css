@@ -1,0 +1,40 @@
+.menu {
+  background-color: #f5f4f4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 85%;
+  height: 100vh;
+}
+
+.profile_container > img {
+  width: 25%;
+  height: 25%;
+}
+
+.profile_container {
+  margin-bottom: 2rem;
+}
+
+.inner_container {
+  padding: 2rem;
+}
+
+.options {
+  border-top: 1px solid rgba(0, 0, 0, 0.23);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+}
+
+.options > div {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  margin: 2.5rem 0;
+}
+
+.options > div > img {
+  width: 2.5rem;
+  height: auto;
+  margin-right: 1rem;
+  object-fit: contain;
+}
