@@ -13,12 +13,19 @@ import outImg from "public/sair.png";
 // Hooks ans types
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type MenuProps = {
   closeMenu: () => void;
 };
 
 const Menu = ({ closeMenu }: MenuProps) => {
+  const router = useRouter();
+
+  const redirectToPath = (path: string) => {
+    router.push(`${path}`)
+  }
+
   useEffect(() => {
     function closingMenu(e: Event) {
       const menu = document.querySelector("aside");
@@ -43,24 +50,28 @@ const Menu = ({ closeMenu }: MenuProps) => {
       img: profileImg,
       alt: "profile-icon",
       title: "Perfil",
+      path: "/user/profile"
     },
     {
       id: 2,
       img: leafImg,
       alt: "leaf-icon",
       title: "Postagens",
+      path: "/user/wall"
     },
     {
       id: 3,
       img: configImg,
       alt: "config-icon",
       title: "Configurações",
+      path: "/user/configuration"
     },
     {
       id: 4,
       img: outImg,
       alt: "out-icon",
       title: "Sair",
+      path: "/auth/login"
     },
   ];
 
@@ -75,8 +86,8 @@ const Menu = ({ closeMenu }: MenuProps) => {
 
         <section className={styles.options}>
           {options.map((opt) => (
-            <div key={opt.id}>
-              <Image src={opt.img} alt={opt.alt} />
+            <div key={opt.id} onClick={() => redirectToPath(opt.path)}>
+              <Image src={opt.img} alt={opt.alt}/>
               <h1>{opt.title}</h1>
             </div>
           ))}
