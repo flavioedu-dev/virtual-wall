@@ -10,6 +10,7 @@ type AuthButtonProps = {
 }
 
 export const AuthButton = ({ children, authentication } : AuthButtonProps) => {
+
   return (
     <button
       type="button"

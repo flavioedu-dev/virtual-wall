@@ -5,7 +5,7 @@ import Image from "next/image";
 const presentation = () => {
   return (
     <main className="all-home">
-        <div>
+        <div className="text">
             <h2>Olá, somos o Mural Virtual! Iremos melhorar sua forma de informar e de se informar!</h2>
 
             <p>Aqui você pode cadastrar seu grupo e assim fazer com que seus integrantes entre nele.</p>

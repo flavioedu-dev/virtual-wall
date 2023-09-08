@@ -6,7 +6,8 @@ import logoImg from "public/Logo.png";
 import Image from "next/image";
 
 //Components
-import Presentation from "@/components/Home_presentation/Presentation";
+import Presentation from "@/components/Home/Home_presentation/Presentation";
+import Register from "@/components/Home/Home_register/Register";
 
 
 export default function Home() {
@@ -18,8 +19,8 @@ export default function Home() {
           className="img_logo"
           style={{ objectFit: "contain" }}
         />
-        
         <Presentation/>
+        <Register/>
         
     </main>
   )

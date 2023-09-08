@@ -1,0 +1,27 @@
+.all-home{
+    background-color: #408C43;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.text{
+    width: 35%;
+    margin-top: 5.5rem;
+}
+
+.text h2{
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+.text p{
+    width: 85%;
+    font-size: 2.2rem;
+}
+
+.frame{
+    width: 45rem;
+    height: auto;
+    margin: 5em 4em;
+}
