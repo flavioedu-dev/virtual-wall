@@ -1,27 +1,30 @@
 .all-home{
-    background-color: #408C43;
+    background-image: linear-gradient(to right, rgba(92, 208, 97, 0.9), rgba(56, 131, 60, 0.9));
     color: white;
     display: flex;
     justify-content: center;
 }
 
 .text{
-    width: 35%;
-    margin-top: 5.5rem;
+    width: 40%;
+    margin-top: 6.5rem;
 }
 
 .text h2{
-    font-size: 4rem;
+    font-size: 4.5rem;
     margin-bottom: 0.5rem;
 }
 
 .text p{
     width: 85%;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
 }
 
 .frame{
-    width: 45rem;
+    width: 52rem;
     height: auto;
-    margin: 5em 4em;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+    margin-right: 0;
+    margin-left:15rem ;
 }

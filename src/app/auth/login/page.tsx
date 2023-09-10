@@ -67,7 +67,7 @@ const LoginPage = () => {
         <a href="#" className="forgot_pass">
           Esqueceu a senha?
         </a>
-        <AuthButton authentication={logIn}>Login</AuthButton>
+        <AuthButton authentication={logIn} id="btn-login">Login </AuthButton>
         <p className="auth">
           <Link href={"/auth/register"}>Cadastre-se</Link>
         </p>

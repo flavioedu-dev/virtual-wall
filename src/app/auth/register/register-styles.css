@@ -37,6 +37,10 @@ form input:nth-child(1) {
   left: 0;
 }
 
+#bnt-register{
+  align-self: center;
+}
+
 @media (min-width: 600px) {
   .logo_login img {
     width: 100%;

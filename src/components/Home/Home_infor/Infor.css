@@ -1,0 +1,33 @@
+.all-info{
+    background-color: #F2F2F2;
+    display: flex;
+}
+
+.text-in{
+    position: sticky;
+    margin-top: 2.5rem;
+    width: 45rem;
+    margin-left: 7rem ;
+    margin-right:14rem;
+}
+
+.text-in h2{
+    color: #0000008e;
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.text-in p{
+    color: #0000007c;
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.img_example{
+    width: 45rem;
+    height: auto;
+    margin-top: 3rem;
+    margin-bottom:3rem ;
+}
