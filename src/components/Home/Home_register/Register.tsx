@@ -5,19 +5,17 @@ import { AuthButton } from "@/components/Button/AuthButton";
 import Image from "next/image";
 import boys from "public/boysNew.png"
 import Link from "next/link";
-const Register = () => {
+import { useRouter } from "next/navigation";
+import React from "react";
 
+const Register = () => {
+    const router = useRouter()
     const useLogin = (): void =>{
-      const ret = (): any =>{
-        {console.log("Chama")}
-        return <Link href="/auth/register"><a>Opá</a></Link>
-      }
-      ret()
-      console.log("Olá")
+      router.push('/auth/register')
     }
 
     const admLogin = (): void =>{
-
+      console.log("Não feito")
     }
 
   return (

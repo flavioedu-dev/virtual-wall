@@ -12,12 +12,22 @@ import Presentation from "@/components/Home/Home_presentation/Presentation";
 import Register from "@/components/Home/Home_register/Register";
 import { AuthButton } from "@/components/Button/AuthButton";
 import Infor from "@/components/Home/Home_infor/Infor";
+import { useRouter } from "next/navigation";
 
-const login = (): void =>{}
 
-const enter = (): void =>{}
 
 export default function Home() {
+
+  const router = useRouter()
+
+  const login = (): void =>{
+    console.log("Apertou")
+    router.push('/auth/login')
+  }
+  
+  const enter = (): void =>{
+    console.log("Não criada")
+  }
 
   return (
     <main className="all">
