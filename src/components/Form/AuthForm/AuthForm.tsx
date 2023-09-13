@@ -1,14 +1,15 @@
 import styles from "./authForm-styles.module.css"
-import React from 'react'
+import React, { FormEvent } from 'react'
 
-type AuthFormProps = {
-  children: React.ReactNode
+interface AuthFormProps {
+  children: React.ReactNode;
+  onSubmit: () => Promise<void>;
 }
 
-const AuthForm = ({ children }: AuthFormProps) => {
+const AuthForm = ({ children, onSubmit }: AuthFormProps) => {
   return (
     <div className={styles.form_container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         {children}
       </form>
     </div>

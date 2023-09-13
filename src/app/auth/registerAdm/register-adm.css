@@ -26,11 +26,6 @@ body {
   #bnt-register{
     align-self: center;
   }
-
-  input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button{
-    -webkit-appearance: none;
-    appearance: none;
-  }
   
   @media (min-width: 600px) {
     .logo_login img {

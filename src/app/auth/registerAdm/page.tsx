@@ -4,8 +4,9 @@
 import "./register-adm.css"
 
 // Hooks
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
+import useAuthentication from '@/hooks/useAuthentication'
 
 // Components
 import Image from "next/image";
@@ -20,15 +21,12 @@ export const metadata = {
   title: "Register",
 };
 
-
-
-
 const registerAdm = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [number, setNumber] = useState("");
+    const [userName, setUserName] = useState("");
 
     const handleChanges = {
     handleName: (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,13 +39,15 @@ const registerAdm = () => {
         setPassword(e.currentTarget.value);
       },
       handleNumber: (e: ChangeEvent<HTMLInputElement>) => {
-        setNumber(e.currentTarget.value);
+        setUserName(e.currentTarget.value);
       },
     };
+
+    const {formAdm, createUser, handleInputChange} = useAuthentication()
   
-  
-    const register = (): void => {
-      
+    const handleSubmit = async (e:FormEvent)=> {
+      e.preventDefault()
+      await createUser()
     };
 
   return (
@@ -60,7 +60,7 @@ const registerAdm = () => {
           style={{ objectFit: "contain" }}
         />
       </div>
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit}>
         <div className="user-data">
           <AuthInput
             type="text"
@@ -69,6 +69,14 @@ const registerAdm = () => {
             placeholder="Nome completo"
             value={name}
             onchange={handleChanges.handleName}
+          />
+          <AuthInput
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Nome do grupo"
+            value={userName}
+            onchange={handleChanges.handleNumber}
           />
           <AuthInput
             type="email"
@@ -86,16 +94,8 @@ const registerAdm = () => {
             value={password}
             onchange={handleChanges.handlePassword}
           />
-          <AuthInput
-            type="number"
-            name="number"
-            id="number"
-            placeholder="Número"
-            value={number}
-            onchange={handleChanges.handleNumber}
-          />
         </div>
-        <AuthButton authentication={register} id="bnt-register">Cadastrar</AuthButton>
+        <AuthButton authentication={register} id="bnt-register" type="submit">Cadastrar</AuthButton>
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>
