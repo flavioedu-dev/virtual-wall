@@ -1,12 +1,15 @@
-"use client";
+"use client"
 
 // Styles
 import "./register-adm.css"
 
 // Hooks
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import Link from "next/link";
-import useAuthentication from '@/hooks/useAuthentication'
+import {authentication} from "@/hooks/useAuthentication"
+
+//Context
+import { VirtualContext } from "@/context/VirtualContext";
 
 // Components
 import Image from "next/image";
@@ -23,13 +26,15 @@ export const metadata = {
 
 const registerAdm = () => {
 
+    const {event, setEvent} = useContext(VirtualContext)
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
 
     const handleChanges = {
-    handleName: (e: ChangeEvent<HTMLInputElement>) => {
+      handleName: (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
       },
       handleEmail: (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,12 +48,24 @@ const registerAdm = () => {
       },
     };
 
-    const {formAdm, createUser, handleInputChange} = useAuthentication()
+    const {userAdm, createUser} = authentication()
   
-    const handleSubmit = async (e:FormEvent)=> {
+    const handleSubmit = (e:FormEvent)=> {
       e.preventDefault()
-      await createUser()
+      if (name.trim() === '' || email.trim() === '' || password.trim() === '' || userName.trim() === '') {
+        console.error('Por favor, preencha todos os campos.');
+        return;
+      }
+      const userAdm = {
+        name : name.trim(),
+        email: email.trim(),
+        password: password.trim(),
+        isAdmmin: true,
+      }
+      createUser(userAdm)
+      setEvent(userAdm)
     };
+
 
   return (
     <main className="all">
@@ -69,6 +86,7 @@ const registerAdm = () => {
             placeholder="Nome completo"
             value={name}
             onchange={handleChanges.handleName}
+            required
           />
           <AuthInput
             type="text"
@@ -77,6 +95,7 @@ const registerAdm = () => {
             placeholder="Nome do grupo"
             value={userName}
             onchange={handleChanges.handleNumber}
+            required
           />
           <AuthInput
             type="email"
@@ -85,6 +104,7 @@ const registerAdm = () => {
             placeholder="Email"
             value={email}
             onchange={handleChanges.handleEmail}
+            required
           />
           <AuthInput
             type="password"
@@ -93,14 +113,14 @@ const registerAdm = () => {
             placeholder="Senha"
             value={password}
             onchange={handleChanges.handlePassword}
+            required
           />
         </div>
-        <AuthButton authentication={register} id="bnt-register" type="submit">Cadastrar</AuthButton>
+        {(name.trim() === '' || email.trim() === '' || password.trim() === '' || userName.trim() === '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="submit">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>
       </AuthForm>
-
       <div className="res_register"></div>
     </main>
    )

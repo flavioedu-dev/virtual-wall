@@ -55,6 +55,7 @@ const LoginPage = () => {
           placeholder="Email"
           value={email}
           onchange={handleEmail}
+          required
         />
         <AuthInput
           type="password"
@@ -63,6 +64,7 @@ const LoginPage = () => {
           placeholder="Senha"
           value={password}
           onchange={handlePassword}
+          required
         />
         <a href="#" className="forgot_pass">
           Esqueceu a senha?

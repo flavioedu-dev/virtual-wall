@@ -2,12 +2,13 @@
     background-image: linear-gradient(to right, rgba(92, 208, 97, 0.9), rgba(56, 131, 60, 0.9));
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .text{
     width: 40%;
     margin-top: 6.5rem;
+    margin-left: 6rem;
 }
 
 .text h2{
@@ -21,10 +22,10 @@
 }
 
 .frame{
+    margin-right: 6rem;
     width: 52rem;
     height: auto;
     margin-top: 6rem;
     margin-bottom: 6rem;
-    margin-right: 0;
     margin-left:15rem ;
 }

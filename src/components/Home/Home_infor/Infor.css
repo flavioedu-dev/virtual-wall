@@ -1,14 +1,14 @@
 .all-info{
     background-color: #F2F2F2;
     display: flex;
+    justify-content: space-between;
 }
 
 .text-in{
     position: sticky;
     margin-top: 2.5rem;
     width: 45rem;
-    margin-left: 7rem ;
-    margin-right:14rem;
+    margin-left: 6rem ;
 }
 
 .text-in h2{
@@ -30,4 +30,5 @@
     height: auto;
     margin-top: 3rem;
     margin-bottom:3rem ;
+    margin-right: 6rem;
 }

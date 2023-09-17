@@ -1,12 +1,12 @@
 "use client";
 
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FormEventHandler }  from 'react'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, FormEvent, FormEventHandler }  from 'react'
 
 import styles from "./authButton-styles.module.css";
 
 type AuthButtonProps = {
   children: string;
-  authentication: () => void;
+  authentication: (e: FormEvent) => Promise<void> | void;
   id?: string;
   type?:"button" | "submit" | "reset" | undefined;
 }

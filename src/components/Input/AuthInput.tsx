@@ -1,3 +1,4 @@
+"use client"
 import styles from "./authInput-styles.module.css";
 
 import React, { ChangeEvent } from "react";
@@ -9,6 +10,7 @@ type AuthInputProps = {
   placeholder: string;
   value: string;
   onchange: (e: ChangeEvent<HTMLInputElement>) => void;
+  required: boolean;
 };
 
 export const AuthInput = ({
@@ -18,6 +20,7 @@ export const AuthInput = ({
   placeholder,
   value,
   onchange,
+  required
 }: AuthInputProps) => {
   return (
     <input
@@ -28,6 +31,7 @@ export const AuthInput = ({
       placeholder={placeholder}
       value={value}
       onChange={onchange}
+      required = {required}
     />
   );
 };

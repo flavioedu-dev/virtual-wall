@@ -1,9 +1,10 @@
+"use client"
 import styles from "./authForm-styles.module.css"
 import React, { FormEvent } from 'react'
 
 interface AuthFormProps {
   children: React.ReactNode;
-  onSubmit: () => Promise<void>;
+  onSubmit?: (e: FormEvent) => void;
 }
 
 const AuthForm = ({ children, onSubmit }: AuthFormProps) => {
