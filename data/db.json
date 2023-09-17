@@ -1,0 +1,39 @@
+{
+  "userAdm": [
+    {
+      "name": "Ruan Lauro",
+      "email": "ruan@gmail.com",
+      "password": 12345,
+      "isAdmin": true,
+      "id": 1
+    },
+    {
+      "name": "Flávio",
+      "email": "adad@dad",
+      "password": "123456",
+      "isAdmmin": true,
+      "id": 2
+    },
+    {
+      "name": "Flávio Eduardo",
+      "email": "",
+      "password": "12345",
+      "isAdmmin": true,
+      "id": 3
+    },
+    {
+      "name": "Flávio Eduardo",
+      "email": "adad@dad",
+      "password": "5555555",
+      "isAdmmin": true,
+      "id": 4
+    },
+    {
+      "name": "Flávio Eduardo",
+      "email": "adad@dad",
+      "password": "12345666667890",
+      "isAdmmin": true,
+      "id": 5
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+.all-home{
+    background-image: linear-gradient(to right, rgba(92, 208, 97, 0.9), rgba(56, 131, 60, 0.9));
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.text{
+    width: 40%;
+    margin-top: 6.5rem;
+    margin-left: 6rem;
+}
+
+.text h2{
+    font-size: 4.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.text p{
+    width: 85%;
+    font-size: 2.5rem;
+}
+
+.frame{
+    margin-right: 6rem;
+    width: 52rem;
+    height: auto;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+    margin-left:15rem ;
+}

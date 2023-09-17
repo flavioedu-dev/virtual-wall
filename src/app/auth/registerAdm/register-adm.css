@@ -1,0 +1,47 @@
+body {
+    background-color: #f2f2f2;
+  }
+  
+  form input:nth-child(1) {
+    margin-top: 2.5em;
+  }
+  
+  .all {
+    position: relative;
+    text-align: center;
+  }
+
+  .logoImg{
+    width: 10rem;
+  }
+  
+  .res_register {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: -2rem;
+    left: 0;
+  }
+
+  .infor-text{
+    font-size: 1.5rem;
+  }
+  
+  #bnt-register{
+    align-self: center;
+  }
+  
+  @media (min-width: 600px) {
+    .logo_login img {
+      width: 100%;
+    }
+  
+    .logo_login {
+      width: 350px;
+    }
+  
+    .res_register {
+      bottom: 1rem;
+    }
+  }
+  

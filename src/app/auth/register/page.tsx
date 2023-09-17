@@ -120,7 +120,7 @@ const RegisterPage = () => {
             })}
           </select>
         </div>
-        <AuthButton authentication={register}>Cadastrar</AuthButton>
+        <AuthButton authentication={register} id="bnt-register">Cadastrar</AuthButton>
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

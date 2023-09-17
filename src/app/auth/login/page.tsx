@@ -55,6 +55,7 @@ const LoginPage = () => {
           placeholder="Email"
           value={email}
           onchange={handleEmail}
+          required
         />
         <AuthInput
           type="password"
@@ -63,11 +64,12 @@ const LoginPage = () => {
           placeholder="Senha"
           value={password}
           onchange={handlePassword}
+          required
         />
         <a href="#" className="forgot_pass">
           Esqueceu a senha?
         </a>
-        <AuthButton authentication={logIn}>Login</AuthButton>
+        <AuthButton authentication={logIn} id="btn-login">Login </AuthButton>
         <p className="auth">
           <Link href={"/auth/register"}>Cadastre-se</Link>
         </p>

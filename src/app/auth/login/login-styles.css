@@ -26,6 +26,10 @@
   bottom: -2.5rem;
 }
 
+#btn-login{
+  align-self: center;
+}
+
 @media (min-width: 600px) {
   .all {
     padding: 3rem 3rem;

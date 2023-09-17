@@ -1,0 +1,35 @@
+.all{
+    display: flex;
+    flex-direction: column;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+}
+
+.img_logo{
+    mix-blend-mode: darken;
+    width: 20rem;
+    margin-left: 7rem;
+}
+
+.button{
+    position: sticky;
+    left: 100%;
+    margin-right:7rem;
+}
+
+#log{
+    margin-right:2rem;
+}
+
+footer{
+    display: flex;
+    margin: 10rem 0;
+}
+
+.img_logo_end{
+    width: 20rem;
+    margin: auto;
+}
