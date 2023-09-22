@@ -12,7 +12,7 @@ import "./FormGrup.css"
 import Image from "next/image";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { AuthInput } from "@/components/Input/AuthInput";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const FormGrup = () => {
 
@@ -32,6 +32,22 @@ const FormGrup = () => {
         },
       };
 
+      const handleChange = async (e: FormEvent) =>{
+        e.preventDefault()
+
+        const formData = new FormData()
+        formData.append('file',imgGrup)
+
+        const response = await fetch('/api/upload',{
+          method: 'POST',
+          body: formData,
+          headers:{
+            "Content-Type": "Multipart/form-data"
+          }
+        })
+        const data = await response.json()
+      }
+
       console.log(imgGrup)
 
   return (
@@ -42,7 +58,7 @@ const FormGrup = () => {
         src={perfil.src}
         alt="Description of my image"
       />
-        <AuthForm onSubmit={handle}>
+        <AuthForm onSubmit={handleChange}>
             <div>
             <AuthInput
             type="file"
