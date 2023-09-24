@@ -1,6 +1,4 @@
 "use client"
-//Importação
-import { CldImage } from 'next-cloudinary';
 
 //Image
 import perfil from 'public/perfil.png'
@@ -10,76 +8,51 @@ import "./FormGrup.css"
 
 //Components
 import Image from "next/image";
-import AuthForm from "@/components/Form/AuthForm/AuthForm";
-import { AuthInput } from "@/components/Input/AuthInput";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 const FormGrup = () => {
 
-    const [nameGrup, setNameGrup] = useState("")
-    const [imgGrup, setImgGrup] = useState("")
-    const [nameWall, setNameWall] = useState("")
-
-    const handleChanges = {
-        handleNameGrup: (e: ChangeEvent<HTMLInputElement>) => {
-          setNameGrup(e.currentTarget.value);
-        },
-        handleNameWall: (e: ChangeEvent<HTMLInputElement>) => {
-            setNameWall(e.currentTarget.value);
-          },
-        handleImgGrup: (e: ChangeEvent<HTMLInputElement>) => {
-          setImgGrup(e.currentTarget.value);
-        },
-      };
-
-      const handleChange = async (e: FormEvent) =>{
-        e.preventDefault()
-
-        const formData = new FormData()
-        formData.append('file',imgGrup)
-
-        const response = await fetch('/api/upload',{
-          method: 'POST',
-          body: formData,
-          headers:{
-            "Content-Type": "Multipart/form-data"
-          }
-        })
-        const data = await response.json()
-      }
-
-      console.log(imgGrup)
+  const [imgGrup, setImgGrup] = useState<File|null>(null)
+  const [imgGrupUrl, setImgGrupUrl] = useState("")
 
   return (
     <main>
-        <CldImage
-        width="400"
-        height="400"
-        src={perfil.src}
-        alt="Description of my image"
-      />
-        <AuthForm onSubmit={handleChange}>
-            <div>
-            <AuthInput
-            type="file"
-            name="imgGrup"
-            id="imgGrup"
-            placeholder=""
-            value={imgGrup}
-            onchange={handleChanges.handleImgGrup}
-            required
-          />
-            <AuthInput
-            type="text"
-            name="nameGrup"
-            id="nameGrup"
-            placeholder="Nome do Grupo"
-            value={nameGrup}
-            onchange={handleChanges.handleNameGrup}
-            required
-          />
-            </div>
-        </AuthForm>
+        <Image
+            src={imgGrupUrl}
+            alt="example"
+            className="img_example"
+            width={400}
+            height={400}
+        />
+
+       <form onSubmit={async (e) => {
+          e.preventDefault()
+
+          const formData = new FormData()
+          if (imgGrup) {
+            formData.append('image', imgGrup);
+          } else {
+            console.error('imgGrup é nulo. Não é possível anexar ao FormData.');
+            return;
+          }
+
+          const response = await fetch('/api/upload',{
+            method: 'POST',
+            body: formData
+          })
+          const data = await response.json()
+          console.log(data)
+          setImgGrupUrl(data.url)
+       }}>
+          <input type="file" onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+              const files = e.target.files && e.target.files[0];
+              if (files) {
+                setImgGrup(files);
+                setImgGrupUrl(URL.createObjectURL(files));
+              }
+          }}/>
+          <button>Enviar</button>
+       </form>
     </main>
   )
 }
