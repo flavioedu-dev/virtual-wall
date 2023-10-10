@@ -1,0 +1,173 @@
+.img-profile{
+    width: 100px;
+    height: 100px;
+}
+
+.main{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 57px;
+    text-align: justify;
+    position: relative;
+}
+.user-name{
+    font-size: 2.4rem;
+}
+p{
+    font-size: 1.7rem;
+}
+
+.person div{
+    position: relative;
+}
+
+.change-profile{
+    position: absolute;
+    top:0;
+    width: 25px;
+    height: 20px;
+}
+
+.person, .person-data{
+    width: 100%;
+}
+
+.person{
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.person h1{
+    margin-top: 1.5rem;
+}
+
+.person p:not(:last-child){
+    display: flex;
+    flex-direction: column;
+}
+
+.person{
+    padding: 2rem 0;
+}
+
+.person p{
+    width: 100%;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.person-data #data-item{
+    font-weight: normal;
+    margin-top: .5rem;
+}
+span{
+    padding: 0;
+    align-items: center;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+    font-family: "Inter", sans-serif;
+}
+
+@media (min-width: 700px){
+    .img-profile{
+        width: 110px;
+        height: 110px;
+    }
+
+    .person{
+        width: 100%;
+        padding: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+
+    .person div{
+        position: relative;
+    }
+
+    .main{
+        padding: 0 0px;
+        width: 400px;
+        margin-left: 30%;
+    }
+
+    .change-profile{
+        position: absolute;
+        top: 0;
+    }
+
+    .person-data p:not(:last-child){
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .person-data{
+        padding: 10px 0px;
+    }
+    
+    .person-data p{
+        margin-top: 12px;
+        font-weight: bold;
+    }
+    
+    .person-data .data-item{
+        font-weight: normal;
+        margin-top: .5rem;
+    }
+}
+
+@media (max-width: 699px){
+    .img-profile{
+        width: 110px;
+        height: 110px;
+    }
+
+    .person{
+        width: 100%;
+        padding: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+
+    .person div{
+        position: relative;
+    }
+
+    .main{
+        padding: 0 0px;
+        width: 300px;
+        margin-left: 13%;
+    }
+
+    .change-profile{
+        position: absolute;
+        top: 0;
+    }
+
+    .person-data p:not(:last-child){
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .person-data{
+        padding: 10px 0px;
+    }
+    
+    .person-data p{
+        margin-top: 12px;
+        font-weight: bold;
+    }
+    
+    .person-data .data-item{
+        font-weight: normal;
+        margin-top: .5rem;
+    }
+}
