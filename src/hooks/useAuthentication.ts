@@ -1,40 +1,36 @@
-import {ChangeEvent, useEffect, useState} from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
-export function authentication(){
+export function useAuthentication() {
+  interface FormAdm {
+    name: string;
+    email: string;
+    password: string;
+    isAdmin?: boolean;
+    nameGroup: string;
+    group: object;
+  }
 
-    interface FormAdm{
-        name: string;
-        email: string;
-        password: string;
-        isAdmmin?: boolean,
+  const [useradm, setUserAdm] = useState<FormAdm | null>(null);
+
+  const createUser = async (userAdm: FormAdm) => {
+    try {
+      const response = await fetch("http://localhost:3000/userAdm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userAdm)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserAdm(data);  
+      } else {
+        console.error("Erro ao enviar os dados:", response.status);
+      }
+    } catch (error) {
+      console.error("Ocorreu algum erro no envio:", error);
     }
-
-    const [userAdm, setFormAdm] = useState<FormAdm>()
-
-    const createUser = async (userAdm:FormAdm) =>{
-        try {
-            console.log(userAdm)
-            const res = await fetch("http://localhost:3000/userAdm", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                  },
-                body: JSON.stringify(userAdm)
-            })
-        } catch (error) {
-            console.log("Ocorreu algum erro no envio")
-        }
-    }
-
-    useEffect(()=>{
-
-        async function getData(){
-             const res = await fetch("http://localhost:3000/userAdm")
-             const data = await res.json()
-        }
-        getData()
-    },[])
-
-  return {userAdm, createUser}
-
+  }
+  return { useradm, createUser };
 }

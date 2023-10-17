@@ -4,36 +4,132 @@
       "name": "Ruan Lauro",
       "email": "ruan@gmail.com",
       "password": 12345,
+      "group": [
+        {
+          "nameWall": "York",
+          "image": "#"
+        }
+      ],
       "isAdmin": true,
+      "nameGroup": "Opa",
       "id": 1
     },
     {
-      "name": "Flávio",
-      "email": "adad@dad",
-      "password": "123456",
+      "name": "Ruan Lauro Cardoso da Silva Monteiro",
+      "email": "ruanlauromonteiro@gmail.com",
+      "password": "34224366",
       "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
       "id": 2
     },
     {
-      "name": "Flávio Eduardo",
-      "email": "",
-      "password": "12345",
+      "name": "ririruri",
+      "email": "ririu@ririu",
+      "password": "picapica",
       "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
       "id": 3
     },
     {
-      "name": "Flávio Eduardo",
-      "email": "adad@dad",
-      "password": "5555555",
+      "name": "Flávio",
+      "email": "adadd@adada",
+      "password": "666666666",
       "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
       "id": 4
     },
     {
-      "name": "Flávio Eduardo",
-      "email": "adad@dad",
-      "password": "12345666667890",
+      "name": "Ruan Lauro Cardoso da Silva Monteiro",
+      "email": "ririu@ririu",
+      "password": "999999999999",
       "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
       "id": 5
+    },
+    {
+      "name": "Manga",
+      "email": "Manga@manga",
+      "password": "111111111111",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 6
+    },
+    {
+      "name": "Manga",
+      "email": "Manga@manga",
+      "password": "111111111111",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 7
+    },
+    {
+      "name": "Preda",
+      "email": "preda@preda",
+      "password": "predaaaaa",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 8
+    },
+    {
+      "name": "Mentos",
+      "email": "mentos@mentos",
+      "password": "mentos1234",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 9
+    },
+    {
+      "name": "Flávio Eduardo",
+      "email": "ruanlauromonteiro@gmail.com",
+      "password": "12345678",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 10
+    },
+    {
+      "name": "Ruan Lauro Cardoso da Silva Monteiro",
+      "email": "adad@dad",
+      "password": "3343545454",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 11
+    },
+    {
+      "name": "AAAAAAAA",
+      "email": "riancardosmonteiro04@gmail.com",
+      "password": "dgdgdgdgd",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 12
+    },
+    {
+      "name": "ririruri",
+      "email": "ruanlauromonteiro@gmail.com",
+      "password": "werwrwrw4r",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 13
+    },
+    {
+      "name": "ririruri",
+      "email": "ruanlauromonteiro@gmail.com",
+      "password": "werwrwrw4r",
+      "isAdmmin": true,
+      "nameGroup": "",
+      "group": [],
+      "id": 14
     }
   ]
 }

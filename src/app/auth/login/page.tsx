@@ -16,14 +16,23 @@ import logoImg from "public/Logo.png";
 
 import Link from "next/link";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
+import { useLogin } from "@/hooks/useLogin";
+import { useEnter } from "@/hooks/useEnter";
 
 export const metadata = {
   title: "Login",
 };
 
+interface use{
+  email: string;
+  password: string;
+}
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const {authenticationE} = useEnter()
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
@@ -34,7 +43,11 @@ const LoginPage = () => {
   };
 
   const logIn = (): void => {
-    console.log("Login");
+    const Use = {
+      email,
+      password
+    }
+    authenticationE(Use)
   };
 
   return (

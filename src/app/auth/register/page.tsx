@@ -75,6 +75,7 @@ const RegisterPage = () => {
             placeholder="Nome completo"
             value={name}
             onchange={handleChanges.handleName}
+            required
           />
           <AuthInput
             type="text"
@@ -83,6 +84,7 @@ const RegisterPage = () => {
             placeholder="Nome de usuário"
             value={username}
             onchange={handleChanges.handleUsername}
+            required
           />
           <AuthInput
             type="email"
@@ -91,6 +93,7 @@ const RegisterPage = () => {
             placeholder="Email"
             value={email}
             onchange={handleChanges.handleEmail}
+            required
           />
           <AuthInput
             type="password"
@@ -99,6 +102,7 @@ const RegisterPage = () => {
             placeholder="Senha"
             value={password}
             onchange={handleChanges.handlePassword}
+            required
           />
           <AuthInput
             type="password"
@@ -107,6 +111,7 @@ const RegisterPage = () => {
             placeholder="Confirmar senha"
             value={confirmPassword}
             onchange={handleChanges.handleConfirmPassword}
+            required
           />
           <select
             name="Iam"

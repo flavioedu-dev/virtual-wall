@@ -1,20 +1,29 @@
+import { useCallback, useState, createContext,ChangeEvent, Dispatch, SetStateAction} from "react";
 
-const VirtualContext = React.createContext<any | null>(null)
-import React, { useState, ReactNode, SetStateAction, Dispatch } from 'react';
-
-interface VirtualProviderProps {
-  children: ReactNode; // Tipo ReactNode é usado para tipar a propriedade children
+interface VirtualContextProps {
+  infor: any;
+  handleInforChange: Dispatch<SetStateAction<any>>; 
 }
 
-const VirtualProvider: React.FC<VirtualProviderProps> = ({children}) => {
+export const VirtualContext = createContext<VirtualContextProps>({
+  infor: null,
+  handleInforChange: () => {},
+});
 
-    const [event, setEvent] = useState<any | null>(null)
+export const VirtualProvider = ({children}: {children:React.ReactNode}) => {
 
-  return (
-    <VirtualContext.Provider value={{event, setEvent}}>
-        {children}
+  const [infor, setInfor] = useState()
+
+  const handleInforChange = useCallback((infor:any) =>{
+     setInfor(infor);
+  }, [])
+
+  return(
+    <VirtualContext.Provider value={{infor, handleInforChange}}>
+      {children}
     </VirtualContext.Provider>
   )
 }
 
-export {VirtualContext, VirtualProvider}
+
+  
