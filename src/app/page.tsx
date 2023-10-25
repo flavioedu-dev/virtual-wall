@@ -14,6 +14,7 @@ import { AuthButton } from "@/components/Button/AuthButton";
 import Infor from "@/components/Home/Home_infor/Infor";
 import { useRouter } from "next/navigation";
 
+import Link from "next/link";
 
 
 export default function Home() {
@@ -39,8 +40,12 @@ export default function Home() {
           style={{ objectFit: "contain" }}
         />
         <div className="button">
-          <AuthButton authentication={login} id="log">Login</AuthButton>
-          <AuthButton authentication={enter}>To enter</AuthButton>
+        <Link  href={"/user/create-Grup"}>
+        <AuthButton authentication={login} id="log">Login</AuthButton>
+        </Link>
+        <Link href={"/auth/"}>
+        <AuthButton authentication={enter}>To enter</AuthButton>
+        </Link>
         </div>
         </div>
         <Presentation/>

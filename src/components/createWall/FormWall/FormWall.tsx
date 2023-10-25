@@ -51,7 +51,7 @@ const FormWall:React.FC<FormGrupProps> = ({Inforimage}) => {
       }
 
   return (
-    <main>
+    <main className='all'>
         <Image
             src={imgWallUrlprov}
             alt="example"
@@ -81,20 +81,22 @@ const FormWall:React.FC<FormGrupProps> = ({Inforimage}) => {
           setImgWallUrl(data.url)
           sendList
        }}>
-          <input 
-            className='NameGrup'
-            type='text'
-            name='NameGrup'
-            placeholder='Nome do Grupo' 
-            required
-            onChange={(e: ChangeEvent<HTMLInputElement>)=>{
-              const name = e.currentTarget.value;
-              if(name){
-                setNameWall(name)
-              }
-            }}
-          />
-         <button className='btn' id='bnt-cri' onClick={sendList} type='button'>Criar</button>
+          <div className='text-bnt'>
+            <input 
+              className='NameGrup'
+              type='text'
+              name='NameGrup'
+              placeholder='Nome do Grupo' 
+              required
+              onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+                const name = e.currentTarget.value;
+                if(name){
+                  setNameWall(name)
+                }
+              }}
+            />
+          <button className='btn' id='bnt-cri' onClick={sendList} type='button'>Criar</button>
+            </div>
        </form>
     </main>
   )

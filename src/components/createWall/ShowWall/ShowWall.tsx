@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react'
 import Image, { StaticImageData } from "next/image";
 
+import "./ShowWall.css"
+
 interface ShowWallProps{
     name: string;
     img: string | StaticImageData
@@ -8,16 +10,21 @@ interface ShowWallProps{
 
 const ShowWall = ({name, img}: ShowWallProps) => {
   return (
-    <main>
+    <main className='allshow'>
+
+        <div className='show'>
         <Image
             src={img}
             alt="example"
-            className="img_example"
+            className="img_example-Show"
             width={400}
             height={400}
         />
-        <h2>{name}</h2>
-        <p>{"@"+name.toLowerCase()}</p>
+        <div className='infor'>
+          <h2>{name}</h2>
+          <p>{"@"+name.toLowerCase()}</p>
+        </div>
+        </div>
     </main>
   )
 }

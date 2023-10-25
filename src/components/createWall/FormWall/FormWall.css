@@ -1,0 +1,63 @@
+.all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.img_example{
+    background-color: rgba(92, 208, 97, 0.9);
+    border-radius: 50%;
+    width: 14.5rem ;
+    height: 14.5rem;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+}
+
+#came_ini{
+    height: auto;
+}
+
+.NameGrup{
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    padding-left: 0.5em;
+    font-family: inherit;
+    outline: none;
+    line-height: 26px;
+    width: 40rem;
+    height: auto;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  .NameGrup::placeholder {
+    position: absolute;
+    bottom: 3px;
+  }
+
+  .text-bnt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 132px;
+    height: 4.5rem;
+    background: rgba(92, 208, 97, 0.9);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: 0.3s;
+    margin-bottom: 3rem;
+  }
+  .btn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }

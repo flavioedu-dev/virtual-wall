@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
 // Styles
@@ -20,10 +21,8 @@ import { AuthInput } from "@/components/Input/AuthInput";
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useEnter } from "@/hooks/useEnter";
-
-export const metadata = {
-  title: "Register",
-};
+import { VirtualContext } from "@/context/VirtualContext";
+import { useRouter } from "next/navigation";
 
 interface FormAdm {
   name: string;
@@ -36,13 +35,15 @@ interface FormAdm {
 
 const registerAdm = () => {
 
+
     const {authenticationE} = useEnter()
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleChanges = {
+    const handleChange = {
       handleName: (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
       },
@@ -52,13 +53,19 @@ const registerAdm = () => {
       handlePassword: (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value);
       },
+      handleConfirmPassword: (e: ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.currentTarget.value);
+      },
     };
+
+    const router = useRouter()
+    const {handleInforChange} = useContext(VirtualContext)
 
     const {useradm, createUser} = useAuthentication()
 
     const handleSubmit = (e:FormEvent)=> {
       e.preventDefault()
-      if (name.trim() === '' || email.trim() === '' || password.trim() === '') {
+      if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '') {
         console.error('Por favor, preencha todos os campos.');
         return;
       }
@@ -66,22 +73,18 @@ const registerAdm = () => {
         name : name.trim(),
         email: email.trim(),
         password: password.trim(),
+        confirmPassword: confirmPassword.trim(),
         isAdmmin: true,
-        nameGroup:"",
+        username: name.trim(),
         group:[]
       }
       createUser(userAdm)
+      handleInforChange(userAdm)
+
+      router.push('/user/create-Grup')
     };
 
-    useEffect(() => {
-      if(useradm != null){
-        const use = {
-          email: useradm.email,
-          password: useradm.password
-        }
-        authenticationE(use)
-      }
-    }, [useradm]); 
+    
 
 
   return (
@@ -102,7 +105,7 @@ const registerAdm = () => {
             id="fullname"
             placeholder="Nome completo"
             value={name}
-            onchange={handleChanges.handleName}
+            onchange={handleChange.handleName}
             required
           />
           <AuthInput
@@ -112,7 +115,7 @@ const registerAdm = () => {
 
             placeholder="Email"
             value={email}
-            onchange={handleChanges.handleEmail}
+            onchange={handleChange.handleEmail}
             required
           />
           <AuthInput
@@ -121,11 +124,20 @@ const registerAdm = () => {
             id="pass"
             placeholder="Senha"
             value={password}
-            onchange={handleChanges.handlePassword}
+            onchange={handleChange.handlePassword}
+            required
+          />
+           <AuthInput
+            type="password"
+            name="confirm-pass"
+            id="confirm-pass"
+            placeholder="Confirmar senha"
+            value={confirmPassword}
+            onchange={handleChange.handleConfirmPassword}
             required
           />
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="submit">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="submit">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

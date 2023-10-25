@@ -4,7 +4,7 @@
 import "./login-styles.css";
 
 // Hooks
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 
 // Components
 import Image from "next/image";
@@ -18,10 +18,8 @@ import Link from "next/link";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useLogin } from "@/hooks/useLogin";
 import { useEnter } from "@/hooks/useEnter";
-
-export const metadata = {
-  title: "Login",
-};
+import { useRouter } from "next/navigation";
+import { VirtualContext } from "@/context/VirtualContext";
 
 interface use{
   email: string;
@@ -31,8 +29,12 @@ interface use{
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const {authenticationE} = useEnter()
+
+  const router = useRouter()
+  const {handleInforChange, infor} = useContext(VirtualContext)
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
@@ -47,8 +49,36 @@ const LoginPage = () => {
       email,
       password
     }
-    authenticationE(Use)
+    const test = authenticationE(Use)
+
+    if(test !== null){
+      handleInforChange(test)
+      router.push('/user/home')
+    }else{
+      console.log("Erro")
+      setShowError(true); 
+    }
   };
+
+  // useEffect(()=>{
+
+  //   if(infor){
+  //     const registerUse = {
+  //       email: infor.email,
+  //       password: infor.password
+  //     }
+
+  //     const test = authenticationE(registerUse)
+
+  //     if(test !== null){
+  //       handleInforChange(test)
+  //       router.push('/user/create-Grup')
+  //     }else{
+  //       console.log("Erro")
+  //       setShowError(true); 
+  //     }
+  //   }
+  // },[authenticationE, handleInforChange, infor, router])
 
   return (
     <main className="all">
@@ -60,6 +90,7 @@ const LoginPage = () => {
           style={{ objectFit: "contain" }}
         />
       </div>
+      <p className={showError ? "Erro" : "hidden"}>Usuário não cadastrado</p>
       <AuthForm>
         <AuthInput
           type="email"
@@ -82,7 +113,7 @@ const LoginPage = () => {
         <a href="#" className="forgot_pass">
           Esqueceu a senha?
         </a>
-        <AuthButton authentication={logIn} id="btn-login">Login </AuthButton>
+        <AuthButton authentication={logIn} type="button" id="btn-login">Login </AuthButton>
         <p className="auth">
           <Link href={"/auth/register"}>Cadastre-se</Link>
         </p>

@@ -6,7 +6,7 @@ import styles from "./authButton-styles.module.css";
 
 type AuthButtonProps = {
   children: string;
-  authentication: (e: FormEvent) => Promise<void> | void;
+  authentication?: (e: FormEvent) => Promise<void> | void;
   id?: string;
   type?:"button" | "submit" | "reset" | undefined;
 }

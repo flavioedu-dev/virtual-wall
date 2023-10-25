@@ -9,11 +9,15 @@ import "./FormGrup.css"
 
 //Components
 import Image, { StaticImageData } from "next/image";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import ClickImage from '@/components/clickImage/ClickImage';
+import { VirtualContext } from '@/context/VirtualContext';
+import { useRouter } from 'next/navigation';
 
 const FormGrup = () => {
   
+  const router = useRouter()
+
 //Image of the grup
   const [imgGrup, setImgGrup] = useState<File|null>(null)
   const [imgGrupUrlprov, setImgGrupUrlprov] = useState<StaticImageData|string>(perfil)
@@ -21,12 +25,48 @@ const FormGrup = () => {
 
   const [nameGrup, setNameGrup] = useState("")
 
+  const [cod, setCod] = useState("")
+
+  const {handleInforChange, infor} = useContext(VirtualContext)
+
   const handleImageSelect = (File:File) =>{
+    gerarAleatorio(8)
     if(File){
       setImgGrup(File)
+      console.log(File)
       setImgGrupUrlprov(URL.createObjectURL(File))
     }
   }
+
+  function gerarAleatorio(tamanho:number) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let resultado = '';
+    for (let i = 0; i < tamanho; i++) {
+      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+      resultado += caracteres.charAt(indiceAleatorio);
+    }
+    setCod(resultado)
+  }
+
+  useEffect(()=>{
+    if(imgGrupUrl){
+    const newGroup = {
+      nameGroup: nameGrup,
+      imageGroup: imgGrupUrl,
+      codigo: cod,
+      walls:[],
+    }
+
+    console.log(newGroup)
+
+    if(infor !== undefined){
+      console.log("Entrou no infor")
+      infor.group.push(newGroup)
+      handleInforChange(infor)
+      router.push('/user/create-wall')
+    }
+    }
+  },[imgGrupUrl, setImgGrupUrl])
 
   return (
     <main className='all-form'>
@@ -46,7 +86,8 @@ const FormGrup = () => {
             body: formData
           })
           const data = await response.json()
-          console.log(data)
+          console.log("Valor:")
+          console.log(data.url)
           setImgGrupUrl(data.url)
        }}>
 

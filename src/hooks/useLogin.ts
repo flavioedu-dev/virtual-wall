@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react"
 
-export interface UserData {
-    userAdm: {
-      name: string;
-      email: string;
-      password: string;
-      isAdmin: boolean;
-      id: number;
-      nameGroup:string,
-      group:object,
-    }[];
+  interface UserData {
+  name: string,
+  email: string,
+  password: string,
+  isAdmin: boolean,
+  nameGroup: string,
+  group: any[],
+  id: number
   }
 
-export const useLogin = ():{data: UserData | null}=>{
+export const useLogin = () =>{
 
-    const [data, setData] = useState<UserData|null>(null)
+    const [data, setData] = useState<UserData[]>([])
 
     useEffect(()=>{
       async function getData(){
         const res = await fetch("http://localhost:3000/userAdm")
-        const data = await res.json()
-        console.log(data)
-        setData(data)
-   }
+        const Data = await res.json()
+        setData(Data)
+        console.log("Data:")
+   }    console.log(data)
       getData()
     },[])
 

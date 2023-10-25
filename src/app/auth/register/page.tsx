@@ -15,10 +15,11 @@ import { AuthInput } from "@/components/Input/AuthInput";
 // Images
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
+import { ListFormat } from "typescript";
 
-export const metadata = {
-  title: "Register",
-};
+// export const metadata = {
+//   title: "Register",
+// };
 
 const RegisterPage = () => {
   const [name, setName] = useState("");

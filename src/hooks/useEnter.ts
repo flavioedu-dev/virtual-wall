@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { UserData, useLogin } from "./useLogin"
+import { useLogin } from "./useLogin"
 import { VirtualContext} from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
-import Infor from "@/components/Home/Home_infor/Infor";
 
 interface FormUse{
     name: string;
@@ -20,24 +19,23 @@ interface use{
 }
 
 export const useEnter = ()=>{
-    const router = useRouter()
+    
+    const {data} = useLogin()
 
-    // const {data} = useLogin()
-    const [teste, setTeste] = useState<UserData | null>()
-
-    const {handleInforChange} = useContext(VirtualContext)
-
-    useEffect(()=>{
-        // console.log("Atualizado")
-        // console.log(data)
-        const {data} = useLogin()
-        setTeste(data)
-    },[])
-
-    const authenticationE = (value:use) =>{
-        console.log("Normal")
-        console.log(teste)
-    };
+    const authenticationE = (value: use) => {
+      
+    if (data !== undefined && data !== null) {
+        const user = data.find((test) => test.email === value.email && test.password === value.password);
+        
+        if (user) {
+          console.log("Passou");
+          return user;
+        }
+      }
+  
+      console.log("Não passou");
+      return null;
+  };
 
     return {authenticationE}
 
