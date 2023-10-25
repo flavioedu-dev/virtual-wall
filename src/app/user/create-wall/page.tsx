@@ -7,6 +7,7 @@ import FormWall from "@/components/createWall/FormWall/FormWall"
 import { VirtualContext } from "@/context/VirtualContext"
 import Image from "next/image";
 import perfil from 'public/perfil.png'
+import { isFunctionExpression } from "typescript"
 
 interface ListInforProps{
   imgWall:File | null;

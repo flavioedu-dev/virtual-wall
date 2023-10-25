@@ -1,8 +1,4 @@
-*{
-    height: 100%;
-}
-
-.all{
+.all-Group{
     display: flex;
     align-items: center;
     justify-content: center;

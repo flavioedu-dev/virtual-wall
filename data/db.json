@@ -18,24 +18,13 @@
       "id": 1
     },
     {
-      "name": "Ruan Lauro",
-      "email": "Ruan@gmail.com",
-      "password": "12345",
-      "confirmPassword": "12345",
-      "isAdmmin": true,
-      "nameGroup": "",
-      "group": [],
-      "id": 2
-    },
-    {
-      "name": "Flávio",
-      "email": "Flavio@aluno",
+      "name": "Ruan Lauro Cardoso da Silva Monteiro",
+      "email": "ruanlauromonteiro@gmail.com",
       "password": "55555",
       "confirmPassword": "55555",
       "isAdmmin": true,
-      "username": "Flávio",
       "group": [],
-      "id": 3
+      "id": 2
     }
   ]
 }

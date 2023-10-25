@@ -1,21 +1,41 @@
-import { useCallback, useState, createContext,ChangeEvent, Dispatch, SetStateAction} from "react";
+"use client"
+
+import { useCallback, useState, createContext, useContext} from "react";
 
 interface VirtualContextProps {
-  infor: any;
-  handleInforChange: Dispatch<SetStateAction<any>>; 
+  infor: userAdm | null | undefined ;
+  handleInforChange: (infor: userAdm) => void; 
+}
+
+interface grup {
+  nameGroup: string;
+  imageGroup: string;
+  wall: [];
+  codigo: string;
+}
+
+interface userAdm  {
+  name : string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  isAdmmin: boolean;
+  group: object
 }
 
 export const VirtualContext = createContext<VirtualContextProps>({
   infor: null,
-  handleInforChange: () => {},
+  handleInforChange: () => {}
 });
 
 export const VirtualProvider = ({children}: {children:React.ReactNode}) => {
 
-  const [infor, setInfor] = useState()
+  const [infor, setInfor] = useState<userAdm>()
 
-  const handleInforChange = useCallback((infor:any) =>{
-     setInfor(infor);
+  const handleInforChange = useCallback((infor:userAdm) =>{
+      if(infor !== undefined){
+        setInfor(infor);
+      }
   }, [])
 
   return(
@@ -24,6 +44,8 @@ export const VirtualProvider = ({children}: {children:React.ReactNode}) => {
     </VirtualContext.Provider>
   )
 }
+
+export const useVirtualContext = () => useContext(VirtualContext)
 
 
   

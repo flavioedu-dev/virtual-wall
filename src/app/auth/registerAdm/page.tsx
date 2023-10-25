@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client"
 
 // Styles
 import "./register-adm.css"
 
 // Hooks
-import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import {useAuthentication} from "@/hooks/useAuthentication"
 
@@ -21,7 +20,7 @@ import { AuthInput } from "@/components/Input/AuthInput";
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useEnter } from "@/hooks/useEnter";
-import { VirtualContext } from "@/context/VirtualContext";
+import { VirtualContext, useVirtualContext } from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
 
 interface FormAdm {
@@ -33,7 +32,7 @@ interface FormAdm {
   group: object;
 }
 
-const registerAdm = () => {
+const RegisterAdm = () => {
 
 
     const {authenticationE} = useEnter()
@@ -59,7 +58,7 @@ const registerAdm = () => {
     };
 
     const router = useRouter()
-    const {handleInforChange} = useContext(VirtualContext)
+    const {handleInforChange, infor} = useVirtualContext()
 
     const {useradm, createUser} = useAuthentication()
 
@@ -75,17 +74,18 @@ const registerAdm = () => {
         password: password.trim(),
         confirmPassword: confirmPassword.trim(),
         isAdmmin: true,
-        username: name.trim(),
-        group:[]
+        group:[],
       }
       createUser(userAdm)
       handleInforChange(userAdm)
-
-      router.push('/user/create-Grup')
+      
     };
 
-    
-
+    useEffect(()=>{
+      if(infor && infor !== undefined){
+        router.push('/user/create-Grup')
+      }
+    },[infor])
 
   return (
     <main className="all">
@@ -97,7 +97,7 @@ const registerAdm = () => {
           style={{ objectFit: "contain" }}
         />
       </div>
-      <AuthForm onSubmit={handleSubmit}>
+      <AuthForm>
         <div className="user-data">
           <AuthInput
             type="text"
@@ -137,7 +137,7 @@ const registerAdm = () => {
             required
           />
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="submit">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>
@@ -147,4 +147,4 @@ const registerAdm = () => {
    )
 }
 
-export default registerAdm
+export default RegisterAdm

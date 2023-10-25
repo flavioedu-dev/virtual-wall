@@ -40,7 +40,7 @@ export default function Home() {
           style={{ objectFit: "contain" }}
         />
         <div className="button">
-        <Link  href={"/user/create-Grup"}>
+        <Link  href={"/auth/login"}>
         <AuthButton authentication={login} id="log">Login</AuthButton>
         </Link>
         <Link href={"/auth/"}>

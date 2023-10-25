@@ -27,7 +27,7 @@ const FormGrup = () => {
 
   const [cod, setCod] = useState("")
 
-  const {handleInforChange, infor} = useContext(VirtualContext)
+  // const {handleInforChange, infor} = useContext(VirtualContext)
 
   const handleImageSelect = (File:File) =>{
     gerarAleatorio(8)
@@ -48,29 +48,35 @@ const FormGrup = () => {
     setCod(resultado)
   }
 
-  useEffect(()=>{
-    if(imgGrupUrl){
-    const newGroup = {
-      nameGroup: nameGrup,
-      imageGroup: imgGrupUrl,
-      codigo: cod,
-      walls:[],
-    }
+  // useEffect(()=>{
+  //   // if(imgGrupUrl){
+  //   // const newGroup = {
+  //   //   nameGroup: nameGrup,
+  //   //   imageGroup: imgGrupUrl,
+  //   //   codigo: cod,
+  //   //   walls:[],
+  //   // }
+  //     // if(infor && infor !== undefined){
+  //     //   console.log("Apareceu")
+  //     //   console.log(infor)
+  //     // }else{
+  //     //   console.log("Não apareceu")
+  //     //   console.log(infor)
+  //     // }
 
-    console.log(newGroup)
-
-    if(infor !== undefined){
-      console.log("Entrou no infor")
-      infor.group.push(newGroup)
-      handleInforChange(infor)
-      router.push('/user/create-wall')
-    }
-    }
-  },[imgGrupUrl, setImgGrupUrl])
+  //   // if(infor !== undefined){
+  //   //   console.log("Entrou no infor")
+  //   //   infor.group.push(newGroup)
+  //   //   handleInforChange(infor)
+  //   //   router.push('/user/create-wall')
+  //   // }
+  //   // }
+    
+  // },[cod, handleInforChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
 
   return (
     <main className='all-form'>
-       <form onSubmit={async (e) => {
+       <form className='form-Group' onSubmit={async (e) => {
           e.preventDefault()
 
           const formData = new FormData()

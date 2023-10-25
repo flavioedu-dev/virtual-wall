@@ -3,7 +3,7 @@ import group from "public/example.png";
 import Image from "next/image";
 const Infor = () => {
   return (
-    <main className="all-info">
+    <main className="all-info-I">
         <div className="text-in">
             <h2>Entre no seu mural e informe seus companheiros.</h2>
             <p>Você pode criar um grupo geral, mas também pode entrar em um grupo já feito</p>
@@ -14,7 +14,7 @@ const Infor = () => {
         <Image
             src={group}
             alt="example"
-            className="img_example"
+            className="img_example-I"
             style={{ objectFit: "contain" }}
             />
     </main>

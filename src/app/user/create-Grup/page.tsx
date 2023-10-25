@@ -1,14 +1,21 @@
-import FormGrup from '@/components/createGrup/FormGrup/FormGrup'
-import {AuthButton} from '@/components/Button/AuthButton'
-import './create-grup.css'
+"use client"
 
-const createGrup = () => {
+import FormGrup from '@/components/createGrup/FormGrup/FormGrup'
+import './create-grup.css'
+import { useEffect } from 'react';
+import { useVirtualContext } from '@/context/VirtualContext';
+
+const CreateGrup = () => {
+
+  const {infor, handleInforChange} = useVirtualContext()
+
+  console.log(infor)
 
   return (
-    <main className='all'>
-      <FormGrup/>
+    <main className='all-Group'>
+      {/* <FormGrup/> */}
     </main>
   )
 }
 
-export default createGrup
+export default CreateGrup

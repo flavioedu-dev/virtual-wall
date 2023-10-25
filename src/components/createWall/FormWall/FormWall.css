@@ -10,14 +10,15 @@
 .img_example{
     background-color: rgba(92, 208, 97, 0.9);
     border-radius: 50%;
-    width: 14.5rem ;
-    height: 14.5rem;
+    width: 13rem ;
+    height: 13rem;
     margin-bottom: 2rem;
     margin-top: 3rem;
 }
 
 #came_ini{
-    height: auto;
+  width: 4rem;
+  height: auto;
 }
 
 .NameGrup{
@@ -29,7 +30,7 @@
     font-family: inherit;
     outline: none;
     line-height: 26px;
-    width: 40rem;
+    width: 35rem;
     height: auto;
     margin-bottom: 2rem;
     margin-top: 2rem;
@@ -47,7 +48,7 @@
   }
 
   .btn {
-    width: 132px;
+    width: 120px;
     height: 4.5rem;
     background: rgba(92, 208, 97, 0.9);
     color: #fff;

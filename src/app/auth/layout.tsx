@@ -1,6 +1,7 @@
 import React from 'react'
 
 import "./auth-styles.css";
+import { VirtualProvider } from "@/context/VirtualContext"
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -8,8 +9,10 @@ type AuthLayoutProps = {
 
 const layout = ({children} : AuthLayoutProps) => {
   return (
-    <body>
-      {children}
+    <body className='body-auth'>
+      <VirtualProvider>
+        {children}
+      </VirtualProvider>
     </body>
   )
 }

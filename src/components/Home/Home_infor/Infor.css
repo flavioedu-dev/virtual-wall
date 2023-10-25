@@ -1,4 +1,4 @@
-.all-info{
+.all-info-I{
     background-color: #F2F2F2;
     display: flex;
     justify-content: space-between;
@@ -25,7 +25,7 @@
     margin-bottom: 1rem;
 }
 
-.img_example{
+.img_example-I{
     width: 45rem;
     height: auto;
     margin-top: 3rem;
