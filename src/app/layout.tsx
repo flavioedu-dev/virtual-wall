@@ -6,7 +6,7 @@ import './globals.css'
 import { usePathname } from 'next/navigation';
 import { checkIsPublicRoute } from '@/functions/check-is-public-route';
 import {PrivateRoute} from '@/components/PrivateRoute'
-import { VirtualProvider } from "@/context/VirtualContext"
+import { UserProvider } from "@/context/VirtualContext"
 
 // export const metadata: Metadata = {
 //   title: "Mural Virtual",
@@ -26,11 +26,10 @@ export default function RootLayout({
     <html lang="pt-br">
       <body>
         
+        <UserProvider>
         {isPublicPage && (
           <>
-            <VirtualProvider>
-              {children}
-            </VirtualProvider>
+            {children}
           </>
           )}
         {!isPublicPage && (
@@ -41,6 +40,8 @@ export default function RootLayout({
             
           </>
         )}
+        </UserProvider>
+
       </body>
     </html>
   )

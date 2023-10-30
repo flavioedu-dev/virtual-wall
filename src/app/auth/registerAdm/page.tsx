@@ -20,8 +20,9 @@ import { AuthInput } from "@/components/Input/AuthInput";
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useEnter } from "@/hooks/useEnter";
-import { VirtualContext, useVirtualContext } from "@/context/VirtualContext";
+import { useUserContext } from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
+import { link } from "fs";
 
 interface FormAdm {
   name: string;
@@ -58,7 +59,7 @@ const RegisterAdm = () => {
     };
 
     const router = useRouter()
-    const {handleInforChange, infor} = useVirtualContext()
+    const {infor, handleNameChange} = useUserContext()
 
     const {useradm, createUser} = useAuthentication()
 
@@ -77,12 +78,13 @@ const RegisterAdm = () => {
         group:[],
       }
       createUser(userAdm)
-      handleInforChange(userAdm)
+      handleNameChange(userAdm)
       
     };
 
     useEffect(()=>{
       if(infor && infor !== undefined){
+        console.log(infor)
         router.push('/user/create-Grup')
       }
     },[infor])

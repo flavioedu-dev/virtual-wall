@@ -19,7 +19,7 @@ import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useLogin } from "@/hooks/useLogin";
 import { useEnter } from "@/hooks/useEnter";
 import { useRouter } from "next/navigation";
-import { VirtualContext } from "@/context/VirtualContext";
+import { useUserContext } from "@/context/VirtualContext";
 
 interface use{
   email: string;
@@ -34,7 +34,7 @@ const LoginPage = () => {
   const {authenticationE} = useEnter()
 
   const router = useRouter()
-  const {handleInforChange, infor} = useContext(VirtualContext)
+  const {handleNameChange, infor} = useUserContext()
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
@@ -44,6 +44,7 @@ const LoginPage = () => {
     setPassword(e.currentTarget.value);
   };
 
+
   const logIn = (): void => {
     const Use = {
       email,
@@ -52,8 +53,8 @@ const LoginPage = () => {
     const test = authenticationE(Use)
 
     if(test !== null){
-      handleInforChange(test)
-      router.push('/user/home')
+      handleNameChange(test)
+      router.push('/user/home-Group')
     }else{
       console.log("Erro")
       setShowError(true); 

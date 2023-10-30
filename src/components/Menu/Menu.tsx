@@ -4,7 +4,7 @@
 import styles from "./menu.module.css";
 
 // Images
-import profileLinkedin from "public/Perfil LinkedIn.png";
+import profileLinkedin from "public/perfil.png";
 import profileImg from "public/perfil.png";
 import leafImg from "public/postagens.png";
 import configImg from "public/configuracoes.png";
@@ -17,9 +17,10 @@ import { useRouter } from "next/navigation";
 
 type MenuProps = {
   closeMenu: () => void;
+  imgGroup?: string
 };
 
-const Menu = ({ closeMenu }: MenuProps) => {
+const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const router = useRouter();
 
   const redirectToPath = (path: string) => {
@@ -79,7 +80,7 @@ const Menu = ({ closeMenu }: MenuProps) => {
     <aside className={styles.menu}>
       <div className={styles.inner_container}>
         <section className={styles.profile_container}>
-          <Image src={profileLinkedin} alt="profile-linkedin" />
+          <Image src={imgGroup||profileLinkedin.src} alt="profile-linkedin" className="profile-per" width={200} height={200} />
           <h2>Flávio Eduardo</h2>
           <p>@aluno</p>
         </section>

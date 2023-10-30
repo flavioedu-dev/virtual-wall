@@ -1,51 +1,52 @@
-"use client"
+import { useCallback, useContext, useState } from "react";
+import { createContext } from "react";
 
-import { useCallback, useState, createContext, useContext} from "react";
-
-interface VirtualContextProps {
-  infor: userAdm | null | undefined ;
-  handleInforChange: (infor: userAdm) => void; 
+export interface wall {
+  nameWall: string;
+  imgwall: string;
+  postagens: any[];
 }
 
-interface grup {
-  nameGroup: string;
-  imageGroup: string;
-  wall: [];
-  codigo: string;
+export interface group {
+  [x: string]: any;
+  nameGroup?: string,
+  imageGroup?: string,
+  wall?:wall[],
+  codigo?: string
 }
 
-interface userAdm  {
-  name : string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  isAdmmin: boolean;
-  group: object
+export interface user{
+      name: string,
+      email: string,
+      password: string,
+      confirmPassword?: string,
+      isAdmmin: boolean,
+      group: group,
+      id?: number
 }
 
-export const VirtualContext = createContext<VirtualContextProps>({
+interface VirtualContex {
+  infor: user | null;
+  handleNameChange: (inform: user) => void;
+}
+
+const UserContext = createContext<VirtualContex>({
   infor: null,
-  handleInforChange: () => {}
-});
+  handleNameChange: () => {},
+})
 
-export const VirtualProvider = ({children}: {children:React.ReactNode}) => {
+export const UserProvider = ({children}: {children: React.ReactNode}) =>{
+  const [infor, setInfor] = useState<user|null>(null)
 
-  const [infor, setInfor] = useState<userAdm>()
-
-  const handleInforChange = useCallback((infor:userAdm) =>{
-      if(infor !== undefined){
-        setInfor(infor);
-      }
+  const handleNameChange = useCallback((inform:user)=>{
+    setInfor(inform)
   }, [])
 
   return(
-    <VirtualContext.Provider value={{infor, handleInforChange}}>
+    <UserContext.Provider value={{infor, handleNameChange}}>
       {children}
-    </VirtualContext.Provider>
+    </UserContext.Provider>
   )
 }
 
-export const useVirtualContext = () => useContext(VirtualContext)
-
-
-  
+export const useUserContext = () => useContext(UserContext)

@@ -1,17 +1,4 @@
-import { useContext, useEffect, useState } from "react";
 import { useLogin } from "./useLogin"
-import { VirtualContext} from "@/context/VirtualContext";
-import { useRouter } from "next/navigation";
-
-interface FormUse{
-    name: string;
-    email: string;
-    password: string;
-    isAdmmin?: boolean,
-    nameGroup:string,
-    group:object,
-    id: number
-}
 
 interface use{
     email: string;

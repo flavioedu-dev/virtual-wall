@@ -21,9 +21,7 @@ export const PrivateRoute = ({children}: PrivateRouteProps) =>{
 
     return(
         <>
-            <VirtualProvider>
-                {children}
-            </VirtualProvider>
+            {children}
             
             {/* {isUserAuthenticated && null}
             {isUserAuthenticated && children} */}

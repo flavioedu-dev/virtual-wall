@@ -25,6 +25,15 @@
       "isAdmmin": true,
       "group": [],
       "id": 2
+    },
+    {
+      "name": "Ruan Lauro",
+      "email": "Ruan@gmail.com",
+      "password": "4444",
+      "confirmPassword": "4444",
+      "isAdmmin": true,
+      "group": [],
+      "id": 3
     }
   ]
 }

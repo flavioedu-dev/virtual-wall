@@ -5,18 +5,9 @@ import { AuthButton } from "@/components/Button/AuthButton";
 import Image from "next/image";
 import boys from "public/boysNew.png"
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const Register = () => {
-    const router = useRouter()
-    const useLogin = (): void =>{
-      router.push('/auth/register')
-    }
-
-    const admLogin = (): void =>{
-      console.log("Não feito")
-    }
 
   return (
     <main className="all-re">
@@ -25,9 +16,9 @@ const Register = () => {
                 <p>Cadastro</p>
                 <h2>Quem é você?</h2>
                 <p>Eu quero criar um grupo.</p>
-                <AuthButton authentication={admLogin}>Register</AuthButton>
+                <Link href={'/auth/registerAdm'}><AuthButton>Register</AuthButton></Link>
                 <p>Eu quero me cadastrar como usuário.</p>
-                <AuthButton authentication={useLogin}>Register</AuthButton>
+                <Link href={'/auth/'}><AuthButton>Register</AuthButton></Link>
                 </AuthForm>
             </div>
             <Image 

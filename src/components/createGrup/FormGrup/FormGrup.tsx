@@ -11,7 +11,7 @@ import "./FormGrup.css"
 import Image, { StaticImageData } from "next/image";
 import {ChangeEvent, useContext, useEffect, useState} from "react";
 import ClickImage from '@/components/clickImage/ClickImage';
-import { VirtualContext } from '@/context/VirtualContext';
+import { useUserContext} from '@/context/VirtualContext';
 import { useRouter } from 'next/navigation';
 
 const FormGrup = () => {
@@ -27,7 +27,7 @@ const FormGrup = () => {
 
   const [cod, setCod] = useState("")
 
-  // const {handleInforChange, infor} = useContext(VirtualContext)
+  const {handleNameChange, infor} = useUserContext()
 
   const handleImageSelect = (File:File) =>{
     gerarAleatorio(8)
@@ -48,31 +48,31 @@ const FormGrup = () => {
     setCod(resultado)
   }
 
-  // useEffect(()=>{
-  //   // if(imgGrupUrl){
-  //   // const newGroup = {
-  //   //   nameGroup: nameGrup,
-  //   //   imageGroup: imgGrupUrl,
-  //   //   codigo: cod,
-  //   //   walls:[],
-  //   // }
-  //     // if(infor && infor !== undefined){
-  //     //   console.log("Apareceu")
-  //     //   console.log(infor)
-  //     // }else{
-  //     //   console.log("Não apareceu")
-  //     //   console.log(infor)
-  //     // }
+  useEffect(()=>{
+    if(imgGrupUrl){
+    const newGroup = {
+      nameGroup: nameGrup,
+      imageGroup: imgGrupUrl,
+      codigo: cod,
+      wall:[],
+    }
+      if(infor && infor !== undefined){
+        console.log("Apareceu")
+        console.log(infor)
+      }else{
+        console.log("Não apareceu")
+        console.log(infor)
+      }
 
-  //   // if(infor !== undefined){
-  //   //   console.log("Entrou no infor")
-  //   //   infor.group.push(newGroup)
-  //   //   handleInforChange(infor)
-  //   //   router.push('/user/create-wall')
-  //   // }
-  //   // }
+    if(infor !== undefined && infor !== null){
+      console.log("Entrou no infor")
+      infor.group.push(newGroup)
+      handleNameChange(infor)
+      router.push('/user/create-wall')
+    }
+    }
     
-  // },[cod, handleInforChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
+  },[cod, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
 
   return (
     <main className='all-form'>
