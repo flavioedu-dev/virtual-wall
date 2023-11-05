@@ -1,9 +1,9 @@
-.all{
+.all-app{
     display: flex;
     flex-direction: column;
 }
 
-.nav{
+.nav-app{
     display: flex;
     align-items: center;
 }
@@ -14,7 +14,7 @@
     margin-left: 7rem;
 }
 
-.button{
+.button-app{
     position: sticky;
     left: 100%;
     margin-right:7rem;

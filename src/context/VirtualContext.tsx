@@ -1,29 +1,58 @@
-import { useCallback, useState, createContext,ChangeEvent, Dispatch, SetStateAction} from "react";
+import { useCallback, useContext, useState } from "react";
+import { createContext } from "react";
 
-interface VirtualContextProps {
-  infor: any;
-  handleInforChange: Dispatch<SetStateAction<any>>; 
+export interface wall {
+  nameWall?: string;
+  imgwall?: string;
+  postagens?: any[];
+  user?: any[];
+  idwall?:string
 }
 
-export const VirtualContext = createContext<VirtualContextProps>({
+export interface group {
+  [x: string]: any;
+  nameGroup?: string,
+  imageGroup?: string,
+  wall?:wall[],
+  codigo?: string
+}
+
+export interface user{
+  name: string,
+  email: string,
+  password: string,
+  confirmPassword?: string,
+  isAdmmin: boolean,
+  group?: group,
+  id?: string,
+  nameWall?:string,
+  codGroup?: string,
+  imgUser?: string,
+  rota?: string,
+}
+
+interface VirtualContex {
+  infor: user | null;
+  handleNameChange: (inform: user) => void;
+}
+
+const UserContext = createContext<VirtualContex>({
   infor: null,
-  handleInforChange: () => {},
-});
+  handleNameChange: () => {},
+})
 
-export const VirtualProvider = ({children}: {children:React.ReactNode}) => {
+export const UserProvider = ({children}: {children: React.ReactNode}) =>{
+  const [infor, setInfor] = useState<user|null>(null)
 
-  const [infor, setInfor] = useState()
-
-  const handleInforChange = useCallback((infor:any) =>{
-     setInfor(infor);
+  const handleNameChange = useCallback((inform:user)=>{
+    setInfor(inform)
   }, [])
 
   return(
-    <VirtualContext.Provider value={{infor, handleInforChange}}>
+    <UserContext.Provider value={{infor, handleNameChange}}>
       {children}
-    </VirtualContext.Provider>
+    </UserContext.Provider>
   )
 }
 
-
-  
+export const useUserContext = () => useContext(UserContext)

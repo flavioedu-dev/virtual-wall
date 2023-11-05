@@ -1,0 +1,94 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.posts-container{  
+    margin-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+span{
+    font-size: 1.3rem;
+}
+
+
+.posts-container div p{
+    text-align: justify;
+    font-size: 1.4rem;
+}
+
+.post{
+    padding: 1rem 2.5rem;
+    padding-left: 5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.post div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit{
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+    position: absolute;
+    left: 96%;
+}
+
+.post .imgP{
+    position: absolute;
+    left: 35px;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    margin-right: .5rem;
+}
+
+.post > div > div span:nth-child(2){
+    font-weight: bold;
+}
+
+.date-post{
+    color: rgb(0, 0, 0, 0.5);
+    font-size: 14px;
+}
+
+.text-post {
+    cursor: pointer;
+}
+.post {
+    position: relative;
+  }
+  
+  .posts-container {
+    margin-top: 0;
+  }
+  
+  .text-post {
+    margin-bottom: 1rem;
+  }
+  
+  .post > div > div span:nth-child(2) {
+    font-weight: 600;
+  } 
+ @media (min-width: 700px) {
+    .post-div .imgP{
+      left: -4rem;
+      margin-left: 50px;
+    }
+    main{
+        width: 35%;
+        z-index: 3;
+        position: relative;
+        left: 33%;
+        height: 100%;
+        border-right: 1px solid rgba(0, 0, 0, 0.116);
+        border-left: 1px solid rgba(0, 0, 0, 0.116);
+    }
+ }
+ @media (max-width: 699px){
+    .post-div .imgP{
+        left: 1rem;
+    }
+}
+

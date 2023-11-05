@@ -1,4 +1,4 @@
-body{
+.body-auth{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +24,7 @@ body{
 }
 
 .auth a{
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.753);
   text-decoration: none;
 }
 

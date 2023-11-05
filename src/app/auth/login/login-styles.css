@@ -30,6 +30,16 @@
   align-self: center;
 }
 
+.Erro{
+  font-size: 1.5rem;
+  color: red;
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
 @media (min-width: 600px) {
   .all {
     padding: 3rem 3rem;

@@ -4,12 +4,9 @@
 import "./register-adm.css"
 
 // Hooks
-import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import {useAuthentication} from "@/hooks/useAuthentication"
-
-//Context
-
 
 // Components
 import Image from "next/image";
@@ -19,30 +16,17 @@ import { AuthInput } from "@/components/Input/AuthInput";
 // Images
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
-import { useEnter } from "@/hooks/useEnter";
+import { useUserContext } from "@/context/VirtualContext";
+import { useRouter } from "next/navigation";
 
-export const metadata = {
-  title: "Register",
-};
-
-interface FormAdm {
-  name: string;
-  email: string;
-  password: string;
-  isAdmin?: boolean;
-  nameGroup: string;
-  group: object;
-}
-
-const registerAdm = () => {
-
-    const {authenticationE} = useEnter()
+const RegisterAdm = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleChanges = {
+    const handleChange = {
       handleName: (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value);
       },
@@ -52,13 +36,19 @@ const registerAdm = () => {
       handlePassword: (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value);
       },
+      handleConfirmPassword: (e: ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.currentTarget.value);
+      },
     };
+
+    const router = useRouter()
+    const {infor, handleNameChange} = useUserContext()
 
     const {useradm, createUser} = useAuthentication()
 
     const handleSubmit = (e:FormEvent)=> {
       e.preventDefault()
-      if (name.trim() === '' || email.trim() === '' || password.trim() === '') {
+      if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '') {
         console.error('Por favor, preencha todos os campos.');
         return;
       }
@@ -66,23 +56,20 @@ const registerAdm = () => {
         name : name.trim(),
         email: email.trim(),
         password: password.trim(),
+        confirmPassword: confirmPassword.trim(),
         isAdmmin: true,
-        nameGroup:"",
-        group:[]
+        group:[],
       }
       createUser(userAdm)
     };
 
-    useEffect(() => {
-      if(useradm != null){
-        const use = {
-          email: useradm.email,
-          password: useradm.password
-        }
-        authenticationE(use)
+    useEffect(()=>{
+      console.log(useradm)
+      if(useradm){
+        handleNameChange(useradm)
+        router.push('/user/create-Grup')
       }
-    }, [useradm]); 
-
+    },[handleNameChange, useradm])
 
   return (
     <main className="all">
@@ -94,7 +81,7 @@ const registerAdm = () => {
           style={{ objectFit: "contain" }}
         />
       </div>
-      <AuthForm onSubmit={handleSubmit}>
+      <AuthForm>
         <div className="user-data">
           <AuthInput
             type="text"
@@ -102,7 +89,7 @@ const registerAdm = () => {
             id="fullname"
             placeholder="Nome completo"
             value={name}
-            onchange={handleChanges.handleName}
+            onchange={handleChange.handleName}
             required
           />
           <AuthInput
@@ -112,7 +99,7 @@ const registerAdm = () => {
 
             placeholder="Email"
             value={email}
-            onchange={handleChanges.handleEmail}
+            onchange={handleChange.handleEmail}
             required
           />
           <AuthInput
@@ -121,11 +108,20 @@ const registerAdm = () => {
             id="pass"
             placeholder="Senha"
             value={password}
-            onchange={handleChanges.handlePassword}
+            onchange={handleChange.handlePassword}
+            required
+          />
+           <AuthInput
+            type="password"
+            name="confirm-pass"
+            id="confirm-pass"
+            placeholder="Confirmar senha"
+            value={confirmPassword}
+            onchange={handleChange.handleConfirmPassword}
             required
           />
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="submit">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>
@@ -135,4 +131,4 @@ const registerAdm = () => {
    )
 }
 
-export default registerAdm
+export default RegisterAdm

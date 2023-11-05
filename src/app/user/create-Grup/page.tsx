@@ -1,12 +1,15 @@
+"use client"
+
 import FormGrup from '@/components/createGrup/FormGrup/FormGrup'
 import './create-grup.css'
 
-const createGrup = () => {
+const CreateGrup = () => {
+
   return (
-    <main className='all'>
+    <main className='all-Group'>
       <FormGrup/>
     </main>
   )
 }
 
-export default createGrup
+export default CreateGrup

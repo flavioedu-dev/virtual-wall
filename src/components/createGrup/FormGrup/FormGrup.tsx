@@ -9,11 +9,15 @@ import "./FormGrup.css"
 
 //Components
 import Image, { StaticImageData } from "next/image";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import ClickImage from '@/components/clickImage/ClickImage';
+import { group, useUserContext} from '@/context/VirtualContext';
+import { useRouter } from 'next/navigation';
 
 const FormGrup = () => {
   
+  const router = useRouter()
+
 //Image of the grup
   const [imgGrup, setImgGrup] = useState<File|null>(null)
   const [imgGrupUrlprov, setImgGrupUrlprov] = useState<StaticImageData|string>(perfil)
@@ -21,16 +25,74 @@ const FormGrup = () => {
 
   const [nameGrup, setNameGrup] = useState("")
 
+  const [cod, setCod] = useState("")
+
+  const {handleNameChange, infor} = useUserContext()
+
+  const funPut = (idUser:string, value:group) =>{
+    async function getData(){
+      const response = await fetch("http://localhost:4000/"+idUser,{
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(value)
+    });
+ }
+    getData()
+  }
+
   const handleImageSelect = (File:File) =>{
+    gerarAleatorio(8)
     if(File){
       setImgGrup(File)
+      console.log(File)
       setImgGrupUrlprov(URL.createObjectURL(File))
     }
   }
 
+  function gerarAleatorio(tamanho:number) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let resultado = '';
+    for (let i = 0; i < tamanho; i++) {
+      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+      resultado += caracteres.charAt(indiceAleatorio);
+    }
+    setCod(resultado)
+  }
+
+  useEffect(()=>{
+    if(imgGrupUrl){
+    const newGroup = {
+      nameGroup: nameGrup,
+      imageGroup: imgGrupUrl,
+      codigo: cod,
+      wall:[],
+    }
+
+    const newGroupData = {
+      group: {
+        nameGroup: nameGrup,
+        imageGroup: imgGrupUrl,
+        codigo: cod,
+        wall:[],
+      }
+    }
+
+    if(infor !== undefined && infor !== null&&infor.id){
+      console.log("Aqui estás")
+      funPut(infor.id, newGroupData)
+      infor.group.push(newGroup)
+      handleNameChange(infor)
+      router.push('/user/create-wall')
+    }
+    }
+    
+  },[cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
+
   return (
     <main className='all-form'>
-       <form onSubmit={async (e) => {
+       <form className='form-Group' onSubmit={async (e) => {
           e.preventDefault()
 
           const formData = new FormData()
@@ -46,7 +108,8 @@ const FormGrup = () => {
             body: formData
           })
           const data = await response.json()
-          console.log(data)
+          console.log("Valor:")
+          // console.log(data.url)
           setImgGrupUrl(data.url)
        }}>
 

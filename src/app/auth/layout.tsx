@@ -8,8 +8,8 @@ type AuthLayoutProps = {
 
 const layout = ({children} : AuthLayoutProps) => {
   return (
-    <body>
-      {children}
+    <body className='body-auth'>
+        {children}
     </body>
   )
 }

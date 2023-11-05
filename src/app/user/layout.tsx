@@ -1,6 +1,5 @@
 import React from 'react'
 import Menu from '../../components/Menu/Menu'
-
 type UserLayoutProps = {
   children: React.ReactNode;
 }

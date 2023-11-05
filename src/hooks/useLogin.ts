@@ -1,30 +1,25 @@
+import { user } from "@/context/VirtualContext";
 import { useEffect, useState } from "react"
 
-export interface UserData {
-    userAdm: {
-      name: string;
-      email: string;
-      password: string;
-      isAdmin: boolean;
-      id: number;
-      nameGroup:string,
-      group:object,
-    }[];
-  }
+export const useLogin = () =>{
 
-export const useLogin = ():{data: UserData | null}=>{
-
-    const [data, setData] = useState<UserData|null>(null)
+    const [data, setData] = useState<user[]>([])
 
     useEffect(()=>{
       async function getData(){
-        const res = await fetch("http://localhost:3000/userAdm")
-        const data = await res.json()
-        console.log(data)
-        setData(data)
-   }
+        const response = await fetch("http://localhost:4000", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+        const Data = await response.json()
+        const DataV = Data.userAdm
+        setData(DataV)
+   }  
       getData()
     },[])
 
-    return{data}
-}
+  return{data}
+  }
+
