@@ -52,9 +52,25 @@ const LoginPage = () => {
     }
     const test = authenticationE(Use)
 
-    if(test !== null){
+    if(test !== null ){
       handleNameChange(test)
-      router.push('/user/home-Group')
+      if(test.isAdmmin == true){
+        if(test.group?.length === 0){
+          router.push('/user/create-Grup')
+        }else{
+          if(test.group?.wall){
+            if(test.group?.wall.length === 0){
+              router.push('/user/create-wall')
+            }else{
+              router.push('/user/home-Group')
+            }
+          }
+          
+        }
+      }else{
+        router.push('/user/home-Group')
+      }
+
     }else{
       console.log("Erro")
       setShowError(true); 

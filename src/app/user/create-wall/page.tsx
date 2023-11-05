@@ -7,7 +7,6 @@ import FormWall from "@/components/createWall/FormWall/FormWall"
 import { useUserContext} from "@/context/VirtualContext"
 import Image from "next/image";
 import perfil from 'public/perfil.png'
-import { isFunctionExpression } from "typescript"
 import { useRouter } from "next/navigation"
 
 interface ListInforProps{
@@ -18,10 +17,12 @@ interface ListInforProps{
 }
 
 export interface wall {
-  nameWall: string;
-  imgwall: string;
-  postagens: any[];
+  nameWall?: string;
+  imgwall?: string;
+  postagens?: any[];
+  user?: any[]
 }
+
 
 export interface group {
   nameGroup?: string,
@@ -45,37 +46,60 @@ const  CreateWall= () => {
 
   const {handleNameChange, infor} = useUserContext()
 
+  const funPut = (idUser:string, value:wall) =>{
+    async function getData(){
+      const response = await fetch("http://localhost:4000/"+idUser,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(value)
+    });
+ }
+    getData()
+  }
+
   const handleImageChange = (info:ListInforProps) =>{
-
-
   const walls = {
     nameWall: info.nameWall,
     imgwall: info.imgWallUrl,
-    postagens:[]
+    postagens:[],
+    user: []
   }
 
-  if (infor) {
-    infor.group.forEach((groupItem: group) => {
-      if (groupItem.wall) {
-        groupItem.wall.push(walls);
-      }
-    });
-
+  if (infor && infor.id!==undefined) {
+    if(Array.isArray(infor.group)){
+      infor.group.forEach((groupItem: group) => {
+        if (groupItem.wall) {
+          groupItem.wall.push(walls);
+        }
+      
+        if(infor.id!==undefined){
+          funPut(infor.id, walls)
+        }
+      });
+    }else{
+      infor.group?.wall?.push(walls)
+      funPut(infor.id, walls)
+    }
+    
     handleNameChange(infor);
     }
     setListInforGroupFull(prevList => [...prevList, info])
   }
 
   useEffect(() => {
-    if (infor?.group && infor.group !== undefined) {
-      // setInforGroup(infor.group)
-      infor.group.forEach((groupItem:any) => {
-        setImgInfor(groupItem.imageGroup)
-        setTextInfor(groupItem.nameGroup)
+    if (infor && infor.group && Array.isArray(infor.group)) {
+      infor.group.forEach((groupItem: group) => {
+        setImgInfor(groupItem.imageGroup || '');
+        setTextInfor(groupItem.nameGroup || '');
       });
+    } else {
+      setImgInfor(infor?.group?.imageGroup || '');
+      setTextInfor(infor?.group?.nameGroup || '');
     }
   }, [infor, imgInfor, setImgInfor, handleNameChange]);
-
+  
 
   function PassWall(): void {
     router.push('/user/home-Group')

@@ -11,6 +11,7 @@ import Menu from "../Menu/Menu";
 
 // Hooks and types
 import React, { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
 
 //type
 type NavProps = {
@@ -55,7 +56,9 @@ const Nav = ({ImageGroup}:NavProps) => {
           onClick={openMenu}
         />
 
-      <Image src={boardLogoImg} alt="board-logo" />
+      <Link href={'/user/home-Group'}>
+        <Image src={boardLogoImg} alt="board-logo" />
+      </Link>
 
         {stateMenu === true || size >= 700 ? (
           <Menu closeMenu={closeMenu} imgGroup={ImageGroup}/>

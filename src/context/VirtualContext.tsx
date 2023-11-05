@@ -2,9 +2,11 @@ import { useCallback, useContext, useState } from "react";
 import { createContext } from "react";
 
 export interface wall {
-  nameWall: string;
-  imgwall: string;
-  postagens: any[];
+  nameWall?: string;
+  imgwall?: string;
+  postagens?: any[];
+  user?: any[];
+  idwall?:string
 }
 
 export interface group {
@@ -16,13 +18,17 @@ export interface group {
 }
 
 export interface user{
-      name: string,
-      email: string,
-      password: string,
-      confirmPassword?: string,
-      isAdmmin: boolean,
-      group: group,
-      id?: number
+  name: string,
+  email: string,
+  password: string,
+  confirmPassword?: string,
+  isAdmmin: boolean,
+  group?: group,
+  id?: string,
+  nameWall?:string,
+  codGroup?: string,
+  imgUser?: string,
+  rota?: string,
 }
 
 interface VirtualContex {

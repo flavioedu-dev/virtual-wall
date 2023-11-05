@@ -7,9 +7,8 @@ import styles from "./menu.module.css";
 import profileLinkedin from "public/perfil.png";
 import profileImg from "public/perfil.png";
 import leafImg from "public/postagens.png";
-import configImg from "public/configuracoes.png";
 import outImg from "public/sair.png";
-
+import home from "public/botao-home.png"
 // Hooks ans types
 import React, { useEffect } from "react";
 import Image from "next/image";
@@ -48,24 +47,24 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const options = [
     {
       id: 1,
+      img: home,
+      alt: "Home-icon",
+      title: "Home",
+      path: "/user/home"
+    },
+    {
+      id: 2,
       img: profileImg,
       alt: "profile-icon",
       title: "Perfil",
       path: "/user/profile"
     },
     {
-      id: 2,
+      id: 3,
       img: leafImg,
       alt: "leaf-icon",
       title: "Postagens",
       path: "/user/wall"
-    },
-    {
-      id: 3,
-      img: configImg,
-      alt: "config-icon",
-      title: "Configurações",
-      path: "/user/configuration"
     },
     {
       id: 4,
@@ -73,7 +72,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
       alt: "out-icon",
       title: "Sair",
       path: "/auth/login"
-    },
+    }
   ];
 
   return (

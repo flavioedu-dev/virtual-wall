@@ -8,9 +8,6 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import {useAuthentication} from "@/hooks/useAuthentication"
 
-//Context
-
-
 // Components
 import Image from "next/image";
 import { AuthButton } from "@/components/Button/AuthButton";
@@ -19,24 +16,10 @@ import { AuthInput } from "@/components/Input/AuthInput";
 // Images
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
-import { useEnter } from "@/hooks/useEnter";
 import { useUserContext } from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
-import { link } from "fs";
-
-interface FormAdm {
-  name: string;
-  email: string;
-  password: string;
-  isAdmin?: boolean;
-  nameGroup: string;
-  group: object;
-}
 
 const RegisterAdm = () => {
-
-
-    const {authenticationE} = useEnter()
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -78,16 +61,15 @@ const RegisterAdm = () => {
         group:[],
       }
       createUser(userAdm)
-      handleNameChange(userAdm)
-      
     };
 
     useEffect(()=>{
-      if(infor && infor !== undefined){
-        console.log(infor)
+      console.log(useradm)
+      if(useradm){
+        handleNameChange(useradm)
         router.push('/user/create-Grup')
       }
-    },[infor])
+    },[handleNameChange, useradm])
 
   return (
     <main className="all">

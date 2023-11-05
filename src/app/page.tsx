@@ -21,30 +21,21 @@ export default function Home() {
 
   const router = useRouter()
 
-  const login = (): void =>{
-    console.log("Apertou")
-    router.push('/auth/login')
-  }
-  
-  const enter = (): void =>{
-    console.log("Não criada")
-  }
-
   return (
-    <main className="all">
-        <div className="nav">
+    <main className="all-app">
+        <div className="nav-app">
         <Image
           src={logoImg}
           alt="Logo"
           className="img_logo"
           style={{ objectFit: "contain" }}
         />
-        <div className="button">
+        <div className="button-app">
         <Link  href={"/auth/login"}>
-        <AuthButton authentication={login} id="log">Login</AuthButton>
+        <AuthButton id="log">Login</AuthButton>
         </Link>
-        <Link href={"/auth/"}>
-        <AuthButton authentication={enter}>To enter</AuthButton>
+        <Link href={"/auth/codGroup"}>
+        <AuthButton>Enter</AuthButton>
         </Link>
         </div>
         </div>

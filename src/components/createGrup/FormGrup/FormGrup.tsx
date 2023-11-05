@@ -11,7 +11,7 @@ import "./FormGrup.css"
 import Image, { StaticImageData } from "next/image";
 import {ChangeEvent, useContext, useEffect, useState} from "react";
 import ClickImage from '@/components/clickImage/ClickImage';
-import { useUserContext} from '@/context/VirtualContext';
+import { group, useUserContext} from '@/context/VirtualContext';
 import { useRouter } from 'next/navigation';
 
 const FormGrup = () => {
@@ -28,6 +28,19 @@ const FormGrup = () => {
   const [cod, setCod] = useState("")
 
   const {handleNameChange, infor} = useUserContext()
+
+  const funPut = (idUser:string, value:group) =>{
+    async function getData(){
+      const response = await fetch("http://localhost:4000/"+idUser,{
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(value)
+    });
+ }
+    getData()
+  }
 
   const handleImageSelect = (File:File) =>{
     gerarAleatorio(8)
@@ -56,23 +69,26 @@ const FormGrup = () => {
       codigo: cod,
       wall:[],
     }
-      if(infor && infor !== undefined){
-        console.log("Apareceu")
-        console.log(infor)
-      }else{
-        console.log("Não apareceu")
-        console.log(infor)
-      }
 
-    if(infor !== undefined && infor !== null){
-      console.log("Entrou no infor")
+    const newGroupData = {
+      group: {
+        nameGroup: nameGrup,
+        imageGroup: imgGrupUrl,
+        codigo: cod,
+        wall:[],
+      }
+    }
+
+    if(infor !== undefined && infor !== null&&infor.id){
+      console.log("Aqui estás")
+      funPut(infor.id, newGroupData)
       infor.group.push(newGroup)
       handleNameChange(infor)
       router.push('/user/create-wall')
     }
     }
     
-  },[cod, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
+  },[cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
 
   return (
     <main className='all-form'>
@@ -93,7 +109,7 @@ const FormGrup = () => {
           })
           const data = await response.json()
           console.log("Valor:")
-          console.log(data.url)
+          // console.log(data.url)
           setImgGrupUrl(data.url)
        }}>
 

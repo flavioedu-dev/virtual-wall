@@ -1,20 +1,14 @@
+import { user, wall } from '@/context/VirtualContext';
 import { ChangeEvent, useEffect, useState } from 'react';
 
+
 export function useAuthentication() {
-  interface FormAdm {
-    name: string;
-    email: string;
-    password: string;
-    isAdmin?: boolean;
-    confirmPassword: string;
-    group: object;
-  }
 
-  const [useradm, setUserAdm] = useState<FormAdm | null>(null);
+  const [useradm, setUserAdm] = useState<user | null>(null);
 
-  const createUser = async (userAdm: FormAdm) => {
+  const createUser = async (userAdm: user) => {
     try {
-      const response = await fetch("http://localhost:3000/userAdm", {
+      const response = await fetch("http://localhost:4000", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

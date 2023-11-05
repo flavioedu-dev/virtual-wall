@@ -4,7 +4,7 @@
 import "./register-styles.css";
 
 // Hooks
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 
 // Components
@@ -16,6 +16,9 @@ import { AuthInput } from "@/components/Input/AuthInput";
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { ListFormat } from "typescript";
+import { useUserContext } from "@/context/VirtualContext";
+import { useAuthentication } from "@/hooks/useAuthentication";
+import { useRouter } from "next/navigation";
 
 // export const metadata = {
 //   title: "Register",
@@ -23,18 +26,20 @@ import { ListFormat } from "typescript";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [type, setType] = useState("");
 
+  const {infor, handleNameChange} = useUserContext()
+
+  const {useradm, createUser} = useAuthentication()
+
+  const router = useRouter()
+
   const handleChanges = {
     handleName: (e: ChangeEvent<HTMLInputElement>) => {
       setName(e.currentTarget.value);
-    },
-    handleUsername: (e: ChangeEvent<HTMLInputElement>) => {
-      setUsername(e.currentTarget.value);
     },
     handleEmail: (e: ChangeEvent<HTMLInputElement>) => {
       setEmail(e.currentTarget.value);
@@ -50,12 +55,36 @@ const RegisterPage = () => {
     },
   };
 
-  const options = ["Aluno", "Professor", "Servidor", "Admin"];
+  const options = infor?.group?.wall
+
 
   const register = (): void => {
-    console.log("Register");
-    console.log(type);
+    
+    if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '' || type === '') {
+      console.error('Por favor, preencha todos os campos.');
+      return;
+    }
+    const userAdm = {
+      name : name.trim(),
+      email: email.trim(),
+      password: password.trim(),
+      confirmPassword: confirmPassword.trim(),
+      isAdmmin: false,
+      nameWall: type.trim(),
+      codGroup: infor?.group?.codigo,
+      imgUser: "",
+    }
+    createUser(userAdm)
   };
+
+  useEffect(()=>{
+    console.log(useradm)
+    if(useradm){
+      handleNameChange(useradm)
+      router.push('/user/home-Group')
+      
+    }
+  },[handleNameChange, useradm, router])
 
   return (
     <div className="all">
@@ -64,6 +93,7 @@ const RegisterPage = () => {
           src={logoImg}
           alt="Logo"
           className="img_darken"
+          width={270}
           style={{ objectFit: "contain" }}
         />
       </div>
@@ -76,15 +106,6 @@ const RegisterPage = () => {
             placeholder="Nome completo"
             value={name}
             onchange={handleChanges.handleName}
-            required
-          />
-          <AuthInput
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Nome de usuário"
-            value={username}
-            onchange={handleChanges.handleUsername}
             required
           />
           <AuthInput
@@ -118,15 +139,16 @@ const RegisterPage = () => {
             name="Iam"
             id="select-Iam"
             onChange={handleChanges.handleSelect}
+            value={type}
             required
           >
             <option className="opt-disabled">Selecione uma categoria</option>
-            {options.map((option, index) => {
-              return <option key={index}>{option}</option>;
+            {options?.map((option, index)=>{
+              return <option key={index}>{option.nameWall}</option>
             })}
           </select>
         </div>
-        <AuthButton authentication={register} id="bnt-register">Cadastrar</AuthButton>
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || type.trim() === '' || type.trim() == "Selecione uma categoria")?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={register} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>
