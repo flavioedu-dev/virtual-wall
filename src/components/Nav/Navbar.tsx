@@ -56,7 +56,7 @@ const Nav = ({ImageGroup}:NavProps) => {
           onClick={openMenu}
         />
 
-      <Link href={'/user/home-Group'}>
+      <Link href={'/user/home-Wall'}>
         <Image src={boardLogoImg} alt="board-logo" />
       </Link>
 

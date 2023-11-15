@@ -68,7 +68,22 @@ const LoginPage = () => {
           
         }
       }else{
-        router.push('/user/home-Group')
+
+        console.log(test)
+        
+        if(test.nameWall?.length === 0){
+          console.log("Entrou aqui")
+          router.push('/auth/codGroup')
+        }else{
+          test.nameWall?.map((item)=>{
+            if(item.namewall == '' ){
+              router.push('/auth/authGroup')
+            }else{
+              router.push('/user/home-Group')
+            }
+          })
+        }
+
       }
 
     }else{
@@ -105,6 +120,7 @@ const LoginPage = () => {
           alt="Logo"
           className="img_darken"
           style={{ objectFit: "contain" }}
+          width={270}
         />
       </div>
       <p className={showError ? "Erro" : "hidden"}>Usuário não cadastrado</p>
@@ -132,7 +148,7 @@ const LoginPage = () => {
         </a>
         <AuthButton authentication={logIn} type="button" id="btn-login">Login </AuthButton>
         <p className="auth">
-          <Link href={"/auth/register"}>Cadastre-se</Link>
+          <Link href={"/"}>Cadastre-se</Link>
         </p>
       </AuthForm>
 

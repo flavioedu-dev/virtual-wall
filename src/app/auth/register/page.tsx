@@ -16,7 +16,7 @@ import { AuthInput } from "@/components/Input/AuthInput";
 import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { ListFormat } from "typescript";
-import { useUserContext } from "@/context/VirtualContext";
+import { namewall, useUserContext } from "@/context/VirtualContext";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [type, setType] = useState("");
+  
 
   const {infor, handleNameChange} = useUserContext()
 
@@ -49,39 +49,35 @@ const RegisterPage = () => {
     },
     handleConfirmPassword: (e: ChangeEvent<HTMLInputElement>) => {
       setConfirmPassword(e.currentTarget.value);
-    },
-    handleSelect: (e: ChangeEvent<HTMLSelectElement>) => {
-      setType(e.target.value);
-    },
+    }
+    
   };
-
-  const options = infor?.group?.wall
-
 
   const register = (): void => {
     
-    if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '' || type === '') {
+    if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '') {
       console.error('Por favor, preencha todos os campos.');
       return;
     }
+
+
     const userAdm = {
       name : name.trim(),
       email: email.trim(),
       password: password.trim(),
       confirmPassword: confirmPassword.trim(),
       isAdmmin: false,
-      nameWall: type.trim(),
-      codGroup: infor?.group?.codigo,
+      nameWall: [],
       imgUser: "",
     }
+    console.log(userAdm)
     createUser(userAdm)
   };
 
   useEffect(()=>{
-    console.log(useradm)
     if(useradm){
       handleNameChange(useradm)
-      router.push('/user/home-Group')
+      router.push('/auth/codGroup')
       
     }
   },[handleNameChange, useradm, router])
@@ -135,20 +131,9 @@ const RegisterPage = () => {
             onchange={handleChanges.handleConfirmPassword}
             required
           />
-          <select
-            name="Iam"
-            id="select-Iam"
-            onChange={handleChanges.handleSelect}
-            value={type}
-            required
-          >
-            <option className="opt-disabled">Selecione uma categoria</option>
-            {options?.map((option, index)=>{
-              return <option key={index}>{option.nameWall}</option>
-            })}
-          </select>
+          
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || type.trim() === '' || type.trim() == "Selecione uma categoria")?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={register} id="bnt-register" type="button">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={register} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

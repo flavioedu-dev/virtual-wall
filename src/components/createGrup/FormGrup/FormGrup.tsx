@@ -82,7 +82,7 @@ const FormGrup = () => {
     if(infor !== undefined && infor !== null&&infor.id){
       console.log("Aqui estás")
       funPut(infor.id, newGroupData)
-      infor.group.push(newGroup)
+      infor.group?.push(newGroup)
       handleNameChange(infor)
       router.push('/user/create-wall')
     }
@@ -94,23 +94,34 @@ const FormGrup = () => {
     <main className='all-form'>
        <form className='form-Group' onSubmit={async (e) => {
           e.preventDefault()
-
-          const formData = new FormData()
+          console.log(1)
+          const formData = new FormData();
           if (imgGrup) {
-            formData.append('image', imgGrup);
+            formData.append('file', imgGrup);
+            console.log(2)
           } else {
             console.error('imgGrup é nulo. Não é possível anexar ao FormData.');
             return;
           }
 
-          const response = await fetch('/api/upload',{
+          const response = await fetch('/api/upload', {
             method: 'POST',
             body: formData
-          })
-          const data = await response.json()
-          console.log("Valor:")
-          // console.log(data.url)
-          setImgGrupUrl(data.url)
+          });
+          
+          if (!response.ok) {
+            console.error('Erro durante a requisição:', response.statusText);
+            return;
+          }
+          
+          try {
+            const data = await response.json();
+            console.log('Valor:', data.url);
+            setImgGrupUrl(data.url);
+          } catch (error) {
+            console.error('Erro ao processar a resposta JSON:', error);
+          }
+          
        }}>
 
           <Image

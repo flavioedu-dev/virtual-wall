@@ -26,7 +26,7 @@ const CodGroup =  () =>{
     const {infor, handleNameChange} = useUserContext()
 
     const handleChange = () => {
-        const user = data.find((test) => test.group.codigo === cod);
+        const user = data.find((test) => test.group?.codigo === cod);
         if(user && user !== undefined){
             setGroupInfo(user)
         }else{
@@ -36,8 +36,17 @@ const CodGroup =  () =>{
 
     useEffect(()=>{
         if(groupInfo){
-           handleNameChange(groupInfo)
-           router.push('/auth/register')
+           
+            const namewall = {
+                namewall: "",
+                codGroup: groupInfo.group?.codigo!,
+            }
+
+           infor?.nameWall?.push(namewall)
+           if(infor){
+            handleNameChange(infor)
+            router.push('/auth/authGroup')
+           }
         }
     })
 

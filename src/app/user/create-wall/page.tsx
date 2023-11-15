@@ -46,18 +46,31 @@ const  CreateWall= () => {
 
   const {handleNameChange, infor} = useUserContext()
 
-  const funPut = (idUser:string, value:wall) =>{
-    async function getData(){
-      const response = await fetch("http://localhost:4000/"+idUser,{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(value)
-    });
- }
-    getData()
-  }
+  const addWall = async (idUser:string, nameWall:string, imgWallUrl:string) => {
+    try {
+      const response = await fetch('http://localhost:4000/wall', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idUser,
+          nameWall,
+          imgWallUrl,
+        }),
+      });
+  
+      if (response.ok) {
+        const newWall = await response.json();
+        console.log(newWall)
+      } else {
+        
+        console.error('Erro ao adicionar wall:', response.status);
+      }
+    } catch (error) {
+      console.error('Erro de rede:', error);
+    }
+  };
 
   const handleImageChange = (info:ListInforProps) =>{
   const walls = {
@@ -69,21 +82,24 @@ const  CreateWall= () => {
 
   if (infor && infor.id!==undefined) {
     if(Array.isArray(infor.group)){
+      console.log("Ficou")
       infor.group.forEach((groupItem: group) => {
         if (groupItem.wall) {
           groupItem.wall.push(walls);
         }
       
         if(infor.id!==undefined){
-          funPut(infor.id, walls)
+          
+          addWall(infor.id, info.nameWall, info.imgWallUrl)
         }
       });
     }else{
+      console.log("Passou")
       infor.group?.wall?.push(walls)
-      funPut(infor.id, walls)
+      handleNameChange(infor);
+      addWall(infor.id, info.nameWall, info.imgWallUrl)
     }
     
-    handleNameChange(infor);
     }
     setListInforGroupFull(prevList => [...prevList, info])
   }

@@ -1,10 +1,21 @@
 import { useCallback, useContext, useState } from "react";
 import { createContext } from "react";
 
+export interface posts {
+  data?: Date,
+  text?: string,
+  doc?: string[],
+  video?: string[],
+  idUserP: string,
+  idpost?: string,
+  image?:string[]
+  idwall:string
+}
+
 export interface wall {
   nameWall?: string;
   imgwall?: string;
-  postagens?: any[];
+  postagens?: posts[];
   user?: any[];
   idwall?:string
 }
@@ -17,6 +28,12 @@ export interface group {
   codigo?: string
 }
 
+export interface namewall{
+  namewall?: string;
+  codGroup?: string;
+}
+
+
 export interface user{
   name: string,
   email: string,
@@ -25,10 +42,9 @@ export interface user{
   isAdmmin: boolean,
   group?: group,
   id?: string,
-  nameWall?:string,
-  codGroup?: string,
+  nameWall?: namewall[],
   imgUser?: string,
-  rota?: string,
+  rota?: namewall,
 }
 
 interface VirtualContex {

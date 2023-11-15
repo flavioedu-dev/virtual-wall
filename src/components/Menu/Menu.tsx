@@ -4,15 +4,17 @@
 import styles from "./menu.module.css";
 
 // Images
-import profileLinkedin from "public/perfil.png";
 import profileImg from "public/perfil.png";
 import leafImg from "public/postagens.png";
 import outImg from "public/sair.png";
 import home from "public/botao-home.png"
+import group from "public/grupoA.png"
+
 // Hooks ans types
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useUserContext } from "@/context/VirtualContext";
 
 type MenuProps = {
   closeMenu: () => void;
@@ -22,11 +24,15 @@ type MenuProps = {
 const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const router = useRouter();
 
+  const {handleNameChange, infor} = useUserContext()
+  // const [namewall, setNameWall] = useState()
+
   const redirectToPath = (path: string) => {
     router.push(`${path}`)
   }
 
   useEffect(() => {
+
     function closingMenu(e: Event) {
       const menu = document.querySelector("aside");
       const menuImg = document.querySelector("nav")?.querySelector("img");
@@ -61,16 +67,23 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     },
     {
       id: 3,
-      img: leafImg,
-      alt: "leaf-icon",
-      title: "Postagens",
-      path: "/user/wall"
+      img: group,
+      alt: "group-icon",
+      title: "Groups",
+      path: "/user/home-Group"
     },
     {
       id: 4,
+      img: leafImg,
+      alt: "leaf-icon",
+      title: "Posts",
+      path: "/user/wall"
+    },
+    {
+      id: 5,
       img: outImg,
       alt: "out-icon",
-      title: "Sair",
+      title: "Exit",
       path: "/auth/login"
     }
   ];
@@ -79,9 +92,9 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     <aside className={styles.menu}>
       <div className={styles.inner_container}>
         <section className={styles.profile_container}>
-          <Image src={imgGroup||profileLinkedin.src} alt="profile-linkedin" className="profile-per" width={200} height={200} />
-          <h2>Flávio Eduardo</h2>
-          <p>@aluno</p>
+          <Image src={infor?.imgUser || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+          <h2>{infor?.name}</h2>
+          <p>@{infor?.name.toUpperCase()}</p>
         </section>
 
         <section className={styles.options}>

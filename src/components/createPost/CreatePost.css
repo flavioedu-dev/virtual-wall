@@ -1,0 +1,116 @@
+.all-PubliPost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.formpost{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.forPesq{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+
+.forPesq input{
+    border: none;
+    background-color: #f2f2f2;
+    height: 4rem;
+    text-align: center;
+    border-radius: 50px;
+    width: 50%;
+    transition: 1s;
+}
+
+.pesq:focus{
+    outline: none;
+    transition: 1s;
+    width: 70%;
+}
+
+.img-pesq{
+    position: absolute;
+    left: 55rem;
+}
+
+.forPost{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.post-cre{
+    border: none;
+    background-color: #f2f2f2;
+    height: 4rem;
+    border-top-right-radius:5px;
+    border-top-left-radius:5px;
+    width: 70%;
+    height: 10rem;
+    transition: 1s;
+    padding: 1rem;
+}
+
+.post-cre:focus{
+    outline: none;
+    transition: 1s;
+}
+
+.funcPost{
+    display: flex;
+    width: 70%;
+    height: 3rem;
+    background-color: #f2f2f2;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-right-radius:5px;
+    border-bottom-left-radius:5px;
+    margin-bottom: 2rem;
+}
+
+#came_arq{
+    width: 2.3rem;
+    object-fit: contain
+}
+
+.butt-post{
+    border: none;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.butt-post:hover{
+    text-decoration: underline;
+}
+
+.exe-Post{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.changePost{
+    width: 6rem;
+    height: auto;
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    cursor: pointer;
+}

@@ -11,28 +11,6 @@ form input:nth-child(1) {
   text-align: center;
 }
 
-#select-Iam {
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.482);
-  /* padding: 1em; */
-  margin-top: 1em;
-  margin-bottom: 1.5em;
-  background-color: transparent;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  padding-left: 1rem;
-  outline: none;
-}
-
-#select-Iam option:not(:disabled) {
-  color: rgba(0, 0, 0, 0.757);
-  background-color: #f2f2f2;
-}
-
-
 .res_register {
   position: absolute;
   width: 100%;

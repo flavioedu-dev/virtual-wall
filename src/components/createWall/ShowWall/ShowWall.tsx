@@ -6,14 +6,19 @@ import "./ShowWall.css"
 interface ShowWallProps{
     name: string;
     img: string | StaticImageData;
-    funct?: (nameWall:string) => void
+    funct?: (nameWall:string) => void;
+    functCod?: (codGroup:string) => void;
+    codGroup?: string
+
 }
 
-const ShowWall = ({name, img, funct}: ShowWallProps) => {
+const ShowWall = ({name, img, funct, codGroup, functCod }: ShowWallProps) => {
 
   const handleWall = () =>{
    if(funct){
     funct(name)
+   }if(functCod){
+    functCod(codGroup!)
    }
   }
 
