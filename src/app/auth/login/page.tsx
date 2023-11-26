@@ -19,23 +19,34 @@ import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useLogin } from "@/hooks/useLogin";
 import { useEnter } from "@/hooks/useEnter";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/context/VirtualContext";
+import { useUserContext, user } from "@/context/VirtualContext";
+import { useMuralGroup } from "@/hooks/useMuralGroup";
+import { useInforGroups } from "@/hooks/useInforGroups";
+import { getData } from "@/functions/check-Mural/CheckMural";
 
 interface use{
   email: string;
   password: string;
 }
 
+interface useTo {
+  message: string,
+  user: any
+}
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
-
   const {authenticationE} = useEnter()
-
+  const [test, setTest] = useState<user>()
   const router = useRouter()
+
   const {handleNameChange, infor} = useUserContext()
 
+  
+  const [control, setControl] = useState(0)
+  const [controlOne, setControlOne] = useState(0)
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
   };
@@ -44,73 +55,67 @@ const LoginPage = () => {
     setPassword(e.currentTarget.value);
   };
 
+  const groups = useInforGroups()
+
+  useEffect(()=>{
+
+    if(controlOne === 0){
+      var valorRecuperado = localStorage.getItem("userData");
+      if (valorRecuperado) {
+        const userData = JSON.parse(valorRecuperado);
+        console.log(userData)
+        setTest(userData.data)
+        setControlOne(1)
+    }
+    }
+
+    if(control === 0){
+      if(test && test !== undefined){
+        if (test && groups.data.length > 0) { 
+          if (test.isAdmin) {
+            setControl(1);
+            
+            const vali = groups.data.find((value) => value.userId == test.id);
+            
+            if (vali !== undefined && vali) {
+              const mural = getData(vali.id!);
+              mural.then((resultado) => {
+                if(resultado.length !== 0){
+                    router.push('/user/home-Group')
+                }else{
+                    router.push('/user/create-wall')
+                }
+              }).catch((erro) => {
+                console.error("Erro ao resolver a Promise:", erro);
+              });
+            }else{
+              handleNameChange(test)
+              router.push('/user/create-Grup')
+            }
+      }else{
+        router.push('/user/home-Group')
+      }
+        
+  
+      }
+    }else{
+      
+    }
+  }
+
+  },[test, setTest, groups.data, groups, handleNameChange, controlOne, control, router])
+
 
   const logIn = (): void => {
-    const Use = {
-      email,
-      password
-    }
-    const test = authenticationE(Use)
-
-    if(test !== null ){
-      handleNameChange(test)
-      if(test.isAdmmin == true){
-        if(test.group?.length === 0){
-          router.push('/user/create-Grup')
-        }else{
-          if(test.group?.wall){
-            if(test.group?.wall.length === 0){
-              router.push('/user/create-wall')
-            }else{
-              router.push('/user/home-Group')
-            }
-          }
-          
-        }
-      }else{
-
-        console.log(test)
-        
-        if(test.nameWall?.length === 0){
-          console.log("Entrou aqui")
-          router.push('/auth/codGroup')
-        }else{
-          test.nameWall?.map((item)=>{
-            if(item.namewall == '' ){
-              router.push('/auth/authGroup')
-            }else{
-              router.push('/user/home-Group')
-            }
-          })
-        }
-
+    
+    const res = authenticationE(email, password)
+    res.then((resultado:any) => {
+      if(resultado === false){
+        setShowError(true)
       }
-
-    }else{
-      console.log("Erro")
-      setShowError(true); 
-    }
+    })
+    
   };
-
-  // useEffect(()=>{
-
-  //   if(infor){
-  //     const registerUse = {
-  //       email: infor.email,
-  //       password: infor.password
-  //     }
-
-  //     const test = authenticationE(registerUse)
-
-  //     if(test !== null){
-  //       handleInforChange(test)
-  //       router.push('/user/create-Grup')
-  //     }else{
-  //       console.log("Erro")
-  //       setShowError(true); 
-  //     }
-  //   }
-  // },[authenticationE, handleInforChange, infor, router])
 
   return (
     <main className="all">

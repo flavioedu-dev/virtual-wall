@@ -12,20 +12,32 @@ export interface posts {
   idwall:string
 }
 
+export interface member{
+  id: string,
+  category: string,
+  created_at: string,
+  userId: string,
+  groupId: string
+}
+
 export interface wall {
-  nameWall?: string;
-  imgwall?: string;
+  name?: string;
+  imgMural?: string;
+  category?: string;
   postagens?: posts[];
-  user?: any[];
-  idwall?:string
+  id?:string
+  groupId: string
 }
 
 export interface group {
   [x: string]: any;
-  nameGroup?: string,
-  imageGroup?: string,
+  name?: string,
+  imgGroup?: string,
   wall?:wall[],
-  codigo?: string
+  groupCode?: number,
+  id?: string,
+  created_at?: string,
+  userId: string
 }
 
 export interface namewall{
@@ -33,18 +45,18 @@ export interface namewall{
   codGroup?: string;
 }
 
-
 export interface user{
   name: string,
+  username?: string,
   email: string,
   password: string,
   confirmPassword?: string,
-  isAdmmin: boolean,
+  isAdmin: boolean,
   group?: group,
   id?: string,
   nameWall?: namewall[],
-  imgUser?: string,
   rota?: namewall,
+  profile_image?: string,
 }
 
 interface VirtualContex {

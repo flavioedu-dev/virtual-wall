@@ -11,8 +11,9 @@ import "./FormGrup.css"
 import Image, { StaticImageData } from "next/image";
 import {ChangeEvent, useContext, useEffect, useState} from "react";
 import ClickImage from '@/components/clickImage/ClickImage';
-import { group, useUserContext} from '@/context/VirtualContext';
+import { group, useUserContext, user} from '@/context/VirtualContext';
 import { useRouter } from 'next/navigation';
+import { useEnter } from '@/hooks/useEnter';
 
 const FormGrup = () => {
   
@@ -22,17 +23,20 @@ const FormGrup = () => {
   const [imgGrup, setImgGrup] = useState<File|null>(null)
   const [imgGrupUrlprov, setImgGrupUrlprov] = useState<StaticImageData|string>(perfil)
   const [imgGrupUrl, setImgGrupUrl] = useState("")
-
+  const [use, setUse] = useState<user>()
+  const [pass, setPass] = useState(0)
   const [nameGrup, setNameGrup] = useState("")
 
   const [cod, setCod] = useState("")
 
   const {handleNameChange, infor} = useUserContext()
 
-  const funPut = (idUser:string, value:group) =>{
+  const {authenticationE} = useEnter()
+
+  const funPut = (value:group) =>{
     async function getData(){
-      const response = await fetch("http://localhost:4000/"+idUser,{
-      method: "PUT",
+      const response = await fetch("http://localhost:8000/groups",{
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -43,7 +47,7 @@ const FormGrup = () => {
   }
 
   const handleImageSelect = (File:File) =>{
-    gerarAleatorio(8)
+    // gerarAleatorio(8)
     if(File){
       setImgGrup(File)
       console.log(File)
@@ -51,54 +55,70 @@ const FormGrup = () => {
     }
   }
 
-  function gerarAleatorio(tamanho:number) {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let resultado = '';
-    for (let i = 0; i < tamanho; i++) {
-      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
-      resultado += caracteres.charAt(indiceAleatorio);
-    }
-    setCod(resultado)
-  }
+  // function gerarAleatorio(tamanho:number) {
+  //   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   let resultado = '';
+  //   for (let i = 0; i < tamanho; i++) {
+  //     const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+  //     resultado += caracteres.charAt(indiceAleatorio);
+  //   }
+  //   setCod(resultado)
+  // }
 
   useEffect(()=>{
+    
+    
+
     if(imgGrupUrl){
     const newGroup = {
-      nameGroup: nameGrup,
-      imageGroup: imgGrupUrl,
-      codigo: cod,
-      wall:[],
+      name: nameGrup,
+      imgGroup: imgGrupUrl,
+      userId: use?.id!
     }
 
     const newGroupData = {
       group: {
-        nameGroup: nameGrup,
-        imageGroup: imgGrupUrl,
-        codigo: cod,
+        name: nameGrup,
+        imgGroup: imgGrupUrl,
+        groupCode: cod,
         wall:[],
       }
     }
 
-    if(infor !== undefined && infor !== null&&infor.id){
-      console.log("Aqui estás")
-      funPut(infor.id, newGroupData)
-      infor.group?.push(newGroup)
-      handleNameChange(infor)
-      router.push('/user/create-wall')
+    if(pass === 0){
+
+      if(infor){
+        const value = authenticationE(infor.email, infor.password)
+        value.then((resultado:any) => {
+          setUse(resultado)
+        })
+        .catch((erro: any) => {
+          console.error("Erro ao resolver a Promise:", erro);
+        });
+      }
+
+      if(use !== undefined && use !== null && use.id){
+        console.log("Aqui estás")
+        funPut(newGroup)
+        use.group?.push(newGroupData)
+        handleNameChange(use)
+        router.push('/user/create-wall')
+        router.push('/user/create-wall')
+      }else{
+        router.push('/user/create-wall')
+      }
     }
     }
     
-  },[cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
+  },[authenticationE,use, cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
 
   return (
     <main className='all-form'>
        <form className='form-Group' onSubmit={async (e) => {
           e.preventDefault()
-          console.log(1)
           const formData = new FormData();
           if (imgGrup) {
             formData.append('file', imgGrup);
-            console.log(2)
           } else {
             console.error('imgGrup é nulo. Não é possível anexar ao FormData.');
             return;
@@ -125,7 +145,7 @@ const FormGrup = () => {
        }}>
 
           <Image
-              src={imgGrupUrlprov}
+              src={imgGrupUrlprov || perfil}
               alt="example"
               className="img_example"
               width={400}

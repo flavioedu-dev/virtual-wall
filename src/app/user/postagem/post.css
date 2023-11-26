@@ -1,94 +1,52 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-.posts-container{  
-    margin-top: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+body, html{
+    height: 100%;
 }
 
-span{
-    font-size: 1.3rem;
-}
-
-
-.posts-container div p{
-    text-align: justify;
-    font-size: 1.4rem;
-}
-
-.post{
-    padding: 1rem 2.5rem;
-    padding-left: 5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.post div:nth-child(1){
+.mainPost{
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
-.edit{
-    max-width: 1.5rem;
-    max-height: 1.5rem;
-    position: absolute;
-    left: 96%;
+.Post-section{
+    width: 60rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.post .imgP{
-    position: absolute;
-    left: 35px;
-    max-width: 2.5rem;
-    max-height: 2.5rem;
-    margin-right: .5rem;
-}
-
-.post > div > div span:nth-child(2){
-    font-weight: bold;
-}
-
-.date-post{
-    color: rgb(0, 0, 0, 0.5);
-    font-size: 14px;
-}
-
-.text-post {
-    cursor: pointer;
-}
-.post {
+.forPesq-Post{
     position: relative;
-  }
-  
-  .posts-container {
-    margin-top: 0;
-  }
-  
-  .text-post {
-    margin-bottom: 1rem;
-  }
-  
-  .post > div > div span:nth-child(2) {
-    font-weight: 600;
-  } 
- @media (min-width: 700px) {
-    .post-div .imgP{
-      left: -4rem;
-      margin-left: 50px;
-    }
-    main{
-        width: 35%;
-        z-index: 3;
-        position: relative;
-        left: 33%;
-        height: 100%;
-        border-right: 1px solid rgba(0, 0, 0, 0.116);
-        border-left: 1px solid rgba(0, 0, 0, 0.116);
-    }
- }
- @media (max-width: 699px){
-    .post-div .imgP{
-        left: 1rem;
-    }
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+
+.forPesq-Post input{
+    border: none;
+    background-color: #f2f2f2;
+    height: 4rem;
+    text-align: center;
+    border-radius: 50px;
+    width: 50%;
+    transition: 1s;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.pesq-Post:focus{
+    outline: none;
+    transition: 1s;
+    width: 70%;
+}
+
+.img-pesq-post{
+    position: absolute;
+    left: 17rem;
+    top: 6rem;
+}

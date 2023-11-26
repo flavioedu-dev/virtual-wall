@@ -14,7 +14,9 @@ import group from "public/grupoA.png"
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useUserContext } from "@/context/VirtualContext";
+import { useUserContext, user } from "@/context/VirtualContext";
+import { Checktoken } from "@/functions/check-token/Checktoken";
+import { useLogin } from "@/hooks/useLogin";
 
 type MenuProps = {
   closeMenu: () => void;
@@ -23,8 +25,9 @@ type MenuProps = {
 
 const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const router = useRouter();
-
-  const {handleNameChange, infor} = useUserContext()
+  const [infor, setInfor] = useState<user>()
+  const {data} = useLogin()
+  // const {handleNameChange, infor} = useUserContext()
   // const [namewall, setNameWall] = useState()
 
   const redirectToPath = (path: string) => {
@@ -32,6 +35,25 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   }
 
   useEffect(() => {
+
+    console.log(data)
+    const tokenCoo = document.cookie
+    var cookiesArray = tokenCoo.split(';');
+    for (var i = 0; i < cookiesArray.length; i++) {
+    var cookie = cookiesArray[i].trim();
+    if (cookie.indexOf("token" + "=") === 0) {
+        let userCoo = cookie.substring("token".length + 1, cookie.length)
+        const userTo = Checktoken(userCoo)
+        userTo.then((resultado) => {
+        const userFound = data.find((value)=>value.id == resultado.user.userId)
+        setInfor(userFound)
+  }).catch((erro: any) => {
+    
+  });
+    }
+}
+
+  // console.log(infor)
 
     function closingMenu(e: Event) {
       const menu = document.querySelector("aside");
@@ -48,7 +70,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     return () => {
       document.removeEventListener("click", closingMenu);
     };
-  }, []);
+  }, [infor, setInfor, data]);
 
   const options = [
     {
@@ -77,7 +99,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
       img: leafImg,
       alt: "leaf-icon",
       title: "Posts",
-      path: "/user/wall"
+      path: "/user/postagem"
     },
     {
       id: 5,
@@ -92,14 +114,14 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     <aside className={styles.menu}>
       <div className={styles.inner_container}>
         <section className={styles.profile_container}>
-          <Image src={infor?.imgUser || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+          <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
           <h2>{infor?.name}</h2>
           <p>@{infor?.name.toUpperCase()}</p>
         </section>
 
         <section className={styles.options}>
           {options.map((opt) => (
-            <div key={opt.id} onClick={() => redirectToPath(opt.path)}>
+            <div key={opt.id} onClick={() => {redirectToPath(opt.path); if(opt.id == 5){localStorage.clear()}}}>
               <Image src={opt.img} alt={opt.alt}/>
               <h1>{opt.title}</h1>
             </div>

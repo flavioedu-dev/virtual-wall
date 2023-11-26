@@ -13,15 +13,21 @@
     flex-direction: column;
     cursor: pointer;
     width: 80%;
+    position: relative;
 }
 
 .postshow:hover{
-    background-color: rgb(250, 250, 250);
+    background-color: rgb(253, 253, 253);
+}
+
+.img_home{
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
 }
 
 .elem-edit-show{
     display: flex;
-    align-items: center;
     margin-bottom: 1rem;
 }
 
@@ -74,4 +80,22 @@
    width: 200px;
    height: 200px;
    margin-bottom: 1rem;
+}
+
+.exclu{
+    background-color: #f2f2f2;
+    border-radius: 20rem;
+    width: 6rem;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    left: 48rem;
+}
+
+.exclu p{
+    font-size: 1.4rem;
+}
+
+.exclu p:hover{
+    text-decoration: underline;
 }

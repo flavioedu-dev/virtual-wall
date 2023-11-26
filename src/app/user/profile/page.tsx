@@ -16,46 +16,61 @@ import perfil from 'public/perfil.png'
 import Navbar from "@/components/Nav/Navbar";
 import { posts, useUserContext, user } from "@/context/VirtualContext";
 import { useLogin } from "@/hooks/useLogin";
+import { Checktoken } from "@/functions/check-token/Checktoken";
 
 const  Profile = () => {
 
-    const {handleNameChange, infor} = useUserContext()
+    // const {handleNameChange, infor} = useUserContext()
     const [cont, setCont] = useState(0)
     const [postAnalise, setPostAnalise ] = useState<posts[]>([])
-
+    const [infor, setInfor] = useState<user>()
     const {data} = useLogin()
 
     useEffect(()=>{
+        const tokenCoo = document.cookie
+        var cookiesArray = tokenCoo.split(';');
+        for (var i = 0; i < cookiesArray.length; i++) {
+        var cookie = cookiesArray[i].trim();
+        if (cookie.indexOf("token" + "=") === 0) {
+            let userCoo = cookie.substring("token".length + 1, cookie.length)
+            const userTo = Checktoken(userCoo)
+            userTo.then((resultado) => {
+            const userFound = data.find((value)=>value.id == resultado.user.userId)
+            setInfor(userFound)
+      }).catch((erro: any) => {
         
-    },[])
+      });
+        }
+    }
+    },[data])
 
     return (
-        <main>
+        <main className="all-perf">
             <Navbar ImageGroup={infor?.imgUser || infor?.group?.imageGroup || ''}></Navbar>
-            <div className="All">
-            <div className="main">
+            <div className="mainPerf">
                 <section className="person">
                     <div>
-                        <Image src={infor?.imgUser! || infor?.group?.imageGroup! || perfil} alt="imagem de perfil" className="img-profile"></Image>
-                        <Image src={mudarPerfil} alt="perfil" className="change-profile"></Image>
+                        <Image src={infor?.imgUser! || infor?.group?.imageGroup! || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                        <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
                     </div>
 
                     <div>
-                        <h1 className="user-name">{infor?.name}</h1>
+                        {(infor?.isAdmmin == true)?(
+                            <h1 className="user-name">{infor?.group?.nameGroup}</h1>
+                        ):(
+                            <h1 className="user-name">{infor?.name}</h1>
+                        )}
                     </div>
                 </section>
                 <section className="person-data">
                     <p>Nome:
-                        <span className="data-item">{infor?.name}</span>
+                        <span className="data-item">{infor?.name|| infor?.group?.nameGroup}</span>
                     </p>
                     <p>Email:
                         <span className="data-item">{infor?.email}</span>
                     </p>
-                    <p>Postagens:
-                        <span className="data-item"> {cont}</span>
-                    </p>
+                    
                 </section>
-            </div>
             </div>
         </main>
     )

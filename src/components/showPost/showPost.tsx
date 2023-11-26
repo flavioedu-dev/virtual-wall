@@ -1,9 +1,11 @@
 "use client"
 import Image, { StaticImageData } from "next/image";
 import perfil from "public/perfil.png"
+import pointe from "public/cardapio.png"
 import "./showPost.css"
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
+import { useState } from "react";
 
 interface ShowPostProps{
     name: string;
@@ -17,6 +19,13 @@ interface ShowPostProps{
 
 const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) => {
     
+    const [exclu, setExclu] = useState(false)
+
+    const handleExclu = () =>{
+        setExclu(!exclu)
+    }
+
+
     const handleWall = () =>{
         if(funct){
          funct(name)
@@ -37,6 +46,19 @@ const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) 
     return(
         <main className='allshowPost'>
             <div className='postshow' onClick={handleWall}>
+                    {(exclu)?(
+                        <div className="exclu">
+                        <p>Excluir</p>
+                        </div>
+                    ):null}
+                    <Image
+                        src={pointe}
+                        alt="example"
+                        className="img_home"
+                        width={20}
+                        height={20}
+                        onClick={handleExclu}
+                    />
                 <div className="elem-edit-show">
                     <Image
                         src={img || perfil}
@@ -47,11 +69,14 @@ const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) 
                     />
                     <div className='infor-text-p'>
                         <h2>{name}</h2>
-                        <p>{"@" + name.toLowerCase()}</p>
+                        <p>{"@" + name?.toLowerCase()}</p>
                         <br />
                         <p className="textshow">{text}</p>
                     </div>
+                    
                 </div>
+
+                
 
                 {(imgPost?.length !== 0)?(
 

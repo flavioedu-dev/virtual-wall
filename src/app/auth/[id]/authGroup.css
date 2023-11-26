@@ -12,7 +12,7 @@
     height: 13rem;
     border-radius: 50%;
     margin-top: 3rem;
-    object-fit: contain;
+    object-fit: cover;
     background: rgba(92, 208, 97, 0.9);
 }
 
@@ -42,6 +42,13 @@
     text-align: center;
     margin-top: 2rem;
     color: rgba(0, 0, 0, 0.877);
+}
+
+.text-Err{
+  margin-top: 1rem;
+  color: red;
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 .form-authGroup{

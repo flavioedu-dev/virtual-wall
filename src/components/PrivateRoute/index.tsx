@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/constantes/app-router";
-import { VirtualProvider } from "@/context/VirtualContext";
+// import { VirtualProvider } from "@/context/VirtualContext";
 import { checkCustomRoutes } from "next/dist/lib/load-custom-routes";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";

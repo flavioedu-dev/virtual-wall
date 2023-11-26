@@ -7,7 +7,8 @@ import buttonPost from "public/1682023337196.png";
 import arq from "public/anexo.png";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Posts from "../Posts/Posts";
-import { user } from "@/context/VirtualContext";
+import { namewall, user } from "@/context/VirtualContext";
+import { useRouter } from "next/navigation";
 
 
 interface ShowPostProps{
@@ -17,9 +18,10 @@ interface ShowPostProps{
     idUserGroup: string;
     idUser: user;
     codGroup: string;
+    nameWall: string
 }
 
-const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostProps) =>{
+const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}:ShowPostProps) =>{
 
     const [arqfileImg, setArqFileImg] = useState<File[]>([])
     const [arqfileDoc, setArqFileDoc] = useState<File[]>([])
@@ -35,17 +37,72 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostP
     //User verification
     const [postPubli, setPostPubli] = useState(false)
 
+    //rotas
+    const router = useRouter()
+
     useEffect(()=>{
+        
         if(idUser){
+            
             idUser.nameWall?.map((item)=>{
+                
                 if(item.codGroup == codGroup){
-                    if(idUser.rota == item.namewall || idUser.isAdmmin == true){
+                    
+                    if(nameWall == item.namewall || idUser.isAdmin == true){
+                        
                         setPostPubli(true)
                     }
                 }
             })
         }
-    })
+
+
+        //Teste
+        if(arqfileDoc || arqfileImg || arqfileVid){
+            console.log("Entrou em todos")
+            if(arqfileDoc.length !== 0 && arqfileImg.length !== 0){
+                console.log(1)
+                if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length){
+                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                }
+            }else if(arqfileDoc.length !== 0 && arqfileVid.length !== 0){
+                console.log(2)
+                if(arqfileDocList.length == arqfileDoc.length && arqfileVidList.length == arqfileVid.length){
+                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                }
+
+            }else if(arqfileImg.length !== 0 && arqfileVid.length !== 0){
+                console.log(3)
+                if(arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
+                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    
+                }
+            }else if(arqfileImg.length !== 0 && arqfileVid.length !== 0 && arqfileVid.length !== 0){
+                console.log(4)
+                if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
+                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                }
+            }else{
+                console.log("Passou no só")
+                if(arqfileDoc.length !== 0){
+                    if(arqfileDocList.length == arqfileDoc.length){
+                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                }
+                }else if(arqfileImg.length !== 0){
+                    if(arqfileImgList.length == arqfileImg.length){
+                        addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                        }
+                }else if(arqfileVid.length !==0){
+                    if(arqfileVidList.length == arqfileVid.length){
+                        addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                        }
+                }
+            }
+        }
+        
+
+        
+    },[codGroup, idUser, nameWall, arqfileDocList, arqfileImgList, arqfileVidList])
 
     //Pesq
     const [valuePesq, setValuePesq] = useState(true)
@@ -89,6 +146,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostP
         setArqFileVidList([])
         setArqFileImgList([])
         setArqFileDocList([])
+        router.refresh()
       };
 
     const handleChanges = {
@@ -132,38 +190,12 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostP
     const add = () =>{
         //Criar postagens
         if(arqfileDoc || arqfileImg || arqfileVid){
-            if(arqfileDoc && arqfileImg){
-                if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }
-            }else if(arqfileDoc && arqfileVid){
-                if(arqfileDocList.length == arqfileDoc.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }
-
-            }else if(arqfileImg && arqfileVid){
-                if(arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                    
-                }
-            }else if(arqfileImg && arqfileDoc && arqfileVid){
-                if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }
-            }else{
-                if(arqfileDocList.length == arqfileDoc.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }else if(arqfileImgList.length == arqfileImg.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }else if(arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
-                }
-            }
+            console.log("Aguarde")
+            
         }else{
+            console.log("Saiu")
             addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
         }
-
-        
     }
 
     const handlePesq = () =>{
@@ -268,6 +300,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostP
                 }
                 })
         }
+        console.log("Antes de add")
 
         add()
 
@@ -323,7 +356,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup}:ShowPostP
             
             </form>
 
-            {(postPubli)?(
+            {(postPubli === true || idUser?.isAdmin == true)?(
 
                 <div className="clickPost">
                 <Image
