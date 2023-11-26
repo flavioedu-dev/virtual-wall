@@ -22,9 +22,11 @@ import { useRouter } from "next/navigation";
 const RegisterAdm = () => {
 
     const [name, setName] = useState("");
+    const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [pass, setPass] = useState(0)
 
     const handleChange = {
       handleName: (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,9 @@ const RegisterAdm = () => {
       handleConfirmPassword: (e: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(e.currentTarget.value);
       },
+      handleUserName: (e: ChangeEvent<HTMLInputElement>) => {
+        setUserName(e.currentTarget.value);
+      },
     };
 
     const router = useRouter()
@@ -48,28 +53,43 @@ const RegisterAdm = () => {
 
     const handleSubmit = (e:FormEvent)=> {
       e.preventDefault()
-      if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '') {
+      if (name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword === '' || userName === '') {
         console.error('Por favor, preencha todos os campos.');
         return;
       }
-      const userAdm = {
+
+      const userAdmData = {
         name : name.trim(),
+        username: userName.trim(),
         email: email.trim(),
         password: password.trim(),
         confirmPassword: confirmPassword.trim(),
-        isAdmmin: true,
-        group:[],
+        isAdmin: true,
       }
-      createUser(userAdm)
+      
+      createUser(userAdmData)
     };
 
     useEffect(()=>{
-      console.log(useradm)
+     if(pass === 0){
       if(useradm){
-        handleNameChange(useradm)
+        const userAdmData = {
+          name : name.trim(),
+          username: userName.trim(),
+          email: email.trim(),
+          password: password.trim(),
+          confirmPassword: confirmPassword.trim(),
+          isAdmin: true,
+        }
+        handleNameChange(userAdmData)
+        setPass(1)
+        router.push('/user/create-Grup')
         router.push('/user/create-Grup')
       }
-    },[handleNameChange, useradm])
+     }else{
+      router.push('/user/create-Grup')
+     }
+    },[confirmPassword, email, handleNameChange, name, pass, password, router, userName, useradm, setPass])
 
   return (
     <main className="all">
@@ -90,6 +110,15 @@ const RegisterAdm = () => {
             placeholder="Nome completo"
             value={name}
             onchange={handleChange.handleName}
+            required
+          />
+          <AuthInput
+            type="text"
+            name="userName"
+            id="fullname"
+            placeholder="Nome para uso"
+            value={userName}
+            onchange={handleChange.handleUserName}
             required
           />
           <AuthInput
@@ -121,7 +150,7 @@ const RegisterAdm = () => {
             required
           />
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || userName.trim() === '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

@@ -34,7 +34,7 @@ export default function Home() {
         <Link  href={"/auth/login"}>
         <AuthButton id="log">Login</AuthButton>
         </Link>
-        <Link href={"/auth/codGroup"}>
+        <Link href={"/auth/register"}>
         <AuthButton>Enter</AuthButton>
         </Link>
         </div>

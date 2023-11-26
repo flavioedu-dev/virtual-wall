@@ -1,13 +1,13 @@
-import { user } from "@/context/VirtualContext";
+import { member} from "@/context/VirtualContext";
 import { useEffect, useState } from "react"
 
-export const useLogin = () =>{
+export const useInforMembers = () =>{
 
-    const [data, setData] = useState<user[]>([])
+    const [data, setData] = useState<member[]>([])
 
     useEffect(()=>{
       async function getData(){
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/users", {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/members", {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -21,4 +21,3 @@ export const useLogin = () =>{
 
   return{data}
   }
-

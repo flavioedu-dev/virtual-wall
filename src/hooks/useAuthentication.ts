@@ -4,11 +4,11 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 export function useAuthentication() {
 
-  const [useradm, setUserAdm] = useState<user | null>(null);
+  const [useradm, setUserAdm] = useState<string>("");
 
   const createUser = async (userAdm: user) => {
     try {
-      const response = await fetch("http://localhost:4000", {
+      const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

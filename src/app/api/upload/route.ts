@@ -1,45 +1,70 @@
-import { writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
-import {UploadApiResponse, v2 as cloudinary} from 'cloudinary';
-import path, { resolve } from "path";
-import { rejects } from "assert";
-          
-cloudinary.config({ 
-  cloud_name: 'dfmdiobwa', 
-  api_key: '565637417433824', 
-  api_secret: 'R4eo0yVZ9xwPWY8ocV69Bph00Q0' 
+import { v2 as cloudinary, UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
+import { Buffer } from "buffer";
+import { Readable } from "stream";
+
+cloudinary.config({
+  cloud_name: 'dfmdiobwa',
+  api_key: '565637417433824',
+  api_secret: 'R4eo0yVZ9xwPWY8ocV69Bph00Q0'
 });
 
 export async function POST(request: any) {
-  interface CloudinaryUploadResponse {
-    secure_url: string;
-  }
-  const data = await request.formData();
-  const image = data.get("image");
+  try {
+    console.log("Iniciando processamento da requisição...");
 
-  if (!image) {
-    return NextResponse.json({ error: "Não se subiu nenhuma imagem" }, { status: 400 });
-  }
+    interface CloudinaryUploadResponse {
+      secure_url: string;
+    }
 
-  const bytes = await image.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+    const data = await request.formData();
+    const file = data.get("file");
 
-  const response:CloudinaryUploadResponse|UploadApiResponse | undefined = await new Promise((resolve, rejects) => {
-    cloudinary.uploader.upload_stream({},(err, result) => {
-      if(err){
-        rejects(err)
-      }
-      resolve(result)
-    }).end(buffer)
+    if (!file) {
+      console.error("Nenhum arquivo foi enviado");
+      return NextResponse.json({ error: "Nenhum arquivo foi enviado" }, { status: 400 });
+    }
 
-  })
+    const buffer = Buffer.from(await file.arrayBuffer());
 
-  if (response) {
-    return NextResponse.json({ 
-      message: "Imagem subida com sucesso",
-      url: response.secure_url
+    const uploadPromise = new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { resource_type: 'auto' },
+        (err: UploadApiErrorResponse | undefined, result: UploadApiResponse | undefined) => {
+          if (err) {
+            console.error("Erro durante upload:", err);
+            reject({ error: "Erro ao fazer upload do arquivo" });
+          }
+
+          if (result) {
+            const cloudinaryResult = result as CloudinaryUploadResponse;
+            console.log("Upload bem-sucedido. URL:", cloudinaryResult.secure_url);
+            resolve({
+              message: "Arquivo subido com sucesso",
+              url: cloudinaryResult.secure_url
+            });
+          } else {
+            console.error("Resultado inesperado durante upload");
+            reject({ error: "Erro ao fazer upload do arquivo" });
+          }
+        }
+      );
+
+      const readableStream = new Readable();
+      readableStream.push(buffer);
+      readableStream.push(null);
+
+      readableStream.pipe(stream);
     });
-  } else {
-    return NextResponse.json({ error: "Erro ao fazer upload da imagem" }, { status: 500 });
+
+    // Aguardar a conclusão do upload antes de retornar a resposta
+    const uploadResult = await uploadPromise;
+
+    console.log("Requisição processada com sucesso.");
+    return NextResponse.json(uploadResult);
+  } catch (error) {
+    console.error("Erro no processamento da requisição:", error);
+    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }
+

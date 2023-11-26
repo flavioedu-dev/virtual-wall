@@ -41,21 +41,33 @@ const FormWall:React.FC<FormGrupProps> = ({Inforimage, PassWall}) => {
 
       const handleSelect = async () =>{
 
-        const formData = new FormData()
-        if (imgWall) {
-          formData.append('image', imgWall);
-        } else {
-          console.error('imgGrup é nulo. Não é possível anexar ao FormData.');
-          return;
-        }
+          console.log(1)
+          const formData = new FormData();
+          if (imgWall) {
+            formData.append('file', imgWall);
+            console.log(2)
+          } else {
+            console.error('imgGrup é nulo. Não é possível anexar ao FormData.');
+            return;
+          }
 
-        const response = await fetch('/api/upload',{
-          method: 'POST',
-          body: formData
-        })
-        const data = await response.json()
-        console.log(data)
-        setImgWallUrl(data.url)
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            console.error('Erro durante a requisição:', response.statusText);
+            return;
+          }
+          
+          try {
+            const data = await response.json();
+            console.log('Valor:', data.url);
+            setImgWallUrl(data.url);
+          } catch (error) {
+            console.error('Erro ao processar a resposta JSON:', error);
+          }
      }
 
      const listInfor ={

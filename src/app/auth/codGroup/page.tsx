@@ -10,23 +10,29 @@ import logoImg from "public/Logo.png";
 //imports
 import Link from 'next/link';
 import { useLogin } from '@/hooks/useLogin';
-import { useUserContext, user } from '@/context/VirtualContext';
+import { group, useUserContext, user } from '@/context/VirtualContext';
 import { useRouter } from 'next/navigation';
+import { Checktoken } from '@/functions/check-token/Checktoken';
+import { useInforGroups } from '@/hooks/useInforGroups';
+import { useInforMembers } from '@/hooks/useInforMember';
 
 const CodGroup =  () =>{
 
     const router = useRouter()
-
     const [cod, setCod] = useState("")
-    const [groupInfo, setGroupInfo] = useState<user>()
+    const [groupInfo, setGroupInfo] = useState<group>()
     const [showError, setShowError] = useState(false);
-
-    const {data} = useLogin()
-
-    const {infor, handleNameChange} = useUserContext()
+    const [checkVali, setCheckVali] = useState(false)
+    const [infor, setInfor] = useState<user>()
+    const member = useInforMembers()
+    
+    // const {infor, handleNameChange} = useUserContext()
+    const data = useInforGroups()
 
     const handleChange = () => {
-        const user = data.find((test) => test.group.codigo === cod);
+        const num = parseInt(cod, 10)
+        console.log(num)
+        const user = data.data.find((test) => test.groupCode === num);
         if(user && user !== undefined){
             setGroupInfo(user)
         }else{
@@ -35,11 +41,23 @@ const CodGroup =  () =>{
     }
 
     useEffect(()=>{
-        if(groupInfo){
-           handleNameChange(groupInfo)
-           router.push('/auth/register')
+        var valorRecuperado = localStorage.getItem("userData");
+        if (valorRecuperado) {
+          const userData = JSON.parse(valorRecuperado);
+          setInfor(userData.data)
         }
-    })
+
+        if(infor){
+            const memb = member.data.find((value)=> value.userId == infor.id)
+            if(memb && memb !== undefined){
+                setCheckVali(true)
+            }
+        }
+
+        if(groupInfo){
+            router.push(`/auth/${groupInfo.id}`)
+        }
+    },[groupInfo, infor, member.data, router])
 
     const handleChanges = {
         handleCod: (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,9 +88,18 @@ const CodGroup =  () =>{
                     required
                 />
                 <AuthButton authentication={handleChange} type='button' id='button-cod'>Entrar</AuthButton>
-                <p className="auth">
+                {(checkVali)?(
+                    
+                    <p className="auth">
+                    <Link href={"/user/home-Group"}>Voltar</Link>
+                    </p>
+
+                ):(
+                    <p className="auth">
                     <Link href={"/auth/registerAdm"}>Cadastre-se</Link>
-                </p>
+                    </p>
+                    
+                )}
             </form>
            
         </main>

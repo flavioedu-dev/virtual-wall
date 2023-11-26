@@ -1,30 +1,36 @@
-import { useLogin } from "./useLogin"
+import { Checktoken } from "@/functions/check-token/Checktoken";
 
-interface use{
-    email: string;
-    password: string;
+interface UseEnterResult {
+  authenticationE: (email:string, password:string) => any; 
 }
 
-export const useEnter = ()=>{
-    
-    const {data} = useLogin()
+export const useEnter = (): UseEnterResult => {
+  const authenticationE = async (email: string, password: string) => {
+    try {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
 
-    const authenticationE = (value: use) => {
-
-      
-    if (data !== undefined && data !== null) {
-        const user = data.find((test) => test.email === value.email && test.password === value.password);
-        
-        if (user) {
-          console.log("Passou");
-          return user;
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("userData", JSON.stringify(data));
+            return data.data
+            
+        } else {
+            return false
         }
-      }
-  
-      console.log("Não passou");
-      return null;
-  };
+    } catch (error) {
+        
+    }
+};
 
-    return {authenticationE}
 
-} 
+  return { authenticationE };
+};

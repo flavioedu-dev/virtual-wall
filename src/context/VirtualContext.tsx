@@ -1,34 +1,62 @@
 import { useCallback, useContext, useState } from "react";
 import { createContext } from "react";
 
+export interface posts {
+  data?: Date,
+  text?: string,
+  doc?: string[],
+  video?: string[],
+  idUserP: string,
+  idpost?: string,
+  image?:string[]
+  idwall:string
+}
+
+export interface member{
+  id: string,
+  category: string,
+  created_at: string,
+  userId: string,
+  groupId: string
+}
+
 export interface wall {
-  nameWall?: string;
-  imgwall?: string;
-  postagens?: any[];
-  user?: any[];
-  idwall?:string
+  name?: string;
+  imgMural?: string;
+  category?: string;
+  postagens?: posts[];
+  id?:string
+  groupId: string
 }
 
 export interface group {
   [x: string]: any;
-  nameGroup?: string,
-  imageGroup?: string,
+  name?: string,
+  imgGroup?: string,
   wall?:wall[],
-  codigo?: string
+  groupCode?: number,
+  id?: string,
+  created_at?: string,
+  userId: string
+}
+
+export interface namewall{
+  namewall?: string;
+  codGroup?: string;
 }
 
 export interface user{
   name: string,
+  username?: string,
   email: string,
   password: string,
   confirmPassword?: string,
-  isAdmmin: boolean,
+  isAdmin: boolean,
   group?: group,
   id?: string,
-  nameWall?:string,
-  codGroup?: string,
-  imgUser?: string,
-  rota?: string,
+  nameWall?: namewall[],
+  rota?: namewall,
+  profile_image?: string,
 }
 
 interface VirtualContex {
