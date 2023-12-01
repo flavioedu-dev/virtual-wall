@@ -22,7 +22,8 @@ const Nav = ({ImageGroup}:NavProps) => {
   const [stateMenu, setStateMenu] = useState<boolean>(false);
   const [size, setSize] = useState<number>(600);
   const [imgGroup, setImgGroup] = useState()
-
+  const [rotaMural, setRotaMural] = useState("")
+  const [rotaGroup, setRotaGroup] = useState("")
   const openMenu = () => {
     setStateMenu(true);
   };
@@ -34,6 +35,13 @@ const Nav = ({ImageGroup}:NavProps) => {
 
 
   useEffect(() => {
+
+    var valorRecuperadoGroup = localStorage.getItem("rotaGroup");
+    if (valorRecuperadoGroup) {
+      setRotaGroup(valorRecuperadoGroup)
+    }
+        
+
     function resizing() {
       setSize(window.innerWidth);
     }
@@ -56,9 +64,11 @@ const Nav = ({ImageGroup}:NavProps) => {
           onClick={openMenu}
         />
 
-      <Link href={'/user/home-Wall'}>
-        <Image src={boardLogoImg} alt="board-logo" />
+      <div className="board-mural">
+      <Link href={`/user/home-Group/${rotaGroup}`}>
+        <Image src={boardLogoImg} alt="board-logo"  />
       </Link>
+      </div>
 
         {stateMenu === true || size >= 700 ? (
           <Menu closeMenu={closeMenu} imgGroup={ImageGroup}/>

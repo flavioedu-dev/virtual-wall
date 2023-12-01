@@ -63,3 +63,21 @@
     transform: scale(1.1);
     cursor: pointer;
   }
+
+  .exclu{
+    background-color: #f2f2f2;
+    border-radius: 20rem;
+    width: 6rem;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    left: 48rem;
+}
+
+.exclu p{
+    font-size: 1.4rem;
+}
+
+.exclu p:hover{
+    text-decoration: underline;
+}

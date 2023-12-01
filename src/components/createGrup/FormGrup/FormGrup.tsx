@@ -25,7 +25,9 @@ const FormGrup = () => {
   const [imgGrupUrl, setImgGrupUrl] = useState("")
   const [use, setUse] = useState<user>()
   const [pass, setPass] = useState(0)
+  const [passCon, setPassCon] = useState(0)
   const [nameGrup, setNameGrup] = useState("")
+  const[respGroup, setRespGroup] = useState("")
 
   const [cod, setCod] = useState("")
 
@@ -35,13 +37,17 @@ const FormGrup = () => {
 
   const funPut = (value:group) =>{
     async function getData(){
-      const response = await fetch("http://localhost:8000/groups",{
+      const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/groups",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(value)
     });
+    if(response.ok){
+      const Data = await response.json()
+      setRespGroup(Data)
+    }
  }
     getData()
   }
@@ -67,50 +73,38 @@ const FormGrup = () => {
 
   useEffect(()=>{
     
-    
-
-    if(imgGrupUrl){
-    const newGroup = {
-      name: nameGrup,
-      imgGroup: imgGrupUrl,
-      userId: use?.id!
+    if(passCon === 0){
+      var valorRecuperado = localStorage.getItem("userData");
+    if (valorRecuperado) {
+      const userData = JSON.parse(valorRecuperado);
+      console.log(userData)
+      setUse(userData.data)
+      setPassCon(1)
     }
-
-    const newGroupData = {
-      group: {
-        name: nameGrup,
-        imgGroup: imgGrupUrl,
-        groupCode: cod,
-        wall:[],
-      }
     }
 
     if(pass === 0){
 
-      if(infor){
-        const value = authenticationE(infor.email, infor.password)
-        value.then((resultado:any) => {
-          setUse(resultado)
-        })
-        .catch((erro: any) => {
-          console.error("Erro ao resolver a Promise:", erro);
-        });
-      }
+      if(imgGrupUrl){
+        const newGroup = {
+          name: nameGrup,
+          imgGroup: imgGrupUrl,
+          userId: use?.id!
+        }
 
       if(use !== undefined && use !== null && use.id){
         console.log("Aqui estás")
         funPut(newGroup)
-        use.group?.push(newGroupData)
-        handleNameChange(use)
-        router.push('/user/create-wall')
-        router.push('/user/create-wall')
-      }else{
-        router.push('/user/create-wall')
       }
+    }
+
+    if(respGroup && respGroup !== undefined){
+      router.push('/user/create-wall')
+      router.push('/user/create-wall')
     }
     }
     
-  },[authenticationE,use, cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl])
+  },[authenticationE, use, cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl, pass, respGroup])
 
   return (
     <main className='all-form'>

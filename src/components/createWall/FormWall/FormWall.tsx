@@ -14,7 +14,8 @@ import ClickImage from '@/components/clickImage/ClickImage';
 
 interface FormGrupProps{
   Inforimage: (list:ListInforProps) => void,
-  PassWall: () => void
+  PassWall: () => void,
+  groupId: string;
 }
 
 interface ListInforProps{
@@ -22,15 +23,17 @@ interface ListInforProps{
     imgWallUrl:string;
     imgWallUrlprov:string | StaticImageData;
     nameWall:string;
+    groupId: string;
 }
 
-const FormWall:React.FC<FormGrupProps> = ({Inforimage, PassWall}) => {
+const FormWall:React.FC<FormGrupProps> = ({Inforimage, PassWall, groupId}) => {
 
     //Image of the wall
     const [imgWall, setImgWall] = useState<File|null>(null)
     const [imgWallUrlprov, setImgWallUrlprov] = useState<StaticImageData|string>(camera)
     const [imgWallUrl, setImgWallUrl] = useState("")
     const [nameWall, setNameWall] = useState("")
+    const [exclu, setExclu] = useState(false);
 
     const handleImageSelectWall = (File:File) =>{
         if(File){
@@ -74,18 +77,20 @@ const FormWall:React.FC<FormGrupProps> = ({Inforimage, PassWall}) => {
       imgWall,
       imgWallUrl,
       imgWallUrlprov,
-      nameWall
+      nameWall,
+      groupId
     }
 
     useEffect(()=>{
       if(imgWallUrl){
         Inforimage(listInfor)
       }
-    },[imgWallUrl, setImgWallUrl ])
+    },[imgWallUrl])
 
 
   return (
     <main className='all-Wall'>
+
         <Image
             src={imgWallUrlprov}
             alt="example"

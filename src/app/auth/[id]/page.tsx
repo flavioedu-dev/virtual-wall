@@ -22,9 +22,11 @@ const AuthGroup = () =>{
     const groups = useInforGroups()
     const router = useRouter()
     const params = useParams()
-    const {data} = useLogin()
+   
 
     const addnameWall = async (idUser:string, cod:string) => {
+        console.log(idUser)
+        console.log(cod)
         try {
           const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/members/'+idUser, {
             method: 'POST',

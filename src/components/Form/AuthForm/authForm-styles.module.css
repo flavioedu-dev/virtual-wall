@@ -23,6 +23,8 @@
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .res_login {
@@ -50,5 +52,16 @@
   .btn {
     width: 110px;
     font-size: 18px;
+  }
+}
+
+@media (max-width: 600px){
+  .form input {
+    width: 100%;
+  }
+
+  .form_container {
+    margin: 0 auto;
+    width: 100%;
   }
 }

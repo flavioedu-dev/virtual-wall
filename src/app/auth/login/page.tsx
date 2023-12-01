@@ -20,7 +20,6 @@ import { useLogin } from "@/hooks/useLogin";
 import { useEnter } from "@/hooks/useEnter";
 import { useRouter } from "next/navigation";
 import { useUserContext, user } from "@/context/VirtualContext";
-import { useMuralGroup } from "@/hooks/useMuralGroup";
 import { useInforGroups } from "@/hooks/useInforGroups";
 import { getData } from "@/functions/check-Mural/CheckMural";
 
@@ -38,9 +37,10 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
+
   const {authenticationE} = useEnter()
-  const [test, setTest] = useState<user>()
   const router = useRouter()
+
 
   const {handleNameChange, infor} = useUserContext()
 
@@ -58,52 +58,53 @@ const LoginPage = () => {
   const groups = useInforGroups()
 
   useEffect(()=>{
-
-    if(controlOne === 0){
+   
+    if(control === 1){
       var valorRecuperado = localStorage.getItem("userData");
       if (valorRecuperado) {
         const userData = JSON.parse(valorRecuperado);
-        console.log(userData)
-        setTest(userData.data)
+        const test = userData.data
+        if(test && test !== undefined){
+          console.log(test)
+          console.log("1")
+          if (test && groups.data.length > 0) { 
+            console.log("2")
+            if (test.isAdmin) {
+              setControl(1);
+              console.log("3")
+              const vali = groups.data.find((value) => value.userId == test.id);
+              
+              if (vali !== undefined && vali) {
+                const mural = getData(vali.id!);
+                mural.then((resultado) => {
+                  if(resultado.length !== 0){
+                      router.push('/user/home-Group')
+                      router.push('/user/home-Group')
+                  }else{
+                      router.push('/user/create-wall')
+                      router.push('/user/create-wall')
+                  }
+                }).catch((erro) => {
+                  console.error("Erro ao resolver a Promise:", erro);
+                });
+              }else{
+                handleNameChange(test)
+                router.push('/user/create-Grup')
+                router.push('/user/create-Grup')
+              }
+        }else{
+          console.log("4")
+          router.push('/user/home-Group')
+        }
+        }
+      }
         setControlOne(1)
     }
     }
 
-    if(control === 0){
-      if(test && test !== undefined){
-        if (test && groups.data.length > 0) { 
-          if (test.isAdmin) {
-            setControl(1);
-            
-            const vali = groups.data.find((value) => value.userId == test.id);
-            
-            if (vali !== undefined && vali) {
-              const mural = getData(vali.id!);
-              mural.then((resultado) => {
-                if(resultado.length !== 0){
-                    router.push('/user/home-Group')
-                }else{
-                    router.push('/user/create-wall')
-                }
-              }).catch((erro) => {
-                console.error("Erro ao resolver a Promise:", erro);
-              });
-            }else{
-              handleNameChange(test)
-              router.push('/user/create-Grup')
-            }
-      }else{
-        router.push('/user/home-Group')
-      }
-        
-  
-      }
-    }else{
-      
-    }
-  }
+    
 
-  },[test, setTest, groups.data, groups, handleNameChange, controlOne, control, router])
+  },[groups.data, handleNameChange, router, control])
 
 
   const logIn = (): void => {
@@ -112,6 +113,8 @@ const LoginPage = () => {
     res.then((resultado:any) => {
       if(resultado === false){
         setShowError(true)
+      }else{
+        setControl(1)
       }
     })
     

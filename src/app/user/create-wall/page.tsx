@@ -16,6 +16,7 @@ interface ListInforProps{
   imgWallUrl:string;
   imgWallUrlprov:string | StaticImageData;
   nameWall:string;
+  groupId: string;
 }
 
 export interface wall {
@@ -47,6 +48,8 @@ const  CreateWall= () => {
   const [textInfor, setTextInfor] = useState(test.nameGroup)
   const [codGroup, setCodGroup] = useState(0)
   const [idGroup, setIdGroup] = useState("")
+  const [controlP, setControlP] = useState(0)
+  const [atuali, setAtuali] = useState(0)
   const dataGroup = useInforGroups()
   const dataMural = useInforMural()
   // const {handleNameChange, infor} = useUserContext()
@@ -80,15 +83,8 @@ const  CreateWall= () => {
   };
 
   const handleImageChange = (info:ListInforProps) =>{
-  const walls = {
-    nameWall: info.nameWall,
-    imgwall: info.imgWallUrl,
-    groupId: infor?.group?.id!,
-    postagens:[],
-  }
 
   if (infor && infor.id!==undefined) {
-    console.log("Passou")
 
     if(idGroup !== ""){
       addWall(idGroup, info.nameWall, info.imgWallUrl)
@@ -97,58 +93,52 @@ const  CreateWall= () => {
     setListInforGroupFull(prevList => [...prevList, info])
   }
 
-  useEffect(() => {
-    var valorRecuperado = localStorage.getItem("userData");
-    if (valorRecuperado) {
-    const userData = JSON.parse(valorRecuperado);
-    console.log("Valor do",userData)
-    setInfor(userData.data)
-    if(dataGroup.data.length !== 0){
-      console.log(userData.data.id, "Id do valor")
-      const group = dataGroup.data.find((value)=> value.userId == userData.data.id)
-      console.log("Grupos",dataGroup.data)
-      console.log("Grupo encontrado:",group)
+  const addMural = () =>{
+
+    if(dataGroup.data.length !== 0 && infor && infor!== undefined){
+      const group = dataGroup.data.find((value)=> value.userId == infor.id)
       setImgInfor(group?.imgGroup || '');
       setTextInfor(group?.name|| '')
       setCodGroup(group?.groupCode!)
       setIdGroup(group?.id!)
 
       if(dataMural.data.length !== 0){
-        console.log(dataMural.data)
+       
       const mural = dataMural.data.map((value:any)=>{
-      console.log("Aqui")
+      
       if(listInforGrupFull.length === 0){
-        console.log("Aqui2")
+        
         if(value.groupId == group?.id){
-          console.log("Aqui 3333")
+         
           const teste = {
+            groupId: value.groupId,
             imgWallUrl: value?.imgMural!,
             nameWall:value?.name!,
             imgWallUrlprov: value?.imgMural!,
             imgWall: null
           }
-          console.log("Teste",teste)
+          console.log("aqui 2")
           setListInforGroupFull(prevList => [...prevList, teste])
+          
         }
       }else{
         const ele = listInforGrupFull.map((tes)=>{
-          if(value.groupId == userData.data.id){
-            console.log("Aqui 4")
+          if(value.groupId == infor.id){
+            
           const teste = {
+            groupId: value.groupId,
             imgWallUrl: value?.imgwall!,
             nameWall:value?.nameWall!,
             imgWallUrlprov: value?.imgwall!,
-            imgWall: null
+            imgWall: null,
           }
   
-          console.log(teste)
-  
-          if(teste.imgWallUrl && teste.imgWallUrl !== undefined && teste.nameWall && teste.nameWall !== undefined){
-            console.log(1)
-              if(teste.imgWallUrl == tes.imgWallUrl && teste.nameWall == tes.nameWall){
-                console.log(2)
+          if(teste.imgWallUrl && teste.imgWallUrl !== undefined && teste.nameWall && teste.nameWall !== undefined && teste.groupId && teste.groupId !== undefined){
+            
+              if(teste.imgWallUrl === tes.imgWallUrl && teste.nameWall === tes.nameWall){
+                
               }else{
-                console.log(3)
+                console.log("aqui 3")
                 setListInforGroupFull(prevList => [...prevList, teste])
               }
           }
@@ -156,18 +146,32 @@ const  CreateWall= () => {
   
         })
       }
-      
-
       })
       
     }
     }
+
+  }
+
+  useEffect(() => {
+    
+    if(controlP === 0){
+      var valorRecuperado = localStorage.getItem("userData");
+      if (valorRecuperado) {
+      const userData = JSON.parse(valorRecuperado);
+      setInfor(userData.data)
+      setControlP(1)
     }
-    // console.log(infor)
+    }
+
+    addMural()
+  
     
+    if(listInforGrupFull.length !== 0){
+      console.log(listInforGrupFull)
+    }
     
-    
-  }, [dataGroup.data, dataMural.data, listInforGrupFull, localStorage]);
+  }, [controlP, infor, dataGroup, dataMural, atuali, setAtuali]);
   
 
   function PassWall(): void {
@@ -178,6 +182,12 @@ const  CreateWall= () => {
     router.push('/user/home-Group')
     }
     
+  }
+
+  const excluMural = (resul: string) =>{
+    setListInforGroupFull((prevList) =>
+    prevList.filter((item) => item.nameWall !== resul)
+  );
   }
 
   return (
@@ -197,12 +207,12 @@ const  CreateWall= () => {
       <div>
         {listInforGrupFull.map(item => (
             <>
-            <ShowWall  key={item.imgWallUrl!} name={item?.nameWall!} img={item.imgWallUrlprov!} />
+            <ShowWall  key={item.imgWallUrl!} name={item?.nameWall!} img={item.imgWallUrlprov!} functExclu={excluMural} idGroup={item.groupId} wantExclu={true} />
             </>
         ))}
      </div>
     </div>
-      <FormWall Inforimage={handleImageChange} PassWall={PassWall} />
+        <FormWall Inforimage={handleImageChange} PassWall={PassWall} groupId={idGroup!} />
     </main>
   )
 }

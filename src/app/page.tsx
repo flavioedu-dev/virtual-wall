@@ -35,7 +35,7 @@ export default function Home() {
         <AuthButton id="log">Login</AuthButton>
         </Link>
         <Link href={"/auth/register"}>
-        <AuthButton>Enter</AuthButton>
+        <AuthButton id="regist-butt">Enter</AuthButton>
         </Link>
         </div>
         </div>

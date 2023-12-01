@@ -5,18 +5,18 @@
     justify-content: space-between;
 }
 
-.text{
-    width: 40%;
+.text-h{
+    width: 60%;
     margin-top: 6.5rem;
     margin-left: 6rem;
 }
 
-.text h2{
+.text-h h2{
     font-size: 4.5rem;
     margin-bottom: 0.5rem;
 }
 
-.text p{
+.text-h p{
     width: 85%;
     font-size: 2.5rem;
 }
@@ -28,4 +28,80 @@
     margin-top: 6rem;
     margin-bottom: 6rem;
     margin-left:15rem ;
+}
+
+@media (max-width: 1200px){
+
+    .text-h h2{
+        font-size: 3.7rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .text-h p{
+        width: 85%;
+        font-size: 1.7rem;
+    }
+
+    .frame{
+        margin-right: 6rem;
+        width: 45rem;
+        height: auto;
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+        margin-left:13rem ;
+    }
+
+}
+
+@media (max-width: 950px){
+    .all-home{
+        flex-direction: column;
+        align-items: center;
+        justify-content: safe;
+    }
+    .text-h{
+        width: 55%;
+        margin-top: 3rem;
+        margin-left: 0rem;
+    }
+    .text-h h2{
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .text-h p{
+        width: 85%;
+        font-size: 1.5rem;
+    }
+    .frame{
+        width: 32rem;
+        margin: 0;
+        margin-right: 0rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        margin-left:0 ;
+    }
+    
+}
+
+@media (max-width: 560px){
+    .text-h{
+        text-align: start;
+        width: 55%;
+        margin-top: 4rem;
+        margin-left: 0rem;
+        margin-bottom: 4rem;
+    }
+    .text-h h2{
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .text-h p{
+        width: 85%;
+        font-size: 1.5rem;
+    }
+    .frame{
+        display: none;
+    }
 }

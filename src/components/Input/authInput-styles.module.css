@@ -26,6 +26,6 @@
 
 @media (max-width: 599px) {
   .auth_input {
-    width: 75%;
+    width: 100%;
   }
 }

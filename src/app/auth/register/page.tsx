@@ -89,7 +89,7 @@ const RegisterPage = () => {
   },[useradm, router, authenticationE, email, password])
 
   return (
-    <div className="all">
+    <div className="allRe">
       <div className="logo_login">
         <Image
           src={logoImg}

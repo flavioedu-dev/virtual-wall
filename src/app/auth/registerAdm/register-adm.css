@@ -7,8 +7,8 @@ form input:nth-child(1) {
   text-align: center;
 }
 
-.logoImg{
-  width: 10rem;
+.img_darken{
+
 }
 
 .res_register {
@@ -25,6 +25,12 @@ form input:nth-child(1) {
 
 #bnt-register{
   align-self: center;
+  margin-top: 2rem;
+}
+
+.img_rge{
+  mix-blend-mode: darken;
+  width: 80%;
 }
 
 @media (min-width: 600px) {
@@ -33,10 +39,22 @@ form input:nth-child(1) {
   }
 
   .logo_login {
-    width: 350px;
+    width: 290px;
   }
 
   .res_register {
     bottom: 1rem;
+  }
+}
+
+@media (max-width: 600px){
+  .all{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .user-data{
+    width: 80%;
   }
 }

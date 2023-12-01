@@ -2,15 +2,15 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    
 }
 
 .show{
+    position: relative;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    /* border-left: 1px solid rgb(0, 0, 0);
-    border-right: 1px solid rgb(0, 0, 0); */
 }
 
 .show:hover{
@@ -26,6 +26,9 @@
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
 }
+.infor-text {
+    
+}
 
 .infor-text h2{
     font-size: 16px;
@@ -33,4 +36,58 @@
 
 .infor-text p{
     font-size: 14px;
+}
+
+.img_homeN{
+    position: absolute;
+    left: 50rem;
+}
+
+.excluI{
+    background-color: #f2f2f2;
+    border-radius: 20rem;
+    width: 6rem;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    left: 52rem;
+    bottom: 4rem;
+}
+
+.excluI p{
+    font-size: 1.4rem;
+}
+
+.excluI p:hover{
+    text-decoration: underline;
+}
+
+.elementExclu{
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    text-align: center;
+    width: 25rem;
+    padding: 10px 10px;
+    position: absolute;
+    left: 52rem;
+    bottom: 4rem;
+    z-index: 1;
+}
+
+.elementExclu p{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.elementExclu button{
+    background-color: #f8f8f8;
+    margin-top: 0.6rem;
+    border-radius: 3rem;
+    margin-right: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.elementExclu button:hover{
+    text-decoration: underline;
 }
