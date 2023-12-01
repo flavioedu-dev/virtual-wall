@@ -24,6 +24,9 @@ const CodGroup =  () =>{
     const [showError, setShowError] = useState(false);
     const [checkVali, setCheckVali] = useState(false)
     const [infor, setInfor] = useState<user>()
+    const [control, setControl] = useState(0)
+    const [controlOne, setControlOne] = useState(0)
+    const [controlTwo, setControlTwo] = useState(0)
     const member = useInforMembers()
     
     // const {infor, handleNameChange} = useUserContext()
@@ -41,23 +44,32 @@ const CodGroup =  () =>{
     }
 
     useEffect(()=>{
-        var valorRecuperado = localStorage.getItem("userData");
+        if(control === 0){
+            var valorRecuperado = localStorage.getItem("userData");
         if (valorRecuperado) {
           const userData = JSON.parse(valorRecuperado);
           setInfor(userData.data)
+          setControl(1)
+        }
         }
 
-        if(infor){
-            const memb = member.data.find((value)=> value.userId == infor.id)
-            if(memb && memb !== undefined){
-                setCheckVali(true)
+        if(controlOne === 0){
+            if(infor){
+                const memb = member.data.find((value)=> value.userId == infor.id)
+                if(memb && memb !== undefined){
+                    setCheckVali(true)
+                    setControlOne(1)
+                }
             }
         }
 
-        if(groupInfo){
-            router.push(`/auth/${groupInfo.id}`)
+        if(controlTwo === 0){
+            if(groupInfo){
+                router.push(`/auth/${groupInfo.id}`)
+                setControlTwo(1)
+            }
         }
-    },[groupInfo, infor, member.data, router])
+    },[control, controlOne, controlTwo, groupInfo, infor, member.data, router])
 
     const handleChanges = {
         handleCod: (e: ChangeEvent<HTMLInputElement>) => {

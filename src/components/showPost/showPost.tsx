@@ -1,53 +1,137 @@
 "use client"
-import Image, { StaticImageData } from "next/image";
-import perfil from "public/perfil.png"
-import pointe from "public/cardapio.png"
-import "./showPost.css"
+import Image from "next/image";
+import perfil from "public/perfil.png";
+import pointe from "public/cardapio.png";
+import "./showPost.css";
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SeePost from "../SeePost/SeePost";
+import { useInforPost } from "@/hooks/useInforPost";
+import { posts } from "@/context/VirtualContext";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
 
-interface ShowPostProps{
+interface ShowPostProps {
     name: string;
     img: string;
-    funct?: (nameWall:string) => void
+    funct?: (id: string) => void;
     text: string;
-    doc?: string[];
-    imgPost?: string[];
-    video?: string[];
+    media?: string[];
+    id: string;
+    onDelete?:(postId: string) => void 
 }
 
-const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) => {
+const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) => {
     
-    const [exclu, setExclu] = useState(false)
+    const [exclu, setExclu] = useState(false);
+    const [vide, setVide] = useState<string[]>([]);
+    const [image, setImage] = useState<string[]>([]);
+    const [docum, setDocum] = useState<string[]>([]);
+    const [excluOption, setExcluOption] = useState(false)
+    const [seePost, setSeePost] = useState(false)
+    const [post, setPost] = useState<posts>()
+    const dataPost = useInforPost()
 
-    const handleExclu = () =>{
-        setExclu(!exclu)
-    }
+    const handleExclu = () => {
+        setExclu(!exclu);
+    };
 
-
-    const handleWall = () =>{
+    const handleFunct = () => {
         if(funct){
-         funct(name)
+            funct(id)
         }
     }
+
+
+    useEffect(() => {
+        
+        if(media ){
+
+            for(let i = 0; i < media.length; i++){
+                if(media[i] == "img"){
+                    setImage(prevList => [...prevList, media[i+1]])
+                }else if(media[i] == "video"){
+                    setVide(prevList => [...prevList, media[i+1]])
+                }else if(media[i] == "doc"){
+                    setDocum(prevList => [...prevList, media[i+1]])
+                }
+            }
+        }
+
+        // if(id && dataPost.data.length !== 0){
+        //     const postFound = dataPost.data.find((value)=> value.id == id)
+        //     if(postFound !== undefined && postFound){
+        //         setPost(postFound)
+        //     }
+        // }
+
+        
+
+    }, [dataPost.data, id, media]);
 
     pdfjs.GlobalWorkerOptions.workerSrc = new URL(
         'pdfjs-dist/build/pdf.worker.min.js',
         import.meta.url,
       ).toString();
 
-        console.log(imgPost)
+       
 
-      if(Array.isArray(doc) || Array.isArray(video) || Array.isArray(imgPost)){
-        console.log("Um deles são")
+      const excluPost = async () => {
+
+        try {
+            const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts/'+id, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                
+              }),
+            });
+        
+            if (response.ok) {
+              const newWall = await response.json();
+              console.log(newWall)
+              if(onDelete){
+                console.log("Tem")
+                onDelete(id)
+              }
+             
+            } else {
+              console.error('Erro ao adicionar wall:', response.status);
+            }
+          } catch (error) {
+            console.error('Erro de rede:', error);
+          }
+    
       }
 
     return(
+        
+        <>
+
+        
+        
         <main className='allshowPost'>
-            <div className='postshow' onClick={handleWall}>
+
+            
+
+            <div className='postshow' >
+
+                    {(excluOption)?(
+                    <div className='elementExcluP'>
+                    <p>Você realmente deseja excluir este post?</p>
+                        <button onClick={excluPost}>Sim</button>
+                        <button onClick={()=>{
+                        setExclu(false)
+                        setExcluOption(false)
+                        }}>Não</button>
+                    </div>
+                ):null}
+
                     {(exclu)?(
-                        <div className="exclu">
+                        <div className="exclu" onClick={()=>{setExcluOption(true)}}>
                         <p>Excluir</p>
                         </div>
                     ):null}
@@ -59,7 +143,10 @@ const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) 
                         height={20}
                         onClick={handleExclu}
                     />
-                <div className="elem-edit-show">
+
+                    
+
+                <div className="elem-edit-show" onClick={handleFunct}>
                     <Image
                         src={img || perfil}
                         alt="example"
@@ -76,14 +163,13 @@ const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) 
                     
                 </div>
 
-                
 
-                {(imgPost?.length !== 0)?(
+                {(image?.length !== 0)?(
 
-                    <div className="midiashow">
-                        {imgPost !== undefined && doc !== null ? (
+                    <div className="midiashow" onClick={handleFunct}>
+                        {image !== undefined && image!== null ? (
                             <Image
-                            src={imgPost[0]}
+                            src={image[0]}
                             alt="Logo-pesq"
                             className="document-showPost"
                             id="img"
@@ -97,31 +183,43 @@ const ShowPosts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) 
                     
                 ):(
                     <>
-                        {(video?.length !== 0 && video)?(
-                            <div className="midiashowvideo">
-                                {doc !== undefined && doc !== null? (
-                                    <video src={video[0]} className="video-showPost" controls></video>
+                        {(vide?.length !== 0 && vide)?(
+                            <div className="midiashowvideo" onClick={handleFunct}>
+                                {vide !== undefined && vide !== null? (
+                                    <video src={vide[0]} className="video-showPost" controls></video>
                                 ) : (
                                     <p></p>
                                 )}
                             </div>
                         ):(
-                            <div className="midiashow">
-                                {doc !== undefined && doc !== null ? (
-                                    <Document file={doc[0]}>
+                            <>
+                            
+                            {(docum?.length !== 0)?(
+                                <div className="document-showPost-pdf" onClick={handleFunct}>
+                                {docum !== undefined && docum !== null ? (
+                                    <Document file={docum[0]}>
                                         <Page pageNumber={1} scale={1.0} height={100} />
                                     </Document>
                                 ) : (
                                     <p></p>
                                 ) }
-                            </div>
+                                </div>
+                            ):(
+                                <p></p>
+                            )}
+
+                            </>
                         )}
                     </>
                 )}
 
+                
+
             </div>
 
         </main>
+
+        </>
 
             )
 

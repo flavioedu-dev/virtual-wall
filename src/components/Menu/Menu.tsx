@@ -8,15 +8,16 @@ import profileImg from "public/perfil.png";
 import leafImg from "public/postagens.png";
 import outImg from "public/sair.png";
 import home from "public/botao-home.png"
-import group from "public/grupoA.png"
+import groupss from "public/grupoA.png"
 
 // Hooks ans types
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useUserContext, user } from "@/context/VirtualContext";
+import { useUserContext, group, user } from "@/context/VirtualContext";
 import { Checktoken } from "@/functions/check-token/Checktoken";
 import { useLogin } from "@/hooks/useLogin";
+import { useInforGroups } from "@/hooks/useInforGroups";
 
 type MenuProps = {
   closeMenu: () => void;
@@ -27,33 +28,43 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const router = useRouter();
   const [infor, setInfor] = useState<user>()
   const {data} = useLogin()
-  // const {handleNameChange, infor} = useUserContext()
-  // const [namewall, setNameWall] = useState()
+  const [rotaMural, setRotaMural] = useState("")
+  const [rotaGroup, setRotaGroup] = useState("")
+  const [controlllll, setControlllll] = useState(0)
+  const [useGroup, setUseGroup] = useState<group>()
+  const groups = useInforGroups()
 
   const redirectToPath = (path: string) => {
     router.push(`${path}`)
   }
 
+  useEffect(()=>{
+    var valorRecuperado = localStorage.getItem("rotaMural");
+    if (valorRecuperado) {
+      setRotaMural(valorRecuperado)
+    }
+
+    var valorRecuperadoGroup = localStorage.getItem("rotaGroup");
+    if (valorRecuperadoGroup) {
+      setRotaGroup(valorRecuperadoGroup)
+    }
+
+
+      var valorRecuperado = localStorage.getItem("userData");
+      if (valorRecuperado) {
+      const userData = JSON.parse(valorRecuperado);
+      setInfor(userData.data);}
+  },[localStorage]);
+
   useEffect(() => {
 
-    console.log(data)
-    const tokenCoo = document.cookie
-    var cookiesArray = tokenCoo.split(';');
-    for (var i = 0; i < cookiesArray.length; i++) {
-    var cookie = cookiesArray[i].trim();
-    if (cookie.indexOf("token" + "=") === 0) {
-        let userCoo = cookie.substring("token".length + 1, cookie.length)
-        const userTo = Checktoken(userCoo)
-        userTo.then((resultado) => {
-        const userFound = data.find((value)=>value.id == resultado.user.userId)
-        setInfor(userFound)
-  }).catch((erro: any) => {
-    
-  });
-    }
-}
-
-  // console.log(infor)
+    if(infor?.isAdmin == true){
+      if(groups.data.length !== 0){
+          const valueGroup = groups.data.find((value)=> value.userId == infor?.id)
+          setUseGroup(valueGroup)
+          setControlllll(1)
+      }
+  }
 
     function closingMenu(e: Event) {
       const menu = document.querySelector("aside");
@@ -70,7 +81,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     return () => {
       document.removeEventListener("click", closingMenu);
     };
-  }, [infor, setInfor, data]);
+  }, [ groups, infor]);
 
   const options = [
     {
@@ -78,7 +89,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
       img: home,
       alt: "Home-icon",
       title: "Home",
-      path: "/user/home"
+      path: `/user/home-Group/${rotaGroup}/${rotaMural}`
     },
     {
       id: 2,
@@ -89,7 +100,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     },
     {
       id: 3,
-      img: group,
+      img: groupss,
       alt: "group-icon",
       title: "Groups",
       path: "/user/home-Group"
@@ -114,7 +125,11 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
     <aside className={styles.menu}>
       <div className={styles.inner_container}>
         <section className={styles.profile_container}>
-          <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+          {(infor?.isAdmin == true)?(
+            <Image src={useGroup?.imgGroup|| profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+          ):(
+            <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+          )}
           <h2>{infor?.name}</h2>
           <p>@{infor?.name.toUpperCase()}</p>
         </section>

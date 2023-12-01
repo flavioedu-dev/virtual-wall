@@ -33,3 +33,45 @@ footer{
     width: 20rem;
     margin: auto;
 }
+
+@media (max-width: 950px){
+
+    .img_logo{
+        mix-blend-mode: darken;
+        width: 15rem;
+        margin-left: 1rem;
+    }
+
+    .button-app{
+        margin-right:1rem;
+    }
+
+    #log{
+        width: 6rem;
+        font-size: 1.6rem;
+    }
+
+    #regist-butt{
+        width: 6rem;
+        font-size: 1.6rem;
+    }
+    footer{
+        display: flex;
+        margin: 8rem 0;
+    }
+}
+
+@media (max-width: 560px){
+    .button-app{
+        margin-right:1;
+    }
+    
+    #log{
+        margin-right: 1rem;
+    }
+    
+    footer{
+        display: flex;
+        margin: 10rem 1rem;
+    }
+}

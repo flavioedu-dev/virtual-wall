@@ -72,7 +72,7 @@ html, body{
     font-weight: bold;
 }
 
-.person-data #data-item{
+.person-data {
     font-weight: normal;
     margin-top: .5rem;
 }
@@ -84,6 +84,10 @@ span{
     font-size: 1.5rem;
     font-family: "Inter", sans-serif;
 }
+
+/* #email{
+    margin-top: 1rem;
+} */
 
 @media (min-width: 700px){
     .img-profile{
@@ -135,6 +139,12 @@ span{
 }
 
 @media (max-width: 699px){
+    
+    .mainPerf{
+        width: 80%;
+        margin-top: 3rem;
+    }
+
     .img-profile{
         width: 110px;
         height: 110px;

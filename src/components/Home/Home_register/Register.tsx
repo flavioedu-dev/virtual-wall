@@ -16,9 +16,9 @@ const Register = () => {
                 <p>Cadastro</p>
                 <h2>Quem é você?</h2>
                 <p>Eu quero criar um grupo.</p>
-                <Link href={'/auth/registerAdm'}><AuthButton>Register</AuthButton></Link>
+                <Link href={'/auth/registerAdm'}><AuthButton id="butt-regi">Register</AuthButton></Link>
                 <p>Eu quero me cadastrar como usuário.</p>
-                <Link href={'/auth/register'}><AuthButton>Register</AuthButton></Link>
+                <Link href={'/auth/register'}><AuthButton id="butt-regi">Register</AuthButton></Link>
                 </AuthForm>
             </div>
             <Image 

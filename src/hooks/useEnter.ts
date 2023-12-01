@@ -21,6 +21,7 @@ export const useEnter = (): UseEnterResult => {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("userData", JSON.stringify(data));
+            console.log(data)
             return data.data
             
         } else {

@@ -2,14 +2,12 @@ import { useCallback, useContext, useState } from "react";
 import { createContext } from "react";
 
 export interface posts {
-  data?: Date,
-  text?: string,
-  doc?: string[],
-  video?: string[],
-  idUserP: string,
-  idpost?: string,
-  image?:string[]
-  idwall:string
+  id: string,
+  content: string,
+  media: string[],
+  created_at: string,
+  muralId: number,
+  memberId: string
 }
 
 export interface member{
@@ -25,7 +23,7 @@ export interface wall {
   imgMural?: string;
   category?: string;
   postagens?: posts[];
-  id?:string
+  id?:number,
   groupId: string
 }
 

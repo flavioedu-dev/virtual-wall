@@ -9,25 +9,27 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Posts from "../Posts/Posts";
 import { namewall, user } from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
+import { useInforMembers } from "@/hooks/useInforMember";
+import { useInforMural } from "@/hooks/useInforMural";
 
 
 interface ShowPostProps{
     name: string;
     img: string;
-    idwall: string;
-    idUserGroup: string;
+    idwall: number;
     idUser: user;
-    codGroup: string;
-    nameWall: string
+    idmember: string
 }
 
-const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}:ShowPostProps) =>{
+const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
 
     const [arqfileImg, setArqFileImg] = useState<File[]>([])
     const [arqfileDoc, setArqFileDoc] = useState<File[]>([])
     const [arqfileVid, setArqFileVid] = useState<File[]>([])
     const [text, setText] = useState("")
     const [see, setSee] = useState(false)
+    const dataMember = useInforMembers()
+    const dataMural = useInforMural()
 
     //list arq
     const [arqfileImgList, setArqFileImgList] = useState<string[]>([])
@@ -42,59 +44,62 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
 
     useEffect(()=>{
         
-        if(idUser){
+        if(idmember && dataMember.data.length !== 0){
+ 
+            const memb = dataMember.data.find((value)=> value.id == idmember)
+            const mural = dataMural.data.find((value)=> value.id == idwall)
             
-            idUser.nameWall?.map((item)=>{
-                
-                if(item.codGroup == codGroup){
-                    
-                    if(nameWall == item.namewall || idUser.isAdmin == true){
-                        
-                        setPostPubli(true)
-                    }
-                }
-            })
+            if(memb?.category == mural?.category){
+                setPostPubli(true)
+            }
+
         }
 
 
         //Teste
         if(arqfileDoc || arqfileImg || arqfileVid){
-            console.log("Entrou em todos")
+            
             if(arqfileDoc.length !== 0 && arqfileImg.length !== 0){
-                console.log(1)
+                
                 if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
                 }
             }else if(arqfileDoc.length !== 0 && arqfileVid.length !== 0){
-                console.log(2)
+                
                 if(arqfileDocList.length == arqfileDoc.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                    
                 }
 
             }else if(arqfileImg.length !== 0 && arqfileVid.length !== 0){
-                console.log(3)
+               
                 if(arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                    
                     
                 }
             }else if(arqfileImg.length !== 0 && arqfileVid.length !== 0 && arqfileVid.length !== 0){
-                console.log(4)
+                
                 if(arqfileDocList.length == arqfileDoc.length && arqfileImgList.length == arqfileImg.length && arqfileVidList.length == arqfileVid.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                    
                 }
             }else{
-                console.log("Passou no só")
+                
                 if(arqfileDoc.length !== 0){
                     if(arqfileDocList.length == arqfileDoc.length){
-                    addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                        
                 }
                 }else if(arqfileImg.length !== 0){
                     if(arqfileImgList.length == arqfileImg.length){
-                        addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                        
                         }
                 }else if(arqfileVid.length !==0){
                     if(arqfileVidList.length == arqfileVid.length){
-                        addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+                    addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+                        
                         }
                 }
             }
@@ -102,7 +107,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
         
 
         
-    },[codGroup, idUser, nameWall, arqfileDocList, arqfileImgList, arqfileVidList])
+    },[idUser, arqfileDocList, arqfileImgList, arqfileVidList, arqfileDoc, arqfileImg, arqfileVid, idmember, text, idwall, dataMember.data, dataMural.data])
 
     //Pesq
     const [valuePesq, setValuePesq] = useState(true)
@@ -111,27 +116,42 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
     const [uplupa, setUpLupa] = useState(true)
 
     //addPost
-    const addpost = async (idUser:string, text:string, doc:string[], image:string[], video:string[], idUserP:string, idwall:string) => {
+    const addpost = async (idUser:string, text:string, doc:string[], image:string[], video:string[],  idwall:number) => {
+
+        const media: any[] = []
+
+        for(let i = 0; i < image.length; i++){
+            media.push("img")
+            media.push(image[i])
+        }
+        for(let j = 0; j < video.length; j++){
+            media.push("video")
+            media.push(video[j])
+        }
+        for(let k = 0; k < doc.length; k++){
+            media.push("doc")
+            media.push(doc[k])
+        }
+        
+
         try {
-          const response = await fetch('http://localhost:4000/post', {
+          const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              idUser,
-              text,
-              doc,
-              video,
-              image,
-              idUserP,
-              idwall
+              id: 1,
+              media,
+              muralId: idwall,
+              memberId: idUser,
+              content: text
             }),
           });
       
           if (response.ok) {
             const newWall = await response.json();
-            console.log(newWall)
+            
           } else {
             
             console.error('Erro ao adicionar wall:', response.status);
@@ -158,7 +178,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
     const inputEle = document.getElementById('enter')
     inputEle?.addEventListener("keydown", function (event){
         if (event.key === "Enter") {
-            console.log("Chama")
+            
         }
     })
 
@@ -174,7 +194,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
 
 
     const handleImageSelect = (File: File) => {
-        console.log(File.type)
+        
         if (File.type === 'image/png' || File.type === 'image/jpeg' || File.type === 'image/web' || File.type === 'image/avif') {
             setArqFileImg((prevFiles) => [...(prevFiles || []), File]);
             
@@ -189,12 +209,13 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
 
     const add = () =>{
         //Criar postagens
-        if(arqfileDoc || arqfileImg || arqfileVid){
-            console.log("Aguarde")
+        if(arqfileDoc.length !== 0 || arqfileImg.length !== 0 || arqfileVid.length !== 0){
+           
             
         }else{
-            console.log("Saiu")
-            addpost(idUserGroup, text, arqfileDocList, arqfileImgList, arqfileVidList, idUser.id!, idwall )
+            
+            addpost(idUser?.id!, text, arqfileDocList, arqfileImgList, arqfileVidList,idwall)
+            
         }
     }
 
@@ -293,7 +314,7 @@ const CreatePost = ({name, img, idwall, idUserGroup, idUser, codGroup, nameWall}
                 
                 try {
                     const data = await response.json();
-                    console.log('Valor:', data.url);
+                   
                     setArqFileDocList((prevFiles) => [...(prevFiles || []), data.url]);
                 } catch (error) {
                     console.error('Erro ao processar a resposta JSON:', error);

@@ -1,64 +1,100 @@
 "use client"
 
 import Nav from '@/components/Nav/Navbar'
-import '../home-Wall/homeGroup.css'
+import './[idGroup]/homeGroup.css'
 import perfil from "public/perfil.png"
-import { namewall, useUserContext, user } from '@/context/VirtualContext'
-import { useLogin } from '@/hooks/useLogin'
+import mais from "public/sinal-de-mais.png"
+import { group, namewall, useUserContext, user } from '@/context/VirtualContext'
 import { Key, useEffect, useState } from 'react'
-import C from '@/components/createWall/ShowWall/ShowWall'
 import { useRouter } from 'next/navigation'
-import { log } from 'console'
 import ShowWall from '@/components/createWall/ShowWall/ShowWall'
-import { Checktoken } from '@/functions/check-token/Checktoken'
+import Link from 'next/link'
+import { useInforMembers } from '@/hooks/useInforMember'
+import { useInforGroups } from '@/hooks/useInforGroups'
 
 const HomeGroup = () =>{
 
     const [imgperfil, setImgPerfil] = useState("")
-    // const {handleNameChange, infor} = useUserContext()
     const [codGroup, setCodGroup] = useState("")
-    const {data} = useLogin()
+    const [listGroup, setListGroup] = useState<group[]>([])
+    const dataMembers = useInforMembers()
+    const dataGroup = useInforGroups()
     const router = useRouter()
     const [infor, setInfor] = useState<user>()
-    const [token, setToken] = useState<string>()
+    const [cont, setCont] = useState(0)
+    const [controlO, setControlO] = useState(0)
+    const [controlTw, setControlTw] = useState(0)
 
-    useEffect(()=>{
-
-
-        const tokenCoo = document.cookie
-        var cookiesArray = tokenCoo.split(';');
-        for (var i = 0; i < cookiesArray.length; i++) {
-        var cookie = cookiesArray[i].trim();
-        if (cookie.indexOf("token" + "=") === 0) {
-            let userCoo = cookie.substring("token".length + 1, cookie.length)
-            setToken(userCoo)
-            const userTo = Checktoken(userCoo)
-            userTo.then((resultado) => {
-            const userFound = data.find((value)=>value.id == resultado.user.userId)
-            setInfor(userFound)
-      }).catch((erro: any) => {
+    useEffect(() => {
         
-      });
+        if(cont === 0){
+            var valorRecuperado = localStorage.getItem("userData");
+            if (valorRecuperado) {
+            const userData = JSON.parse(valorRecuperado);
+            setInfor(userData.data);
+            setCont(1)
+            }
         }
-    }
+      
+        if(controlO === 0){
+            if (infor?.isAdmin === true) {
+                setImgPerfil(infor.group?.imageGroup!);
+                setControlO(1)
+              } else {
+                setImgPerfil(infor?.profile_image || "");
+                setControlO(1)
+              }
+        }
+      
+       if(controlTw === 0){
+        if (dataMembers.data.length !== 0 && infor && dataGroup.data.length !== 0) {
+            if(infor.isAdmin == true){
+                const Groups = dataGroup.data.find(
+                    (valueGroup) => valueGroup.userId == infor.id
+                  );
+                  if(Groups && Groups!== undefined){
+                    setControlTw(1)
+                    setListGroup((prevList) => [...prevList, Groups!])
+                    
+                  }
+              }else{
+                dataMembers.data.map((value:any) => {
+                    if (value.userId === infor?.id) {
+                        const Groups = dataGroup.data.find(
+                          (valueGroup) => valueGroup.id == value.groupId
+                        );
+                        console.log(Groups)
+                        if(listGroup.length !== 0){
+                            listGroup.map(value => {
+                                if(value?.id !== Groups?.id){
+                                    setListGroup((prevList) => [...prevList, Groups!])
+                                }
+                            })
+                        }else{
+                            console.log(listGroup)
+                            if(controlTw === 0){
+                                setListGroup((prevList) => [...prevList, Groups!])
+                                setControlTw(1)
+                            }
+                        }
+                      }
+                });
+              }
+            
+          }
+       }
 
-        if(infor?.isAdmin == true){
-            setImgPerfil(infor.group?.imageGroup!)
-        }else{
-            setImgPerfil(infor?.imgUser || "")
-            const user = data.find((test) =>  infor?.nameWall?.find((tes) => test.group?.codigo === tes.codGroup ));
-        }
-    }, [infor?.isAdmmin, infor?.group?.imageGroup, infor?.imgUser, infor?.nameWall, data])
+       if(setListGroup.length !== 0){
+            console.log(listGroup)
+            console.log(controlO, controlTw, cont)
+       }
 
-    const handleWall = (codGroup:string) =>{
-        const rota = {
-            namewall: "",
-            codGroup: codGroup
-        }
-        
-        document.cookie = `rota=${JSON.stringify(rota)}; token=${token} path=/;`
-        console.log(document.cookie)
-        router.push('/user/home-Wall')
+
+      }, [controlO, controlTw, dataGroup.data, dataGroup ,dataMembers, infor, listGroup, cont]);
+
+    const handleWall = (idGroup:string) =>{
+        localStorage.setItem("rotaGroup", idGroup);
+        router.push(`/user/home-Group/${idGroup}`)
     }
 
     const handleWallSelect = () =>{
@@ -75,19 +111,30 @@ const HomeGroup = () =>{
             </div>
             <div className='inforGroup-wall'>
                 <>
-                {data
-                    .filter((value) =>
-                    infor?.nameWall?.some((valueUser) => value.group?.codigo === valueUser.codGroup)
-                )
-                .map((filteredValue) => (
-                    <ShowWall functCod={handleWall} key={filteredValue.group?.codigo} name={filteredValue.group?.nameGroup!} img={filteredValue.group?.imageGroup!} codGroup={filteredValue.group?.codigo}/>
-                ))}
 
-                    <ShowWall functCod={handleWallSelect}  name={"Adicionar grupo"} img={perfil.src}/>
+                {listGroup.map(value => (
+                       
+                   <>
+                   
+                   {(value?.name !== undefined && value.name)?(
+                        <ShowWall functCod={handleWall} key={value?.id} name={value?.name!} img={value?.imgGroup!} idGroup={value?.id!} wantExclu={false}/> 
+                    ):(
+                        <p></p>
+                    )}
+
+                   </>
+                
+                ))}
+            
                 
                     
                 </>
             </div>
+                {(infor?.isAdmin !== true)?(
+                     <ShowWall functCod={handleWallSelect}  name={"Adicionar grupo"} img={mais.src} wantExclu={false}/>
+                ):(
+                    <p></p>
+                )}
             </section>
         </main>
     )

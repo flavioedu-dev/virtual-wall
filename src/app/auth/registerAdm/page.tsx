@@ -18,6 +18,8 @@ import logoImg from "public/Logo.png";
 import AuthForm from "@/components/Form/AuthForm/AuthForm";
 import { useUserContext } from "@/context/VirtualContext";
 import { useRouter } from "next/navigation";
+import { useLogin } from "@/hooks/useLogin";
+import { useEnter } from "@/hooks/useEnter";
 
 const RegisterAdm = () => {
 
@@ -27,6 +29,7 @@ const RegisterAdm = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [pass, setPass] = useState(0)
+    const {authenticationE} = useEnter()
 
     const handleChange = {
       handleName: (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,24 +75,17 @@ const RegisterAdm = () => {
 
     useEffect(()=>{
      if(pass === 0){
-      if(useradm){
-        const userAdmData = {
-          name : name.trim(),
-          username: userName.trim(),
-          email: email.trim(),
-          password: password.trim(),
-          confirmPassword: confirmPassword.trim(),
-          isAdmin: true,
-        }
-        handleNameChange(userAdmData)
-        setPass(1)
+      if(useradm == "User created successfully."){
+        console.log(useradm)
+        authenticationE(email, password)
         router.push('/user/create-Grup')
         router.push('/user/create-Grup')
       }
-     }else{
-      router.push('/user/create-Grup')
      }
-    },[confirmPassword, email, handleNameChange, name, pass, password, router, userName, useradm, setPass])
+
+     
+
+    },[authenticationE, handleNameChange, useradm])
 
   return (
     <main className="all">
@@ -97,7 +93,8 @@ const RegisterAdm = () => {
         <Image
           src={logoImg}
           alt="Logo"
-          className="img_darken"
+          width={400}
+          className="img_rge"
           style={{ objectFit: "contain" }}
         />
       </div>

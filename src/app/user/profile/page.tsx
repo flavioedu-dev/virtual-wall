@@ -14,64 +14,110 @@ import Nav from "@/components/Nav/Navbar";
 import mudarPerfil from "../../../../public/change-profile.png";
 import perfil from 'public/perfil.png'
 import Navbar from "@/components/Nav/Navbar";
-import { posts, useUserContext, user } from "@/context/VirtualContext";
+import { group, posts, useUserContext, user } from "@/context/VirtualContext";
 import { useLogin } from "@/hooks/useLogin";
 import { Checktoken } from "@/functions/check-token/Checktoken";
+import { useInforGroups } from "@/hooks/useInforGroups";
 
 const  Profile = () => {
 
-    // const {handleNameChange, infor} = useUserContext()
-    const [cont, setCont] = useState(0)
-    const [postAnalise, setPostAnalise ] = useState<posts[]>([])
     const [infor, setInfor] = useState<user>()
     const {data} = useLogin()
+    const [controllll, setControllll] = useState(0)
+    const [useGroup, setUseGroup] = useState<group>()
+    const groups = useInforGroups()
 
     useEffect(()=>{
-        const tokenCoo = document.cookie
-        var cookiesArray = tokenCoo.split(';');
-        for (var i = 0; i < cookiesArray.length; i++) {
-        var cookie = cookiesArray[i].trim();
-        if (cookie.indexOf("token" + "=") === 0) {
-            let userCoo = cookie.substring("token".length + 1, cookie.length)
-            const userTo = Checktoken(userCoo)
-            userTo.then((resultado) => {
-            const userFound = data.find((value)=>value.id == resultado.user.userId)
-            setInfor(userFound)
-      }).catch((erro: any) => {
-        
-      });
+
+        if(controllll === 0){
+            var valorRecuperado = localStorage.getItem("userData");
+            if (valorRecuperado) {
+            const userData = JSON.parse(valorRecuperado);
+            setInfor(userData.data);
+            
+            if(userData.data.isAdmin == true){
+                if(groups.data.length !== 0){
+                    const valueGroup = groups.data.find((value)=> value.userId == infor?.id)
+                    setUseGroup(valueGroup)
+                    setControllll(1)
+                }
+            }else{
+                setControllll(1)
+            }
+            }
         }
-    }
-    },[data])
+
+    
+    },[controllll, groups])
 
     return (
         <main className="all-perf">
-            <Navbar ImageGroup={infor?.imgUser || infor?.group?.imageGroup || ''}></Navbar>
-            <div className="mainPerf">
+            <Navbar ImageGroup={infor?.profile_image ||''}></Navbar>
+
+            {(infor?.isAdmin == true)?(
+
+                <div className="mainPerf">
+                    <section className="person">
+                        <div>
+                            <Image src={useGroup?.imgGroup || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                            <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                        </div>
+
+                        <div>
+                        <h1 className="user-name">{useGroup?.name}</h1>
+                        </div>
+                    </section>
+                    <section className="person-data">
+                        <p>Nome do criador:
+                            <span className="data-item">{infor?.name}</span>
+                        </p>
+                        <p>Email:
+                            <span className="data-item">{infor?.email}</span>
+                        </p>
+                        <p>ID do usuário:
+                            <span className="data-item">{infor?.id}</span>
+                        </p>
+
+                        <p>Código do grupo:
+                                <span className="data-item">{useGroup?.groupCode!}</span>
+                        </p>
+
+                        <p></p>
+
+                    </section>
+                </div>
+
+            ):(
+
+                <div className="mainPerf">
                 <section className="person">
                     <div>
-                        <Image src={infor?.imgUser! || infor?.group?.imageGroup! || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                        <Image src={infor?.profile_image || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
                         <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
                     </div>
 
                     <div>
-                        {(infor?.isAdmmin == true)?(
-                            <h1 className="user-name">{infor?.group?.nameGroup}</h1>
-                        ):(
-                            <h1 className="user-name">{infor?.name}</h1>
-                        )}
+                    <h1 className="user-name">{infor?.username}</h1>
                     </div>
                 </section>
                 <section className="person-data">
                     <p>Nome:
-                        <span className="data-item">{infor?.name|| infor?.group?.nameGroup}</span>
+                        <span className="data-item">{infor?.name}</span>
                     </p>
                     <p>Email:
                         <span className="data-item">{infor?.email}</span>
                     </p>
+                    <p>ID:
+                        <span className="data-item">{infor?.id}</span>
+                    </p>
+                   
+                    <p></p>
                     
                 </section>
             </div>
+
+            )}
+
         </main>
     )
   }

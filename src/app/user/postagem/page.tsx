@@ -12,58 +12,55 @@ import Nav from "@/components/Nav/Navbar";
 
 // Images
 import perfil from "../../../../public/boysNew.png"
-import edit from "../../../../public/cardapio.png"
 import Navbar from "@/components/Nav/Navbar";
 import { namewall, posts, useUserContext, user } from "@/context/VirtualContext";
-import { useLogin } from "@/hooks/useLogin";
-import ShowPosts from "@/components/showPost/showPost";
+import ShowPosts from "@/components/ShowPost/ShowPost";
 import lupa from "public/lupa.png";
-import { Checktoken } from "@/functions/check-token/Checktoken";
+import { useInforPost } from "@/hooks/useInforPost";
+
 
 
 const  Posts = () => {
 
     // const {handleNameChange, infor} = useUserContext()
 
-    const [wallPost, setWallPost] = useState<posts[]>()
+    const [wallPost, setWallPost] = useState<posts[]>([])
     const [uplupa, setUpLupa] = useState(true)
-    const {data} = useLogin()
     const [infor, setInfor] = useState<user>()
-    const [rotaNew, setRotaNew] = useState<namewall>()
+    const [controlllll, setControlllll] = useState(0)
+    const dataPost = useInforPost()
+
+    const updateWallPost = (dataPost: posts[], infor: user | undefined) => {
+        if (dataPost.length !== 0 && infor !== undefined && infor) {
+          const optionIdsSet = new Set(wallPost.map(item => item.memberId));
+      
+          dataPost.forEach(value => {
+            if (value.memberId === infor.id) {
+              if (!optionIdsSet.has(value.memberId)) {
+                setWallPost(prevList => [...prevList, value]);
+              }
+            }
+          });
+        }
+      };
 
     useEffect(()=>{
 
-        const tokenCoo = document.cookie
-        var cookiesArray = tokenCoo.split(';');
-        for (var i = 0; i < cookiesArray.length; i++) {
-        var cookie = cookiesArray[i].trim();
-        if (cookie.indexOf("token" + "=") === 0) {
-            let userCoo = cookie.substring("token".length + 1, cookie.length)
-            const userTo = Checktoken(userCoo)
-            userTo.then((resultado) => {
-            const userFound = data.find((value)=>value.id == resultado.user.userId)
-            setInfor(userFound)
-      }).catch((erro: any) => {
+        if(controlllll === 0){
+            var valorRecuperado = localStorage.getItem("userData");
+            if (valorRecuperado) {
+            const userData = JSON.parse(valorRecuperado);
+            setInfor(userData.data);
+            setControlllll(1)
+            }
+        }
+
+        updateWallPost(dataPost.data, infor);
+
+
         
-      });
-        }
-    }
 
-    const cookies = document.cookie;
-    var cookiesArray = cookies.split(';');
-    for (let i = 0; i < cookiesArray.length; i++) {
-        const cookie = cookiesArray[i].trim();
-        if (cookie.startsWith(`${"rota"}=`)) {
-          const rotaCookie = cookie.substring("rota".length + 1, cookie.length);
-          const rotaObj = JSON.parse(rotaCookie);
-          setRotaNew(rotaObj);
-        }
-    }
-
-        const user = data.find((test) => test.group?.wall?.find((tes) => tes.nameWall == rotaNew?.namewall));
-        const userWall = user?.group?.wall?.find((value)=> value.nameWall == rotaNew?.namewall)
-        setWallPost(userWall?.postagens)
-    }, [data, rotaNew?.namewall, setWallPost])
+    }, [dataPost.data, infor])
 
     const changeLupa = () =>{
         setUpLupa(false)
@@ -78,7 +75,7 @@ const  Posts = () => {
     return (
         <main className="mainPost">
             <section className="Post-section">
-            <Navbar ImageGroup={infor?.imgUser || infor?.group?.imageGroup || ''}></Navbar>
+            <Navbar ImageGroup={infor?.profile_image || ''}></Navbar>
             <div className="forPesq-Post">
                     <input type="text" className="pesq-Post" placeholder="Pesquisa" id="enter" onClick={changeLupa} onBlur={changeLupaBlur}/>
                     {(uplupa)?(
@@ -95,11 +92,10 @@ const  Posts = () => {
                 </div>
             <section className="posts-container-post">
             <>
-            {wallPost?.map((item) => {
-                if (item.idUserP == infor?.id) {
-                    return <ShowPosts key={infor.id} img={infor.imgUser || infor.group?.imageGroup || perfil.src} name={infor.name} text={item.text!} doc={item.doc} video={item.video} imgPost={item.image} />;
-                }
-          })}
+            {wallPost.map((item) => (
+                 <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} />
+            )
+            )}
         </>
             </section>
             </section>

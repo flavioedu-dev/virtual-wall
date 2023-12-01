@@ -3,8 +3,9 @@
   justify-content: space-between;
   align-items: center;
   height: 6rem;
-  padding: 1rem 1.2rem;
-  border-bottom: 1px solid black;
+  position: fixed;
+  right: 3%;
+  top: 1%;
 }
 
 .nav_container > img:nth-child(1) {
@@ -13,6 +14,9 @@
 
 .nav_container > img {
   cursor: pointer;
+  position: fixed;
+  left: 3%;
+  top: 2%;
 }
 
 
