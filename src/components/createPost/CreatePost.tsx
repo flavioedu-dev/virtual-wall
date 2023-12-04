@@ -335,7 +335,7 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
 
                 <div className="forPesq">
                     <input type="text" className="pesq" placeholder="Pesquisa" id="enter" onClick={changeLupa} onBlur={changeLupaBlur}/>
-                    {(uplupa)?(
+                    {/* {(uplupa)?(
                         <Image
                         src={lupa}
                         alt="Logo-pesq"
@@ -345,7 +345,7 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
                     />
                     ):(
                         <p></p>
-                    )}
+                    )} */}
                 </div>
 
             ):(

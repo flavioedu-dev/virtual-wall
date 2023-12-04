@@ -51,7 +51,10 @@ const  Profile = () => {
     },[controllll, groups])
 
     return (
+        
+
         <main className="all-perf">
+            
             <Navbar ImageGroup={infor?.profile_image ||''}></Navbar>
 
             {(infor?.isAdmin == true)?(

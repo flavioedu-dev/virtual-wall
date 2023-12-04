@@ -1,12 +1,15 @@
 'use client'
-import { VirtualProvider } from "@/context/VirtualContext"
+import { UserProvider } from "@/context/VirtualContext"
 
 export const Provider = ({children}:{children: React.ReactNode}) => {
     return(
         <>
-            <VirtualProvider>
+            {/* <VirtualProvider>
                 {children}
-            </VirtualProvider> 
+            </VirtualProvider>  */}
+            <UserProvider>
+                {children}
+            </UserProvider>
         </>
     )
 }

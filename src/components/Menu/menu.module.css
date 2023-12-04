@@ -1,10 +1,8 @@
 .menu {
   background-color: #f5f4f4;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 85%;
+  position: fixed;
   height: 100vh;
+  z-index: 1;
 }
 
 .profile_container > img {
