@@ -1,0 +1,164 @@
+.allshowPost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+    position: relative;
+}
+
+.postshow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30rem;
+    height: auto;
+    cursor: pointer;
+    position: relative;
+}
+
+.postshow:hover{
+    background-color: rgb(253, 253, 253);
+}
+
+.img_home{
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+}
+
+.elem-edit-show{
+    display: flex;
+    margin-bottom: 1rem;
+    width: 90%;
+    
+}
+
+.img_example-showPost{
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    /* position: absolute;
+    right: 44rem;
+    top: 1rem; */
+}
+
+.infor-text-p h2{
+    font-size: 16px;
+}
+
+.infor-text-p p{
+    font-size: 14px;
+    
+
+}
+
+.textshow{
+    max-width: 30rem;
+    word-wrap: break-word;
+}
+
+.midiashow{
+    width: 90%;
+}
+
+.document-showPost{
+    width: 100%;
+}
+
+.midiashowvideo{
+    width: 100%;
+    align-self: center;
+    margin-bottom: 1rem;
+}
+
+.document-showPost{
+    width: 100%;
+    height: 25rem;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.video-showPost{
+    width: 100%;
+    height: 25rem;
+    margin-bottom: 1rem;
+}
+
+.document-showPost-pdf{
+   width: 200px;
+   height: 200px;
+   margin-bottom: 1rem;
+   overflow: auto;
+}
+
+.img_home{
+    position: absolute;
+    left: 43rem;
+}
+
+.exclu{
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border-radius: 20rem;
+    width: 6rem;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    left: 45rem;
+}
+
+.exclu p{
+    font-size: 1.4rem;
+}
+
+.exclu p:hover{
+    text-decoration: underline;
+}
+
+.elementExcluP{
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    text-align: center;
+    width: 25rem;
+    padding: 10px 10px;
+    position: absolute;
+    left: 45rem;
+    z-index: 1;
+}
+
+.elementExcluP p{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.elementExcluP button{
+    background-color: #f8f8f8;
+    margin-top: 0.6rem;
+    border-radius: 3rem;
+    margin-right: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.elementExcluP button:hover{
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 699px){
+    .img_home{
+        position: absolute;
+        left: 30rem;
+    }
+    .img_example-showPost{
+        right: 29rem;
+    }
+    .exclu{
+        left: 25rem; 
+    }
+    .elementExcluP{
+        left: 5rem;
+    }
+}
