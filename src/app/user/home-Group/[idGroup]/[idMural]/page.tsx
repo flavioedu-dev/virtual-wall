@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 import { getData } from "@/functions/check-Mural/CheckMural";
 import { useInforMembers } from "@/hooks/useInforMember";
 import { useInforPost } from "@/hooks/useInforPost";
-import ShowPosts from "@/components/ShowPost/ShowPost";
+import ShowPosts from "../../../../../components/ShowPost/ShowPost";
 import { useInforGroups } from "@/hooks/useInforGroups";
 import SeePost from "@/components/SeePost/SeePost";
 
