@@ -4,20 +4,44 @@
   align-items: center;
   height: 6rem;
   position: fixed;
-  right: 3%;
-  top: 1%;
+  background-color: red;
+  z-index: 1;
+}
+
+.menu_icon{
+ width: 3rem;
+ object-fit: contain;
+ position: fixed;
+ left: 1%;
+}
+
+.menu_open{
+  position: fixed;
+  left: 0%;
+  top: 0%;
+}
+
+.menu_logo{
+  object-fit: contain;
+  position: fixed;
+  right: 1%;
+}
+
+.menu_logo img{
+  width: 100%;
 }
 
 .nav_container > img:nth-child(1) {
   width: 3rem;
 }
 
-.nav_container > img {
+
+/* .nav_container > img {
   cursor: pointer;
   position: fixed;
-  left: 3%;
+  /* left: 3%;
   top: 2%;
-}
+} */
 
 
 @media (min-width: 700px) {

@@ -136,7 +136,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
 
         <section className={styles.options}>
           {options.map((opt) => (
-            <div key={opt.id} onClick={() => {redirectToPath(opt.path); if(opt.id == 5){localStorage.clear()}}}>
+            <div className="option-menu" key={opt.id} onClick={() => {redirectToPath(opt.path); if(opt.id == 5){localStorage.clear()}}}>
               <Image src={opt.img} alt={opt.alt}/>
               <h1>{opt.title}</h1>
             </div>

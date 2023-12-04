@@ -4,12 +4,13 @@ html, body{
 
 .all-perf{
    display: flex;
+   flex-direction: column;
    align-items: center;
    justify-content: center;
-   margin-top: 5rem;
 }
 
 .mainPerf{
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

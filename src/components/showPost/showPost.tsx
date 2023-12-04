@@ -38,8 +38,10 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
     };
 
     const handleFunct = () => {
+        
         if(funct){
             funct(id)
+            console.log("Chamou")
         }
     }
 

@@ -15,6 +15,7 @@
 }
 
 .forPesq{
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@
     align-items: center;
     margin-top: 3rem;
     margin-bottom: 5rem;
+    
 }
 
 
@@ -42,8 +44,8 @@
 }
 
 .img-pesq{
-    position: absolute;
-    left: 55rem;
+    /* position: absolute;
+    left: 13rem; */
 }
 
 .forPost{
@@ -113,4 +115,5 @@
     right: 5%;
     bottom: 5%;
     cursor: pointer;
+    z-index: 1;
 }

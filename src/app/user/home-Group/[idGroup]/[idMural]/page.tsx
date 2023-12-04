@@ -91,6 +91,7 @@ const HomePage = () => {
     if(id){
       const postElement = dataPost.data.find((value)=>value.id === id)
       if(postElement && postElement !== undefined){
+        console.log("Passou aqui!")
         setSeePost(true)
         setPostSelection(postElement)
       }

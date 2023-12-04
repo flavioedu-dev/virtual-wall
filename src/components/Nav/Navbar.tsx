@@ -60,19 +60,21 @@ const Nav = ({ImageGroup}:NavProps) => {
       <Image
           src={menuImg}
           alt="menu-ico"
-          style={{ objectFit: "contain" }}
+          className={styles.menu_icon}
           onClick={openMenu}
         />
 
-      <div className="board-mural">
+      <div className={styles.menu_logo}>
       <Link href={`/user/home-Group/${rotaGroup}`}>
         <Image src={boardLogoImg} alt="board-logo"  />
       </Link>
       </div>
 
-        {stateMenu === true || size >= 700 ? (
+       <div className={styles.menu_open}>
+       {stateMenu === true || size >= 700 ? (
           <Menu closeMenu={closeMenu} imgGroup={ImageGroup}/>
         ) : null}
+       </div>
       </nav>
     </header>
   );
