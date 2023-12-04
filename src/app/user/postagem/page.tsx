@@ -93,7 +93,7 @@ const  Posts = () => {
             <section className="posts-container-post">
             <>
             {wallPost.map((item) => (
-                 <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} />
+                 <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} id={item.id} />
             )
             )}
         </>
