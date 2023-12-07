@@ -63,7 +63,7 @@
 @media (min-width: 700px) {
   .menu {
     position: fixed;
-    max-width: 7rem;
+    width: 7rem;
   }
 
   .profile_container {

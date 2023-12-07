@@ -31,7 +31,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
     const [excluOption, setExcluOption] = useState(false)
     const [seePost, setSeePost] = useState(false)
     const [post, setPost] = useState<posts>()
-    const dataPost = useInforPost()
+    const dataPost = useInforPost({load: true})
 
     const handleExclu = () => {
         setExclu(!exclu);
@@ -177,10 +177,9 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
                             id="img"
                             width={600}
                             height={600}
+                            
                         />
-                        ) : (
-                            <p></p>
-                        ) }
+                        ) : null}
                     </div>
                     
                 ):(

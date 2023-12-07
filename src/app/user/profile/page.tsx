@@ -57,69 +57,72 @@ const  Profile = () => {
             
             <Navbar ImageGroup={infor?.profile_image ||''}></Navbar>
 
+            <section className="section-perfil">
+                
             {(infor?.isAdmin == true)?(
 
-                <div className="mainPerf">
-                    <section className="person">
-                        <div>
-                            <Image src={useGroup?.imgGroup || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
-                            <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
-                        </div>
+                    <div className="mainPerf">
+                        <section className="person">
+                            <div>
+                                <Image src={useGroup?.imgGroup || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                                <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                            </div>
 
-                        <div>
-                        <h1 className="user-name">{useGroup?.name}</h1>
-                        </div>
-                    </section>
-                    <section className="person-data">
-                        <p>Nome do criador:
-                            <span className="data-item">{infor?.name}</span>
-                        </p>
-                        <p>Email:
-                            <span className="data-item">{infor?.email}</span>
-                        </p>
-                        <p>ID do usuário:
-                            <span className="data-item">{infor?.id}</span>
-                        </p>
+                            <div>
+                                <h1 className="user-name">{useGroup?.name}</h1>
+                            </div>
+                        </section>
+                        <section className="person-data">
+                            <p>Nome do criador:
+                                <span className="data-item">{infor?.name}</span>
+                            </p>
+                            <p>Email:
+                                <span className="data-item">{infor?.email}</span>
+                            </p>
+                            <p>ID do usuário:
+                                <span className="data-item">{infor?.id}</span>
+                            </p>
 
-                        <p>Código do grupo:
+                            <p>Código do grupo:
                                 <span className="data-item">{useGroup?.groupCode!}</span>
-                        </p>
+                            </p>
 
-                        <p></p>
+                            <p></p>
 
-                    </section>
-                </div>
-
-            ):(
-
-                <div className="mainPerf">
-                <section className="person">
-                    <div>
-                        <Image src={infor?.profile_image || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
-                        <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                        </section>
                     </div>
 
-                    <div>
-                    <h1 className="user-name">{infor?.username}</h1>
-                    </div>
-                </section>
-                <section className="person-data">
-                    <p>Nome:
-                        <span className="data-item">{infor?.name}</span>
-                    </p>
-                    <p>Email:
-                        <span className="data-item">{infor?.email}</span>
-                    </p>
-                    <p>ID:
-                        <span className="data-item">{infor?.id}</span>
-                    </p>
-                   
-                    <p></p>
-                    
-                </section>
-            </div>
+                ) : (
 
-            )}
+                    <div className="mainPerf">
+                        <section className="person">
+                            <div>
+                                <Image src={infor?.profile_image || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                                <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                            </div>
+
+                            <div>
+                                <h1 className="user-name">{infor?.username}</h1>
+                            </div>
+                        </section>
+                        <section className="person-data">
+                            <p>Nome:
+                                <span className="data-item">{infor?.name}</span>
+                            </p>
+                            <p>Email:
+                                <span className="data-item">{infor?.email}</span>
+                            </p>
+                            <p>ID:
+                                <span className="data-item">{infor?.id}</span>
+                            </p>
+
+                            <p></p>
+
+                        </section>
+                    </div>
+
+                )}
+            </section>
 
         </main>
     )
