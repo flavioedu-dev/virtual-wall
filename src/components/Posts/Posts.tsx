@@ -28,11 +28,6 @@ const Posts= ({name, img, funct, text, doc, imgPost, video}: ShowPostProps) => {
         import.meta.url,
       ).toString();
 
-        console.log(imgPost)
-
-      if(Array.isArray(doc) || Array.isArray(video) || Array.isArray(imgPost)){
-        console.log("Um deles são")
-      }
 
     return(
         <main className='allPost'>

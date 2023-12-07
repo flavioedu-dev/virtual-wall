@@ -11,6 +11,7 @@ body, html{
 }
 
 .Post-section{
+    
     width: 60rem;
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -49,4 +50,15 @@ body, html{
     position: absolute;
     left: 17rem;
     top: 6rem;
+}
+
+@media screen and (max-width: 699px){
+    .Post-section{
+        width: 100%;
+        border-left: none;
+        border-right: none;
+    }
+    .forPesq-Post{
+        margin-top: 6rem;
+    }
 }

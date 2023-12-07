@@ -1,23 +1,31 @@
 import { posts, wall } from "@/context/VirtualContext";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-export const useInforPost = () =>{
+type useInforPostProps ={
+  load: boolean
+}
 
-    const [data, setData] = useState<posts[]>([])
+export const useInforPost = ({load}: useInforPostProps) => {
+  const [data, setData] = useState<posts[]>([]);
 
-    useEffect(()=>{
-      async function getData(){
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts", {
+  const getData = async () => {
+    try {
+      const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts', {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
         }
       });
-        const Data = await response.json()
-        setData(Data)
-   }  
-      getData()
-    },[])
+      const newData = await response.json();
+      setData(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-  return{data}
-  }
+  useEffect(() => {
+   (async () => await getData())(); 
+  },[load]); 
+  
+  return { data };
+};

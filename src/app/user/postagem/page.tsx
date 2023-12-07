@@ -28,7 +28,7 @@ const  Posts = () => {
     const [uplupa, setUpLupa] = useState(true)
     const [infor, setInfor] = useState<user>()
     const [controlllll, setControlllll] = useState(0)
-    const dataPost = useInforPost()
+    const dataPost = useInforPost({load: true})
 
     const updateWallPost = (dataPost: posts[], infor: user | undefined) => {
         if (dataPost.length !== 0 && infor !== undefined && infor) {
@@ -78,7 +78,7 @@ const  Posts = () => {
             <Navbar ImageGroup={infor?.profile_image || ''}></Navbar>
             <div className="forPesq-Post">
                     <input type="text" className="pesq-Post" placeholder="Pesquisa" id="enter" onClick={changeLupa} onBlur={changeLupaBlur}/>
-                    {(uplupa)?(
+                    {/* {(uplupa)?(
                         <Image
                         src={lupa}
                         alt="Logo-pesq-p"
@@ -88,11 +88,11 @@ const  Posts = () => {
                     />
                     ):(
                         <p></p>
-                    )}
+                    )} */}
                 </div>
             <section className="posts-container-post">
             <>
-            {wallPost.map((item) => (
+            {wallPost.slice().reverse().map((item) => (
                  <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} id={item.id} />
             )
             )}

@@ -18,10 +18,11 @@ interface ShowPostProps{
     img: string;
     idwall: number;
     idUser: user;
-    idmember: string
+    idmember: string;
+    functionTrue?: (value: boolean) => void;
 }
 
-const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
+const CreatePost = ({name, img, idwall, idUser, idmember, functionTrue}:ShowPostProps) =>{
 
     const [arqfileImg, setArqFileImg] = useState<File[]>([])
     const [arqfileDoc, setArqFileDoc] = useState<File[]>([])
@@ -105,9 +106,8 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
             }
         }
         
-
         
-    },[idUser, arqfileDocList, arqfileImgList, arqfileVidList, arqfileDoc, arqfileImg, arqfileVid, idmember, text, idwall, dataMember.data, dataMural.data])
+    },[arqfileDocList, arqfileImgList, arqfileVidList, arqfileDoc, arqfileImg, arqfileVid, dataMember.data, dataMural.data])
 
     //Pesq
     const [valuePesq, setValuePesq] = useState(true)
@@ -151,6 +151,9 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
       
           if (response.ok) {
             const newWall = await response.json();
+            if(functionTrue){
+                functionTrue(true)
+            }
             
           } else {
             
@@ -166,7 +169,6 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
         setArqFileVidList([])
         setArqFileImgList([])
         setArqFileDocList([])
-        router.refresh()
       };
 
     const handleChanges = {
@@ -321,7 +323,6 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
                 }
                 })
         }
-        console.log("Antes de add")
 
         add()
 
@@ -369,7 +370,11 @@ const CreatePost = ({name, img, idwall, idUser, idmember}:ShowPostProps) =>{
                  
             </div> 
             <div className="exe-Post">
-            {(see == true)?(<Posts name={name || "Usuário teste"} img={img} text={text} doc={arqfileDoc} imgPost={arqfileImg} video={arqfileVid} />):(<p></p>)}
+            {(see == true)?(
+                <>
+                    <Posts name={name || "Usuário teste"} img={img} text={text} doc={arqfileDoc} imgPost={arqfileImg} video={arqfileVid} />
+                </>
+            ):null}
             </div>
                 </>
 

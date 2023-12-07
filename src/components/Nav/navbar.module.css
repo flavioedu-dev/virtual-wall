@@ -1,18 +1,21 @@
 .nav_container {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   height: 6rem;
   position: fixed;
-  background-color: red;
   z-index: 1;
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .menu_icon{
  width: 3rem;
  object-fit: contain;
- position: fixed;
- left: 1%;
+ margin-left: 1rem;
+ /* position: fixed;
+ left: 1%; */
 }
 
 .menu_open{
@@ -23,8 +26,9 @@
 
 .menu_logo{
   object-fit: contain;
-  position: fixed;
-  right: 1%;
+  margin-right: 1rem;
+  /* position: fixed;
+  right: 1%; */
 }
 
 .menu_logo img{

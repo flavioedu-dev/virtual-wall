@@ -15,8 +15,6 @@ import { useInforGroups } from "@/hooks/useInforGroups";
 import SeePost from "@/components/SeePost/SeePost";
 
 const HomePage = () => {
-
-  // const {handleNameChange, infor} = useUserContext()
   
   const [wallPost, setWallPost] = useState<posts[]>()
   const [idWall, setIdWall] = useState<number>()
@@ -27,14 +25,16 @@ const HomePage = () => {
   const [controllll, setControllll] = useState(0)
   const [member, setMember] = useState("")
   const [option, setOption] = useState<posts[]>([])
+  const [load, setLoad] = useState(true)
   const dataMember = useInforMembers()
   const params = useParams()
-  const dataPost = useInforPost()
+  const dataPost = useInforPost({load: load})
   const dataUser = useLogin()
   const [useGroup, setUseGroup] = useState<group>()
   const groups = useInforGroups()
   const [seePost, setSeePost] = useState(false)
   const [postSelection, setPostSelection] = useState<posts>()
+  const [atualiza, setAtualiza] = useState(false)
 
 
   useEffect(()=>{
@@ -79,8 +79,15 @@ const HomePage = () => {
         });
       }
     }
+
+    if(atualiza){
+      console.log("Atualizou")
+      console.log(dataPost.data)
+      setAtualiza(false)
+    }
     
-  }, [dataPost.data, infor, params])
+  }, [infor, params, atualiza, dataPost.data])
+
 
   const handlePostDeletion = (postId: string) => {
     setOption(prevOption => prevOption.filter((post) => post.id !== postId));
@@ -95,6 +102,13 @@ const HomePage = () => {
         setSeePost(true)
         setPostSelection(postElement)
       }
+    }
+  }
+
+  const functionTrue = (value:boolean) =>{
+    if(value){
+      setAtualiza(true)
+      setLoad(!load);
     }
   }
 
@@ -115,13 +129,17 @@ const HomePage = () => {
         <div className="bord-post">
         <section className="createPost">
           {(infor?.isAdmin==true)?(
-            <CreatePost img={useGroup?.imgGroup || ''} name={infor?.name || ''} idUser={infor!} idwall={idWall!} idmember={member} />
+            <>
+              <CreatePost img={useGroup?.imgGroup || ''} name={infor?.name || ''} idUser={infor!} idwall={idWall!} idmember={member} functionTrue={functionTrue} />
+            </>
           ):(
-            <CreatePost img={infor?.profile_image || ''} name={infor?.name || ''} idUser={infor!} idwall={idWall!} idmember={member} />
+            <>
+              <CreatePost img={infor?.profile_image || ''} name={infor?.name || ''} idUser={infor!} idwall={idWall!} idmember={member} functionTrue={functionTrue}/>
+            </>
           )}
         </section>
             
-        {option?.map((value) => {
+        {option?.slice().reverse().map((value) => {
           const matchingUser = dataUser.data.find((item) => value.memberId === item.id);
 
           if (matchingUser) {
