@@ -1,0 +1,50 @@
+.all-editProfile{
+    display: flex;
+}
+
+.editProfile-all{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.editProfile{
+    width: 35.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.img_example_profile{
+    background: rgba(92, 208, 97, 0.9);
+    margin-top: 4rem;
+    border-radius: 50%;
+    width: 13rem;
+    height: 13rem;
+}
+
+#came_ini{
+    width:4rem;
+    height: auto;
+    object-fit: cover;
+}
+
+.form-edit-profile{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.bnt-editperfil{
+    align-self: center;
+}
+
+@media screen and (max-width: 699px){
+    .editProfile{
+        width: 90%;
+    } 
+}

@@ -127,11 +127,11 @@ const LoginPage = () => {
           src={logoImg}
           alt="Logo"
           className="img_darken"
-          style={{ objectFit: "contain" }}
+          style={{ objectFit: "contain", alignSelf: "center" }}
           width={270}
         />
       </div>
-      <p className={showError ? "Erro" : "hidden"}>Usuário não cadastrado</p>
+      <p className={showError ? "Erro" : "hidden"} style={{textAlign:"center"}}>Usuário não cadastrado</p>
       <AuthForm>
         <AuthInput
           type="email"
@@ -151,7 +151,7 @@ const LoginPage = () => {
           onchange={handlePassword}
           required
         />
-        <a href="#" className="forgot_pass">
+        <a href="#" className="forgot_pass" style={{alignSelf:"end"}}>
           Esqueceu a senha?
         </a>
         <AuthButton authentication={logIn} type="button" id="btn-login">Login </AuthButton>

@@ -62,6 +62,23 @@ footer{
 }
 
 @media (max-width: 560px){
+    .nav-app{
+        height: 10rem;
+    }
+    .img_logo{
+        mix-blend-mode: darken;
+        width: 20rem;
+        margin-left: 1rem;
+    }
+    #log{
+        width: 10rem;
+        height: 5rem;
+        font-size: 2rem;
+    }
+    #regist-butt{
+        display: none;
+        
+    }
     .button-app{
         margin-right:1;
     }
@@ -72,6 +89,9 @@ footer{
     
     footer{
         display: flex;
-        margin: 10rem 1rem;
+        margin: 15rem 1rem;
+    }
+    .img_logo_end{
+        width: 30rem;
     }
 }
