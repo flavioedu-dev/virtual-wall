@@ -126,12 +126,12 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
       <div className={styles.inner_container}>
         <section className={styles.profile_container}>
           {(infor?.isAdmin == true)?(
-            <Image src={useGroup?.imgGroup|| profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+            <Image src={useGroup?.imgGroup|| profileImg} alt="profile-linkedin" className="profile-per" width={400} height={400} quality={100}/>
           ):(
-            <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={200} height={200} />
+            <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={1000} height={1000} quality={100}/>
           )}
           <h2>{infor?.name}</h2>
-          <p>@{infor?.name.toUpperCase()}</p>
+          <p>@{infor?.username?.toLocaleLowerCase()}</p>
         </section>
 
         <section className={styles.options}>

@@ -44,12 +44,12 @@ export interface namewall{
 }
 
 export interface user{
-  name: string,
+  name?: string,
   username?: string,
-  email: string,
-  password: string,
+  email?: string,
+  password?: string,
   confirmPassword?: string,
-  isAdmin: boolean,
+  isAdmin?: boolean,
   group?: group,
   id?: string,
   nameWall?: namewall[],

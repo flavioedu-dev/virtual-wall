@@ -40,7 +40,7 @@
 
 .img_homeN{
     position: absolute;
-    left: 50rem;
+    left: 90%;
 }
 
 .excluI{
@@ -50,7 +50,7 @@
     text-align: center;
     padding: 10px 0;
     position: absolute;
-    left: 52rem;
+    left: 80%;
     bottom: 4rem;
 }
 
@@ -69,8 +69,8 @@
     width: 25rem;
     padding: 10px 10px;
     position: absolute;
-    left: 52rem;
-    bottom: 4rem;
+    left: 35%;
+    bottom: 2rem;
     z-index: 1;
 }
 
@@ -90,4 +90,26 @@
 
 .elementExclu button:hover{
     text-decoration: underline;
+}
+
+@media screen and (max-width: 699px){
+    .img_homeN{
+        position: absolute;
+        left: 90%;
+    }
+    
+    .excluI{
+        position: absolute;
+        left: 80%;
+        bottom: 4rem;
+    }
+    
+    
+    .elementExclu{
+        position: absolute;
+        left: 30%;
+        bottom: 3rem;
+        z-index: 1;
+    }
+    
 }

@@ -38,3 +38,20 @@ html, body{
     font-size: 17px;
     margin-bottom: 3rem;
 }
+
+@media screen and (max-width: 699px){
+    .all-cre{
+        flex-direction: column;
+        width: 100%;
+        justify-content: none;
+        align-items: center;
+    }
+    .show-wall{
+        width: 100%;
+        margin-top: 27rem;
+        flex-direction: column;
+        margin-left: 0;
+        border-left: none;
+        border-right: none;
+    }
+}

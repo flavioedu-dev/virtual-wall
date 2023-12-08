@@ -18,6 +18,7 @@ import { group, posts, useUserContext, user } from "@/context/VirtualContext";
 import { useLogin } from "@/hooks/useLogin";
 import { Checktoken } from "@/functions/check-token/Checktoken";
 import { useInforGroups } from "@/hooks/useInforGroups";
+import Link from "next/link";
 
 const  Profile = () => {
 
@@ -35,7 +36,7 @@ const  Profile = () => {
             const userData = JSON.parse(valorRecuperado);
             setInfor(userData.data);
             
-            if(userData.data.isAdmin == true){
+            if(userData.data?.isAdmin == true){
                 if(groups.data.length !== 0){
                     const valueGroup = groups.data.find((value)=> value.userId == infor?.id)
                     setUseGroup(valueGroup)
@@ -65,7 +66,10 @@ const  Profile = () => {
                         <section className="person">
                             <div>
                                 <Image src={useGroup?.imgGroup || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
-                                <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                                 
+                                 <Link href={"/user/edit-Profile"}> 
+                                 <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                                 </Link>
                             </div>
 
                             <div>
@@ -98,7 +102,9 @@ const  Profile = () => {
                         <section className="person">
                             <div>
                                 <Image src={infor?.profile_image || perfil} alt="imagem de perfil" className="img-profile" width={400} height={400}></Image>
+                                <Link href={"/user/edit-Profile"}> 
                                 <Image src={mudarPerfil} alt="perfil" className="change-profile" width={400} height={400}></Image>
+                                </Link>
                             </div>
 
                             <div>

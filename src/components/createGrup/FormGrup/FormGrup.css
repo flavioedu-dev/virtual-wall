@@ -1,8 +1,9 @@
-.all-form{
+.all-form-group{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .form-Group{
@@ -70,6 +71,22 @@
   .btn:hover {
     transform: scale(1.1);
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 600px){
+    .all-form-group{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-Group{
+      width: 100%;
+      margin-top: 0;
+      box-shadow: none;
+    }
+    .NameGrup{
+      width: 90%;
+    }
   }
 
 

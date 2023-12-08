@@ -107,7 +107,7 @@ const FormGrup = () => {
   },[authenticationE, use, cod, handleNameChange, imgGrupUrl, infor, nameGrup, router, setImgGrupUrl, pass, respGroup])
 
   return (
-    <main className='all-form'>
+    <main className='all-form-group'>
        <form className='form-Group' onSubmit={async (e) => {
           e.preventDefault()
           const formData = new FormData();

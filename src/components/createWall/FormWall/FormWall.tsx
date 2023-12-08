@@ -106,7 +106,7 @@ const FormWall:React.FC<FormGrupProps> = ({Inforimage, PassWall, groupId}) => {
               className='NameGrup'
               type='text'
               name='NameGrup'
-              placeholder='Nome do Grupo' 
+              placeholder='Nome do Mural' 
               required
               onChange={(e: ChangeEvent<HTMLInputElement>)=>{
                 const name = e.currentTarget.value;

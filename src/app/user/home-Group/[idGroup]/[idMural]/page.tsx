@@ -146,8 +146,8 @@ const HomePage = () => {
             return (
               <React.Fragment key={value.id}>
                 <ShowPosts
-                  img={useGroup?.imgGroup || perfil.src}
-                  name={matchingUser.name}
+                  img={useGroup?.imgGroup || matchingUser.profile_image!|| perfil.src}
+                  name={matchingUser.username!}
                   text={value.content}
                   media={value.media}
                   id={value.id}

@@ -54,6 +54,14 @@
     position: fixed;
     right: 1%;
     top: 1%;
+    background-color: transparent;
+  }
+
+  .menu_logo{
+    object-fit: contain;
+    margin-right: 1rem;
+    position: fixed;
+    right: 1%;
   }
 
   .nav_container > img:nth-child(1) {
