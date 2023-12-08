@@ -124,32 +124,37 @@ const EditProfile = () => {
 
       useEffect(()=>{
         
-        if(controlllllll === 0){
-        var valorRecuperado = localStorage.getItem("userData");
-        if (valorRecuperado && valorRecuperado !== undefined) {
-        const userData = JSON.parse(valorRecuperado);
-        console.log(userData)
-        setInfor(userData.data);
-        setControlllllll(1)
-        }
+        if (controlllllll === 0) {
+          // Verificar se estamos no navegador antes de acessar localStorage
+          if (typeof window !== 'undefined') {
+            var valorRecuperado = localStorage.getItem("userData");
+            if (valorRecuperado && valorRecuperado !== undefined) {
+              const userData = JSON.parse(valorRecuperado);
+              console.log(userData);
+              setInfor(userData.data);
+              setControlllllll(1);
+            }
+          }
         }
 
-        if(warningSuce){
-          funGet()
-          if(updataUser){
-              console.log("Aqui tome")
-              const useValue = {
-                auth: true,
-                data: updataUser
-              }
+        if (warningSuce) {
+          funGet();
+          if (updataUser) {''
+            console.log("Aqui tome");
+            const useValue = {
+              auth: true,
+              data: updataUser,
+            };
+            // Verificar se estamos no navegador antes de acessar localStorage
+            if (typeof window !== 'undefined') {
               localStorage.setItem("userData", JSON.stringify(useValue));
-              setWarningSuce(false)
-              
+            }
+            setWarningSuce(false);
           }
         }
 
         
-      },[warningSuce, localStorage, updataUser])
+      },[warningSuce, updataUser])
 
       const register = () => {
 
