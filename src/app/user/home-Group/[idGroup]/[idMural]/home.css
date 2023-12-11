@@ -40,6 +40,8 @@ html, body{
     text-decoration: underline;
 }
 
+
+
 @media screen and (max-width: 699px){
     .all-home-H{
         display: flex;

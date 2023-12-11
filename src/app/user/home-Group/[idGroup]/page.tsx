@@ -79,9 +79,7 @@ const HomeWall= () => {
                     option.map((item) => (
                         <ShowWall functCod={handleWall} key={item.id} name={item.name!} img={item.imgMural!} idGroup={item.id?.toString()!} wantExclu={false} />
                         ))
-                    ) : (
-                        <p>Entre em um grupo primeiro</p>
-                )}
+                    ) : null}
                 {(infor?.isAdmin == true)?(
                     <ShowWall  name={"Adicionar Mural"} img={mais.src} functCod={handleWallSelect} wantExclu={false}/>
                 ):(

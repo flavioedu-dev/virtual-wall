@@ -19,10 +19,11 @@ interface ShowPostProps {
     text: string;
     media?: string[];
     id: string;
-    onDelete?:(postId: string) => void 
+    onDelete?:(postId: string) => void;
+    PostData?: string; 
 }
 
-const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) => {
+const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData}: ShowPostProps) => {
     
     const [exclu, setExclu] = useState(false);
     const [vide, setVide] = useState<string[]>([]);
@@ -32,6 +33,8 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
     const [seePost, setSeePost] = useState(false)
     const [post, setPost] = useState<posts>()
     const dataPost = useInforPost({load: true})
+    const moment = require('moment');
+    const [dataPostValue, setDataPostValue] = useState("")
 
     const handleExclu = () => {
         setExclu(!exclu);
@@ -61,6 +64,12 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
             }
         }
 
+        if(PostData){
+            console.log("Aqui")
+            const datav = formatarData(PostData)
+            setDataPostValue(datav)
+        }
+
         // if(id && dataPost.data.length !== 0){
         //     const postFound = dataPost.data.find((value)=> value.id == id)
         //     if(postFound !== undefined && postFound){
@@ -70,7 +79,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
 
         
 
-    }, [dataPost.data, id, media]);
+    }, [id, media, PostData]);
 
     pdfjs.GlobalWorkerOptions.workerSrc = new URL(
         'pdfjs-dist/build/pdf.worker.min.js',
@@ -107,6 +116,29 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
             console.error('Erro de rede:', error);
           }
     
+      }
+
+      const formatarData = (data: string) => {
+        const agora = moment();
+        const dataRecebida = moment(data);
+      
+        const diffHoras = agora.diff(dataRecebida, 'hours');
+        const diffDias = agora.diff(dataRecebida, 'days');
+        const diffSemanas = agora.diff(dataRecebida, 'weeks');
+        const diffMeses = agora.diff(dataRecebida, 'months');
+        const diffAnos = agora.diff(dataRecebida, 'years');
+      
+        if (diffHoras < 24) {
+          return `${diffHoras} h`;
+        } else if (diffDias < 7) {
+          return `${diffDias} dias e (${diffSemanas} semanas)`;
+        } else if (diffMeses < 1) {
+          return `${diffDias} dias`;
+        } else if (diffAnos < 1) {
+          return `${diffDias} dias e (${diffMeses} meses)`;
+        } else {
+          return `${diffDias} dias e (${diffAnos} anos)`;
+        }
       }
 
     return(
@@ -148,6 +180,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
 
                     
 
+                <div className="show-infor-post">
                 <div className="elem-edit-show" onClick={handleFunct}>
                     <Image
                         src={img || perfil}
@@ -157,13 +190,19 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete}: ShowPostProps) 
                         height={400}
                     />
                     <div className='infor-text-p'>
+                        <div>
                         <h2>{name}</h2>
                         <p>{"@" + name?.toLowerCase()}</p>
+                        </div>
+                        
                         <br />
-                        <p className="textshow">{text}</p>
                     </div>
-                    
                 </div>
+
+                <p className="PostData">{dataPostValue}</p>
+                </div>
+
+                <p className="textshow">{text}</p>
 
 
                 {(image?.length !== 0)?(
