@@ -141,18 +141,20 @@ const HomePage = () => {
             
         {option?.slice().reverse().map((value) => {
           const matchingUser = dataUser.data.find((item) => value.memberId === item.id);
+          const useGroupElem = groups.data.find((item)=>item.userId === matchingUser?.id)
 
           if (matchingUser) {
             return (
               <React.Fragment key={value.id}>
                 <ShowPosts
-                  img={useGroup?.imgGroup || matchingUser.profile_image!|| perfil.src}
-                  name={matchingUser.username!}
+                  img={useGroupElem?.imgGroup || matchingUser.profile_image!|| perfil.src}
+                  name={useGroupElem?.name||matchingUser.username!}
                   text={value.content}
                   media={value.media}
                   id={value.id}
                   onDelete={handlePostDeletion}
                   funct={handleSelection}
+                  PostData={value.created_at}
                 />
               </React.Fragment>
               

@@ -52,6 +52,20 @@ body, html{
     top: 6rem;
 }
 
+.exit-post{
+    z-index: 1;
+    font-weight: 500;
+    font-size: 1.4rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 40rem;
+    cursor: pointer;
+}
+
+.exit-post:hover{
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 699px){
     .Post-section{
         width: 100%;

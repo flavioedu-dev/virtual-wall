@@ -118,9 +118,7 @@ const HomeGroup = () =>{
                    
                    {(value?.name !== undefined && value.name)?(
                         <ShowWall functCod={handleWall} key={value?.id} name={value?.name!} img={value?.imgGroup!} idGroup={value?.id!} wantExclu={false}/> 
-                    ):(
-                        <p></p>
-                    )}
+                    ):null}
 
                    </>
                 
@@ -132,9 +130,7 @@ const HomeGroup = () =>{
             </div>
                 {(infor?.isAdmin !== true)?(
                      <ShowWall functCod={handleWallSelect}  name={"Adicionar grupo"} img={mais.src} wantExclu={false}/>
-                ):(
-                    <p></p>
-                )}
+                ):null}
             </section>
         </main>
     )

@@ -13,10 +13,12 @@ import Nav from "@/components/Nav/Navbar";
 // Images
 import perfil from "../../../../public/boysNew.png"
 import Navbar from "@/components/Nav/Navbar";
-import { namewall, posts, useUserContext, user } from "@/context/VirtualContext";
+import { group, namewall, posts, useUserContext, user } from "@/context/VirtualContext";
 import ShowPosts from "@/components/ShowPost/ShowPost";
 import lupa from "public/lupa.png";
 import { useInforPost } from "@/hooks/useInforPost";
+import { useInforGroups } from "@/hooks/useInforGroups";
+import SeePost from "@/components/SeePost/SeePost";
 
 
 
@@ -27,8 +29,12 @@ const  Posts = () => {
     const [wallPost, setWallPost] = useState<posts[]>([])
     const [uplupa, setUpLupa] = useState(true)
     const [infor, setInfor] = useState<user>()
+    const [group, setGroup] = useState<group>()
     const [controlllll, setControlllll] = useState(0)
     const dataPost = useInforPost({load: true})
+    const dataGroup = useInforGroups()
+    const [seePost, setSeePost] = useState(false)
+    const [postSelection, setPostSelection] = useState<posts>()
 
     const updateWallPost = (dataPost: posts[], infor: user | undefined) => {
         if (dataPost.length !== 0 && infor !== undefined && infor) {
@@ -51,7 +57,18 @@ const  Posts = () => {
             if (valorRecuperado) {
             const userData = JSON.parse(valorRecuperado);
             setInfor(userData.data);
-            setControlllll(1)
+            
+            if(userData.data.isAdmin == true){
+                const groupMatch = dataGroup.data.find((item)=>item.userId == userData.data.id)
+                console.log(groupMatch)
+                if(groupMatch && groupMatch !== undefined){
+                    setGroup(groupMatch)
+                    setControlllll(1)
+                }
+            }else{
+                setControlllll(1)
+            }
+            
             }
         }
 
@@ -72,10 +89,30 @@ const  Posts = () => {
         }, 1000);
     }
 
+    const handleSelection = (id:string) =>{
+        
+        if(id){
+            const postElement = dataPost.data.find((value)=>value.id === id)
+            if(postElement && postElement !== undefined){
+              console.log("Passou aqui!")
+              setSeePost(true)
+              setPostSelection(postElement)
+            }
+          }
+    }
+
     return (
         <main className="mainPost">
             <section className="Post-section">
             <Navbar ImageGroup={infor?.profile_image || ''}></Navbar>
+            {(seePost)?(    
+              <div className="seePost-showpost">
+                  <SeePost post={postSelection!}/>
+                  <p className="exit-post" onClick={()=>{
+                    setSeePost(false)
+                  }}>Exit</p>
+              </div>
+          ):null}
             <div className="forPesq-Post">
                     <input type="text" className="pesq-Post" placeholder="Pesquisa" id="enter" onClick={changeLupa} onBlur={changeLupaBlur}/>
                     {/* {(uplupa)?(
@@ -93,7 +130,14 @@ const  Posts = () => {
             <section className="posts-container-post">
             <>
             {wallPost.slice().reverse().map((item) => (
-                 <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} id={item.id} />
+
+                <>
+                     {(infor?.isAdmin == true)?(
+                    <ShowPosts key={item.id} img={group?.imgGroup|| perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} />
+                 ):(
+                    <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} />
+                 )}
+                </>
             )
             )}
         </>

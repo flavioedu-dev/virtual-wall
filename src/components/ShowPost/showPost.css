@@ -32,6 +32,7 @@
 .elem-edit-show{
     display: flex;
     margin-bottom: 1rem;
+    align-items: center;
     width: 90%;
     
 }
@@ -45,6 +46,12 @@
     top: 1rem; */
 }
 
+.show-infor-post{
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
 .infor-text-p h2{
     font-size: 16px;
 }
@@ -56,8 +63,10 @@
 }
 
 .textshow{
-    max-width: 30rem;
+    font-size: 13px;
+    width: 80%;
     word-wrap: break-word;
+    margin-bottom: 1rem;
 }
 
 .midiashow{
@@ -145,6 +154,15 @@
 
 .elementExcluP button:hover{
     text-decoration: underline;
+}
+
+.PostData{
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 3rem;
+    width: 17rem;
+    text-align: end;
+    
 }
 
 @media screen and (max-width: 699px){
