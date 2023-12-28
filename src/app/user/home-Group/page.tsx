@@ -38,7 +38,7 @@ const HomeGroup = () =>{
       
         if(controlO === 0){
             if (infor?.isAdmin === true) {
-                setImgPerfil(infor.group?.imageGroup!);
+                setImgPerfil(infor.group?.imgGroup!);
                 setControlO(1)
               } else {
                 setImgPerfil(infor?.profile_image || "");
