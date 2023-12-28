@@ -52,6 +52,10 @@
     display: flex;
 }
 
+.infor-text-p{
+    margin-left: 0.5rem;
+}
+
 .infor-text-p h2{
     font-size: 16px;
 }

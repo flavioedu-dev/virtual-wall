@@ -3,7 +3,9 @@
     width: 100vh;
     display: flex;
     z-index: 1;
-    left: 37.25rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 100vh;
     background-color: white;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -89,10 +91,56 @@
 .img-Post {
     object-fit: contain;  
     max-width: 100%;      
-  }
+}
   
-  .video-post {
+.video-post {
     width: 40rem;          
     height: auto;        
-  }
+}
+
+@media screen and (max-width: 1420px){
+    .all-seepost{
+
+        width: 80%;
+        
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .all-seepost{
+        width: 70%;
+    }
+}
+@media screen and (max-width: 900px){
+    .all-seepost{
+        width: 80%;
+    }
+}
+@media screen and (max-width: 800px){
+    .all-seepost{
+        width: 100%;
+    }
+
+    .seepost{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-media {
+        align-self: center;
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    .video-container video{
+       width: 90%;
+    }
+}
+
+
 

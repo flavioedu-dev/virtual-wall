@@ -13,6 +13,7 @@ import { useInforPost } from "@/hooks/useInforPost";
 import ShowPosts from "../../../../../components/ShowPost/ShowPost";
 import { useInforGroups } from "@/hooks/useInforGroups";
 import SeePost from "@/components/SeePost/SeePost";
+import { info } from "console";
 
 const HomePage = () => {
   
@@ -155,6 +156,8 @@ const HomePage = () => {
                   onDelete={handlePostDeletion}
                   funct={handleSelection}
                   PostData={value.created_at}
+                  idUser={infor?.id!}
+                  idUserPost={matchingUser.id!}
                 />
               </React.Fragment>
               

@@ -133,9 +133,9 @@ const  Posts = () => {
 
                 <>
                      {(infor?.isAdmin == true)?(
-                    <ShowPosts key={item.id} img={group?.imgGroup|| perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} />
+                    <ShowPosts key={item.id} img={group?.imgGroup|| perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor.id!} idUserPost={infor.id!} />
                  ):(
-                    <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} />
+                    <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.username!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor!.id!} idUserPost={infor!.id!} />
                  )}
                 </>
             )

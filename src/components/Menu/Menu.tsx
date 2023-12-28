@@ -89,7 +89,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
       img: home,
       alt: "Home-icon",
       title: "Home",
-      path: `/user/home-Group/${rotaGroup}/${rotaMural}`
+      path: `/user/home-post`
     },
     {
       id: 2,
@@ -128,7 +128,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
           {(infor?.isAdmin == true)?(
             <Image src={useGroup?.imgGroup|| profileImg} alt="profile-linkedin" className="profile-per" width={400} height={400} quality={100}/>
           ):(
-            <Image src={infor?.profile_image || infor?.group?.imageGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={1000} height={1000} quality={100}/>
+            <Image src={infor?.profile_image || infor?.group?.imgGroup! || profileImg} alt="profile-linkedin" className="profile-per" width={1000} height={1000} quality={100}/>
           )}
           <h2>{infor?.name}</h2>
           <p>@{infor?.username?.toLocaleLowerCase()}</p>

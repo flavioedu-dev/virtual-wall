@@ -28,7 +28,6 @@ export interface wall {
 }
 
 export interface group {
-  [x: string]: any;
   name?: string,
   imgGroup?: string,
   wall?:wall[],
