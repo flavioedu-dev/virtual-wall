@@ -172,11 +172,14 @@ const SeePost = ({post}:seepost) => {
                                 ))
                             ) : null}
                            </div>
+                            <div className="video-container">
                             {(vide.length !== 0) ? (
                                 vide.map((item) => (
                                     <video key={item} src={item} className="video-post" controls></video>
                                 ))
                             ) : null}
+                            </div>
+                            <div className="doc-container">
                             {(docum.length !== 0) ? (
                                 docum.map((item) => (
                                     <>
@@ -188,6 +191,7 @@ const SeePost = ({post}:seepost) => {
                                     </>
                                 ))
                             ) : null}
+                            </div>
                         </div>
                 </section>  
             </section>

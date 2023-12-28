@@ -20,10 +20,12 @@ interface ShowPostProps {
     media?: string[];
     id: string;
     onDelete?:(postId: string) => void;
-    PostData?: string; 
+    PostData?: string;
+    idUserPost: string;
+    idUser: string;
 }
 
-const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData}: ShowPostProps) => {
+const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser, idUserPost}: ShowPostProps) => {
     
     const [exclu, setExclu] = useState(false);
     const [vide, setVide] = useState<string[]>([]);
@@ -65,7 +67,6 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData}: ShowP
         }
 
         if(PostData){
-            console.log("Aqui")
             const datav = formatarData(PostData)
             setDataPostValue(datav)
         }
@@ -145,8 +146,6 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData}: ShowP
         
         <>
 
-        
-        
         <main className='allshowPost'>
 
             
@@ -164,7 +163,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData}: ShowP
                     </div>
                 ):null}
 
-                    {(exclu)?(
+                    {(exclu && idUser === idUserPost)?(
                         <div className="exclu" onClick={()=>{setExcluOption(true)}}>
                         <p>Excluir</p>
                         </div>

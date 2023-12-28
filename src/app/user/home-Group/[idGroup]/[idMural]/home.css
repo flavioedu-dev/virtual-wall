@@ -41,6 +41,17 @@ html, body{
 }
 
 
+@media screen and (max-width: 800px){
+    .exit-post{
+        z-index: 1;
+        font-weight: 500;
+        font-size: 1.6rem;
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        cursor: pointer;
+    }
+}
 
 @media screen and (max-width: 699px){
     .all-home-H{

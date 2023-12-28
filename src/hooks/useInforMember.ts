@@ -1,6 +1,7 @@
 import { member} from "@/context/VirtualContext";
 import { useEffect, useState } from "react"
 
+
 export const useInforMembers = () =>{
 
     const [data, setData] = useState<member[]>([])
