@@ -7,7 +7,7 @@ export const useInforGroups = () =>{
 
     useEffect(()=>{
       async function getData(){
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/groups", {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/groups", {
         method: "GET",
         headers: {
           "Content-Type": "application/json"

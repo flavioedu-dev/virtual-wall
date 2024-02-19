@@ -99,6 +99,7 @@ const RegisterPage = () => {
           style={{ objectFit: "contain" }}
         />
       </div>
+      <p style={{fontSize:"1.2rem", marginTop:"1rem"}}>Cadastro como usuário</p>
       <AuthForm>
         <div className="user-data">
           <AuthInput
@@ -147,8 +148,12 @@ const RegisterPage = () => {
             required
           />
           
+          <ul className="p-text-password">
+            <li>A senha deve conter 8 digitos</li>
+          </ul>
+          
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={register} id="bnt-register" type="button">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || password.length < 8)?(<p className="infor-text">Preencha todos os campos corretamente</p>):<AuthButton authentication={register} id="bnt-register" type="button">Cadastrar</AuthButton>}
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

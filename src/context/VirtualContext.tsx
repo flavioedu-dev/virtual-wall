@@ -59,6 +59,7 @@ export interface user{
 interface VirtualContex {
   infor: user | null;
   handleNameChange: (inform: user) => void;
+  
 }
 
 const UserContext = createContext<VirtualContex>({

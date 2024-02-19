@@ -92,7 +92,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
       const excluPost = async () => {
 
         try {
-            const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts/'+id, {
+            const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/posts/'+id, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',

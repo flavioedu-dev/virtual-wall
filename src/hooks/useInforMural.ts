@@ -7,7 +7,7 @@ export const useInforMural = () =>{
 
     useEffect(()=>{
       async function getData(){
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/murals", {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/murals", {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
