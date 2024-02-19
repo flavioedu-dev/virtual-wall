@@ -135,7 +135,7 @@ const CreatePost = ({name, img, idwall, idUser, idmember, functionTrue}:ShowPost
         
 
         try {
-          const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/posts', {
+          const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/posts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ interface UseEnterResult {
 export const useEnter = (): UseEnterResult => {
   const authenticationE = async (email: string, password: string) => {
     try {
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production.up.railway.app/auth/login", {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

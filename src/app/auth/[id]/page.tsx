@@ -28,7 +28,7 @@ const AuthGroup = () =>{
         console.log(idUser)
         console.log(cod)
         try {
-          const response = await fetch('https://projeto-web-full-stack-pm-devs-production.up.railway.app/members/'+idUser, {
+          const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/members/'+idUser, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

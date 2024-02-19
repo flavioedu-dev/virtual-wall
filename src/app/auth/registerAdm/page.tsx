@@ -90,14 +90,15 @@ const RegisterAdm = () => {
   return (
     <main className="all">
          <div className="logo_login">
-        <Image
-          src={logoImg}
-          alt="Logo"
-          width={400}
-          className="img_rge"
-          style={{ objectFit: "contain" }}
-        />
-      </div>
+          <Image
+            src={logoImg}
+            alt="Logo"
+            width={400}
+            className="img_rge"
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+        <p style={{fontSize:"1.2rem"}}>Cadastro como grupo</p>
       <AuthForm>
         <div className="user-data">
           <AuthInput
@@ -146,8 +147,14 @@ const RegisterAdm = () => {
             onchange={handleChange.handleConfirmPassword}
             required
           />
+
+          <ul className="p-text-password">
+            <li>A senha deve conter 8 digitos</li>
+          </ul>
+          
+
         </div>
-        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || userName.trim() === '')?(<p className="infor-text">Preencha todos os campos</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
+        {(name.trim() === '' || email.trim() === '' || password.trim() === ''|| confirmPassword.trim()=== '' || userName.trim() === '' || password.length < 8 )?(<p className="infor-text">Preencha todos os campos corretamente</p>):<AuthButton authentication={handleSubmit} id="bnt-register" type="button">Cadastrar</AuthButton>};
         <p className="auth">
           <Link href={"/auth/login"}>Já possui uma conta? Entrar</Link>
         </p>

@@ -34,6 +34,16 @@ form input:nth-child(1) {
   font-size: 1.6rem;
 }
 
+.p-text-password{
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.p-text-password li{
+  text-align: start;
+  font-size: 1.2rem;
+}
+
 @media (min-width: 600px) {
 
   .logo_login img {
