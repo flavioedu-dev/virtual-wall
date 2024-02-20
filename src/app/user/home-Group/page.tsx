@@ -11,6 +11,7 @@ import ShowWall from '@/components/createWall/ShowWall/ShowWall'
 import Link from 'next/link'
 import { useInforMembers } from '@/hooks/useInforMember'
 import { useInforGroups } from '@/hooks/useInforGroups'
+import React from 'react'
 
 const HomeGroup = () =>{
 
@@ -47,14 +48,18 @@ const HomeGroup = () =>{
         }
       
        if(controlTw === 0){
-        if (dataMembers.data.length !== 0 && infor && dataGroup.data.length !== 0) {
+        
+        if ( infor && dataGroup.data.length !== 0) {
+            
             if(infor.isAdmin == true){
+                
                 const Groups = dataGroup.data.find(
                     (valueGroup) => valueGroup.userId == infor.id
                   );
                   if(Groups && Groups!== undefined){
                     setControlTw(1)
                     setListGroup((prevList) => [...prevList, Groups!])
+                    
                     
                   }
               }else{
@@ -63,7 +68,7 @@ const HomeGroup = () =>{
                         const Groups = dataGroup.data.find(
                           (valueGroup) => valueGroup.id == value.groupId
                         );
-                        console.log(Groups)
+                       
                         if(listGroup.length !== 0){
                             listGroup.map(value => {
                                 if(value?.id !== Groups?.id){
@@ -85,8 +90,8 @@ const HomeGroup = () =>{
        }
 
        if(setListGroup.length !== 0){
-            console.log(listGroup)
-            console.log(controlO, controlTw, cont)
+            
+            
        }
 
 
@@ -103,36 +108,26 @@ const HomeGroup = () =>{
 
     return(
         <main className='all-inf-show-wall'>
-            <Nav ImageGroup={imgperfil||''}/>
-            
-            <section className='inforGroup'>
+        <Nav ImageGroup={imgperfil||''}/>
+        
+        <section className='inforGroup'>
             <div className='inforGroup-text'>
-            <p>GRUPOS</p>
+                <p>GRUPOS</p>
             </div>
             <div className='inforGroup-wall'>
-                <>
-
-                {listGroup.map(value => (
-                       
-                   <>
-                   
-                   {(value?.name !== undefined && value.name)?(
-                        <ShowWall functCod={handleWall} key={value?.id} name={value?.name!} img={value?.imgGroup!} idGroup={value?.id!} wantExclu={false}/> 
-                    ):null}
-
-                   </>
-                
+                {listGroup.map((value, index) => (
+                    <React.Fragment key={index}>
+                        {(value?.name !== undefined && value.name) ? (
+                            <ShowWall functCod={handleWall} key={value?.id} name={value?.name!} img={value?.imgGroup!} idGroup={value?.id!} wantExclu={false}/> 
+                        ) : null}
+                    </React.Fragment>
                 ))}
-            
-                
-                    
-                </>
             </div>
-                {(infor?.isAdmin !== true)?(
-                     <ShowWall functCod={handleWallSelect}  name={"Adicionar grupo"} img={mais.src} wantExclu={false}/>
-                ):null}
-            </section>
-        </main>
+            {(infor?.isAdmin !== true) ? (
+                <ShowWall functCod={handleWallSelect}  name={"Adicionar grupo"} img={mais.src} wantExclu={false}/>
+            ) : null}
+        </section>
+    </main>
     )
 }
 

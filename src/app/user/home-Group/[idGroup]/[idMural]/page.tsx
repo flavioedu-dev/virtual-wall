@@ -52,7 +52,7 @@ const HomePage = () => {
               }
               if(dataMember.data.length !== 0 && userData.data ){
                 const memb = dataMember.data.find((value)=>value.userId == userData.data.id)
-                setMember(memb?.id!)
+                setMember(memb?.userId!)
               }
             }
 
