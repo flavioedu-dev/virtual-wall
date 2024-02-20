@@ -46,12 +46,20 @@ const CreatePost = ({name, img, idwall, idUser, idmember, functionTrue}:ShowPost
     useEffect(()=>{
         
         if(idmember && dataMember.data.length !== 0){
- 
-            const memb = dataMember.data.find((value)=> value.id == idmember)
+            const listMember = []
+            //const memb = dataMember.data.find((value)=> value.id == idmember)
+            for (let i = 0; i < dataMember.data.length; i++){
+                
+                if(dataMember.data[i].userId == idmember){
+                    listMember.push(dataMember.data[i])
+                }
+            }
             const mural = dataMural.data.find((value)=> value.id == idwall)
             
-            if(memb?.category == mural?.category){
-                setPostPubli(true)
+            for (let j = 0; listMember.length > j; j++){
+                if(listMember[j].category == mural?.category){
+                    setPostPubli(true)
+                }
             }
 
         }
