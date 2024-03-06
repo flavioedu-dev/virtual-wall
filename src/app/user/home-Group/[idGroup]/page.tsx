@@ -24,7 +24,7 @@ const HomeWall= () => {
     const [controlll, setControlll] = useState(0)
     const params = useParams()
     const router = useRouter()
-    const groups = useInforGroups()
+    const groups = useInforGroups({load:true})
 
     useEffect(()=>{
 

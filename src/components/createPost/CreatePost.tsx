@@ -29,8 +29,8 @@ const CreatePost = ({name, img, idwall, idUser, idmember, functionTrue}:ShowPost
     const [arqfileVid, setArqFileVid] = useState<File[]>([])
     const [text, setText] = useState("")
     const [see, setSee] = useState(false)
-    const dataMember = useInforMembers()
-    const dataMural = useInforMural()
+    const dataMember = useInforMembers({load:true})
+    const dataMural = useInforMural({load:true})
 
     //list arq
     const [arqfileImgList, setArqFileImgList] = useState<string[]>([])

@@ -55,7 +55,7 @@ const LoginPage = () => {
     setPassword(e.currentTarget.value);
   };
 
-  const groups = useInforGroups()
+  const groups = useInforGroups({load:true})
 
   useEffect(()=>{
    

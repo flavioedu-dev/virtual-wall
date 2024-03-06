@@ -21,7 +21,7 @@ const ShowWall = ({name, img, funct, idGroup, functCod, functExclu, wantExclu }:
   const [exclu, setExclu] = useState(false)
   const [excluOption, setExcluOption] = useState(false)
   const [idMural, setIdMural] = useState<number>()
-  const dataMural = useInforMural()
+  const dataMural = useInforMural({load:true})
   const [dataMu, setDataMu] = useState<wall[]>()
 
   const handleWall = () =>{
@@ -51,9 +51,6 @@ const ShowWall = ({name, img, funct, idGroup, functCod, functExclu, wantExclu }:
   },[dataMural.data])
 
   const excluMural = async () => {
-
-    console.log("Deletando o mural")
-    console.log(idGroup)
 
     const mural = dataMu?.find((value)=> value.name == name && value.groupId == idGroup)
 

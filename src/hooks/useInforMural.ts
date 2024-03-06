@@ -1,23 +1,32 @@
 import { wall } from "@/context/VirtualContext";
 import { useEffect, useState } from "react"
 
-export const useInforMural = () =>{
+type useInforPostProps ={
+  load: boolean;
+}
 
-    const [data, setData] = useState<wall[]>([])
+export const useInforMural = ({load}:useInforPostProps) =>{
 
-    useEffect(()=>{
-      async function getData(){
-        const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/murals", {
+  const [data, setData] = useState<wall[]>([]);
+
+  const getData = async () => {
+    try {
+      const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/murals', {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
         }
       });
-        const Data = await response.json()
-        setData(Data)
-   }  
-      getData()
-    },[])
+      const newData = await response.json();
+      setData(newData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-  return{data}
+  useEffect(() => {
+   (async () => await getData())(); 
+  },[load]); 
+  
+  return { data };
   }

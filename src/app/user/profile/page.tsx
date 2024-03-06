@@ -26,7 +26,7 @@ const  Profile = () => {
     const {data} = useLogin()
     const [controllll, setControllll] = useState(0)
     const [useGroup, setUseGroup] = useState<group>()
-    const groups = useInforGroups()
+    const groups = useInforGroups({load:true})
 
     useEffect(()=>{
 

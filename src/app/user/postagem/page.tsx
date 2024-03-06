@@ -19,8 +19,14 @@ import lupa from "public/lupa.png";
 import { useInforPost } from "@/hooks/useInforPost";
 import { useInforGroups } from "@/hooks/useInforGroups";
 import SeePost from "@/components/SeePost/SeePost";
+import { useInforMembers } from "@/hooks/useInforMember";
+import { useInforMural } from "@/hooks/useInforMural";
 
-
+interface groupId{
+    nameGroup: string;
+    idMuralGroup: number;
+    category: string;
+}
 
 const  Posts = () => {
 
@@ -30,9 +36,12 @@ const  Posts = () => {
     const [uplupa, setUpLupa] = useState(true)
     const [infor, setInfor] = useState<user>()
     const [group, setGroup] = useState<group>()
+    const [groupPubli, setGroupPubli] = useState<groupId[]>([])
     const [controlllll, setControlllll] = useState(0)
     const dataPost = useInforPost({load: true})
-    const dataGroup = useInforGroups()
+    const dataGroup = useInforGroups({load:true})
+    const dataMember = useInforMembers({load:true})
+    const dataMural = useInforMural({load:true})
     const [seePost, setSeePost] = useState(false)
     const [postSelection, setPostSelection] = useState<posts>()
 
@@ -44,6 +53,16 @@ const  Posts = () => {
             if (value.memberId === infor.id) {
               if (!optionIdsSet.has(value.memberId)) {
                 setWallPost(prevList => [...prevList, value]);
+                const muralPost = dataMural.data.find((valueMural)=> valueMural.id == value.muralId)
+                const groupPost = dataGroup.data.find((valueGroup)=> valueGroup.id == muralPost?.groupId)
+                const NameGroup = {
+                    nameGroup: groupPost?.name!,
+                    idMuralGroup: muralPost?.id!,
+                    category: muralPost?.category! 
+                };
+                console.log(NameGroup)
+                setGroupPubli(prevList => [...prevList, NameGroup]);
+                
               }
             }
           });
@@ -60,7 +79,7 @@ const  Posts = () => {
             
             if(userData.data.isAdmin == true){
                 const groupMatch = dataGroup.data.find((item)=>item.userId == userData.data.id)
-                console.log(groupMatch)
+                
                 if(groupMatch && groupMatch !== undefined){
                     setGroup(groupMatch)
                     setControlllll(1)
@@ -72,12 +91,18 @@ const  Posts = () => {
             }
         }
 
-        updateWallPost(dataPost.data, infor);
+        if(dataMember.data.length !== 0 && dataGroup.data.length !== 0 && dataMember.data.length !== 0){
+            updateWallPost(dataPost.data, infor);
+        }
 
+
+        // if(groupPubli){
+        //     console.log(groupPubli)
+        // }
 
         
 
-    }, [dataPost.data, infor])
+    }, [dataPost.data, infor, dataMember.data, dataGroup.data, dataMural.data])
 
     const changeLupa = () =>{
         setUpLupa(false)
@@ -115,32 +140,28 @@ const  Posts = () => {
                 ):null}
                 <div className="forPesq-Post">
                         <input type="text" className="pesq-Post" placeholder="Pesquisa" id="enter" onClick={changeLupa} onBlur={changeLupaBlur}/>
-                        {/* {(uplupa)?(
-                            <Image
-                            src={lupa}
-                            alt="Logo-pesq-p"
-                            className="img-pesq-post"
-                            id="lupa"
-                            width={20}
-                        />
-                        ):(
-                            <p></p>
-                        )} */}
+                       
                 </div>
                 <section className="posts-container-post">
-                    <>
-                        {wallPost.slice().reverse().map((item) => (
-
-                            <>
-                                {(infor?.isAdmin == true)?(
-                                <ShowPosts key={item.id} img={group?.imgGroup|| perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor.id!} idUserPost={infor.id!} />
-                            ):(
-                                <ShowPosts key={item.id} img={infor?.profile_image|| perfil.src} name={infor?.username!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor!.id!} idUserPost={infor!.id!} />
+                <>
+                    {wallPost.slice().reverse().map((item) => (
+                        <React.Fragment key={`${item.id}-${infor?.id}`}>
+                            {infor?.isAdmin === true ? (
+                                <ShowPosts key={`${item.id}-${infor.id}`} img={group?.imgGroup || perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor.id!} idUserPost={infor.id!}/>
+                            ) : (
+                                <React.Fragment>
+                                    {groupPubli.map((element) => (
+                                        <React.Fragment key={element.idMuralGroup}>
+                                            {element.idMuralGroup == item.muralId?(
+                                                <ShowPosts key={`${item.id}-${infor?.id}`} img={infor?.profile_image || perfil.src} name={infor?.username!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor!.id!} idUserPost={infor!.id!} secondName={element.nameGroup} PostData={item.created_at} />
+                                            ):null}
+                                        </React.Fragment>
+                                    ))}
+                                </React.Fragment>
                             )}
-                            </>
-                        )
-                        )}
-                     </>
+                        </React.Fragment>
+                    ))}
+                </>
                 </section>
             </section>
         </main>

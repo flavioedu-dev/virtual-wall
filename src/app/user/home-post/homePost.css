@@ -75,6 +75,11 @@
     text-decoration: underline;
 }
 
+.groupSelection{
+    display: flex;
+    margin-bottom: 2rem;
+}
+
 @media screen and (max-width: 800px){
     .exit-postHome{
         z-index: 1;

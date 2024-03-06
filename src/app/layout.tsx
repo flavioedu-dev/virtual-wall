@@ -23,8 +23,8 @@ export default function RootLayout({
   const isPublicPage = checkIsPublicRoute(pathname!)
 
   return (
-    <html lang="pt-br">
-      <body>
+    <html lang="pt-br" >
+      <body suppressHydrationWarning={true}>
         
         <UserProvider>
         {isPublicPage && (
