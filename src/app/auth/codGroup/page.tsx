@@ -27,10 +27,10 @@ const CodGroup =  () =>{
     const [control, setControl] = useState(0)
     const [controlOne, setControlOne] = useState(0)
     const [controlTwo, setControlTwo] = useState(0)
-    const member = useInforMembers()
+    const member = useInforMembers({load:true})
     
     // const {infor, handleNameChange} = useUserContext()
-    const data = useInforGroups()
+    const data = useInforGroups({load:true})
 
     const handleChange = () => {
         const num = parseInt(cod, 10)

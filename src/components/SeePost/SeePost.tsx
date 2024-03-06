@@ -21,7 +21,7 @@ interface seepost {
 const SeePost = ({post}:seepost) => {
 
     const dataUser = useLogin()
-    const dataGroup = useInforGroups()
+    const dataGroup = useInforGroups({load:true})
     const [usePost, setUsePost] = useState<user>()
     const [useGroup, setUseGroup] = useState<group>()
     const [vide, setVide] = useState<string[]>([]);

@@ -1,0 +1,11 @@
+.buttonSelectionGroup{
+    background-color: #f5f4f4;
+    width: 5rem;
+    margin-right: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.buttonSelectionGroup:hover{
+    background: rgba(97, 218, 103, 0.9);
+}

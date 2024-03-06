@@ -50,8 +50,8 @@ const  CreateWall= () => {
   const [idGroup, setIdGroup] = useState("")
   const [controlP, setControlP] = useState(0)
   const [atuali, setAtuali] = useState(0)
-  const dataGroup = useInforGroups()
-  const dataMural = useInforMural()
+  const dataGroup = useInforGroups({load:true})
+  const dataMural = useInforMural({load:true})
   // const {handleNameChange, infor} = useUserContext()
   const [infor, setInfor] = useState<user>()
 

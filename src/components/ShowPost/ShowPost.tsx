@@ -23,9 +23,10 @@ interface ShowPostProps {
     PostData?: string;
     idUserPost: string;
     idUser: string;
+    secondName?: string;
 }
 
-const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser, idUserPost}: ShowPostProps) => {
+const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser, idUserPost, secondName}: ShowPostProps) => {
     
     const [exclu, setExclu] = useState(false);
     const [vide, setVide] = useState<string[]>([]);
@@ -50,6 +51,10 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
         }
     }
 
+    if(!secondName){
+        secondName = name
+    }
+
 
     useEffect(() => {
         
@@ -70,6 +75,8 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
             const datav = formatarData(PostData)
             setDataPostValue(datav)
         }
+
+        
 
         // if(id && dataPost.data.length !== 0){
         //     const postFound = dataPost.data.find((value)=> value.id == id)
@@ -191,7 +198,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
                     <div className='infor-text-p'>
                         <div>
                         <h2>{name}</h2>
-                        <p>{"@" + name?.toLowerCase()}</p>
+                        <p>{"@" + secondName?.toLowerCase()}</p>
                         </div>
                         
                         <br />

@@ -19,7 +19,7 @@ const AuthGroup = () =>{
     const [option, setOption] = useState<wall[]>()
     const [infor, setInfor] = useState<user>()
     const [checkValue, setCheckValue] = useState(false)
-    const groups = useInforGroups()
+    const groups = useInforGroups({load:true})
     const router = useRouter()
     const params = useParams()
    

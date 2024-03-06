@@ -32,7 +32,7 @@ const Menu = ({ closeMenu, imgGroup }: MenuProps) => {
   const [rotaGroup, setRotaGroup] = useState("")
   const [controlllll, setControlllll] = useState(0)
   const [useGroup, setUseGroup] = useState<group>()
-  const groups = useInforGroups()
+  const groups = useInforGroups({load:true})
 
   const redirectToPath = (path: string) => {
     router.push(`${path}`)
