@@ -208,7 +208,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
                 <p className="PostData">{dataPostValue}</p>
                 </div>
 
-                <p className="textshow">{text}</p>
+                <p className="textshow" >{text}</p>
 
 
                 {(image?.length !== 0)?(
@@ -218,7 +218,7 @@ const ShowPosts= ({name, img, funct, text, media, id, onDelete, PostData, idUser
                             <Image
                             src={image[0]}
                             alt="Logo-pesq"
-                            className="document-showPost"
+                            className="document-showPostN"
                             id="img"
                             width={600}
                             height={600}

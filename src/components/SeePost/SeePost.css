@@ -73,6 +73,7 @@
     flex-direction: column;
     overflow-y: auto; 
     max-height: 60vh;
+    
 }
 
 .image-container {
@@ -89,13 +90,13 @@
 }
 
 .img-Post {
-    object-fit: contain;  
-    max-width: 100%;      
+    width: 40rem;
+    height: 40rem;     
 }
   
 .video-post {
     width: 40rem;          
-    height: auto;        
+    height: 40rem;        
 }
 
 @media screen and (max-width: 1420px){

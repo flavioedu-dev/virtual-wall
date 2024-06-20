@@ -69,8 +69,11 @@
 .textshow{
     font-size: 13px;
     width: 80%;
+    max-height: 20.7rem;
+    overflow: hidden;
     word-wrap: break-word;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    
 }
 
 .midiashow{
@@ -87,10 +90,10 @@
     margin-bottom: 1rem;
 }
 
-.document-showPost{
+.document-showPostN{
     width: 100%;
     height: 25rem;
-    object-fit: contain;
+    object-fit: cover;
     margin-bottom: 1rem;
 }
 

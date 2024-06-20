@@ -140,7 +140,7 @@ const  Posts = () => {
                 <>
                     {wallPost.slice().reverse().map((item) => (
                         <React.Fragment key={`${item.id}-${infor?.id}`}>
-                            {infor?.isAdmin === true ? (
+                            {infor?.isAdmin === true && group ? (
                                 <ShowPosts key={`${item.id}-${infor.id}`} img={group?.imgGroup || perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor.id!} idUserPost={infor.id!}/>
                             ) : (
                                 <React.Fragment>
