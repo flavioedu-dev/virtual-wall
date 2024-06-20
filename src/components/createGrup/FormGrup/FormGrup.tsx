@@ -37,7 +37,7 @@ const FormGrup = () => {
 
   const funPut = (value:group) =>{
     async function getData(){
-      const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/groups",{
+      const response = await fetch("http://localhost:8000/groups",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"

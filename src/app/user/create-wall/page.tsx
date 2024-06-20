@@ -57,7 +57,7 @@ const  CreateWall= () => {
 
   const addWall = async (groupId:string, name:string, imgMural:string) => {
     try {
-      const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/murals', {
+      const response = await fetch('http://localhost:8000/murals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

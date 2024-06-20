@@ -75,7 +75,7 @@ const EditProfile = () => {
 
       const funPut = (value: user) =>{
         async function getData(){
-          const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/users/"+infor?.id,{
+          const response = await fetch("http://localhost:8000/users/"+infor?.id,{
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -97,7 +97,7 @@ const EditProfile = () => {
 
       const funGet = () =>{
         async function getData(){
-          const response = await fetch("https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/users/"+infor?.id,{
+          const response = await fetch("http://localhost:8000/users/"+infor?.id,{
           method: "GET",
           headers: {
             "Content-Type": "application/json"
