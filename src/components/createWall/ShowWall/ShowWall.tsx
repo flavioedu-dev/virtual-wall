@@ -61,7 +61,7 @@ const ShowWall = ({name, img, funct, idGroup, functCod, functExclu, wantExclu }:
     if(mural){
       setIdMural(mural.id)
       try {
-        const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/murals/'+mural.id, {
+        const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/murals/'+mural.id, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

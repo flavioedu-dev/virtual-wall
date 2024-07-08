@@ -102,21 +102,23 @@ const HomePost = () => {
             
             return
           } 
-            if (userData.data) {
+            else if (userData.data) {
+             
               const group = dataGroup.data.find((value) => value.userId === userData.data.id);
               if (group && group.id) {
-               
-                  const murals = await getData(group.id);
-                  const uniquePostIds = new Set();
-
+                  setRandomGroup(group)
+                  const murals = await getData(group.id)
+                
+                  setListPost([])
                   murals.forEach((value: wall) => {
+                    setListPost([])
                     dataPost.data.forEach((item) => {
-                      if (value.id === item.muralId && item && !uniquePostIds.has(item.id)) {
-                        uniquePostIds.add(item.id);
-                        setListPost((prevList) => [...prevList, item]);
+                      if (value.id === item.muralId && item ) {
+                        
+                        setListPost((prevList) => [...prevList, item])
                       }
-                    });
-                  });
+                    })
+                  })
                
               }
             }
@@ -141,6 +143,8 @@ const HomePost = () => {
             addGroup(randomGroup)
       }
     },[randomGroup])
+
+    
 
     const handleSelection = (id:string) => {
         if(id){
@@ -193,10 +197,38 @@ const HomePost = () => {
 
               <div className="post-homePost">
               {(infor?.isAdmin === true)?(
-                null
+                 <>
+                 {[...new Set(listPost.map((value) => value.id))].reverse().map((postId) => {
+                    
+                     const value = listPost.find((post) => post.id === postId);
+                     const matchingUser = dataUser.data.find((item) => value!.memberId === item.id);
+                     const useGroupElem = dataGroup.data.find((item) => item.userId === matchingUser?.id);
+
+                     if (matchingUser) {
+                       return (
+                         <React.Fragment key={value!.id}>
+                           <ShowPosts
+                             img={useGroupElem?.imgGroup || matchingUser.profile_image! || perfil.src}
+                             name={useGroupElem?.name || matchingUser.username!}
+                             text={value!.content}
+                             media={value!.media}
+                             id={value!.id}
+                             funct={handleSelection}
+                             PostData={value!.created_at}
+                             idUser={infor!.id!}
+                             idUserPost={matchingUser.id!}
+                           />
+                         </React.Fragment>
+                       );
+                     } else {
+                       return null;
+                     }
+                   })}
+               </>
             ):(
                 <>
                   {[...new Set(listPost.map((value) => value.id))].reverse().map((postId) => {
+                     
                       const value = listPost.find((post) => post.id === postId);
                       const matchingUser = dataUser.data.find((item) => value!.memberId === item.id);
                       const useGroupElem = dataGroup.data.find((item) => item.userId === matchingUser?.id);

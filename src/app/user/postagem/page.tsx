@@ -26,6 +26,7 @@ interface groupId{
     nameGroup: string;
     idMuralGroup: number;
     category: string;
+    idPost: string,
 }
 
 const  Posts = () => {
@@ -44,35 +45,34 @@ const  Posts = () => {
     const dataMural = useInforMural({load:true})
     const [seePost, setSeePost] = useState(false)
     const [postSelection, setPostSelection] = useState<posts>()
+    const [newAtu, setNewAtu] = useState(false)
 
-    const updateWallPost = (dataPost: posts[], infor: user | undefined) => {
+    const updateWallPost = (dataPost:  posts[], infor: user | undefined) => {
+        setWallPost([])
+        setGroupPubli([])
         if (dataPost.length !== 0 && infor !== undefined && infor) {
-          const optionIdsSet = new Set(wallPost.map(item => item.memberId));
-      
+          
           dataPost.forEach(value => {
             if (value.memberId === infor.id) {
-              if (!optionIdsSet.has(value.memberId)) {
-                setWallPost(prevList => [...prevList, value]);
+                setWallPost(prevList => [...prevList, value])
                 const muralPost = dataMural.data.find((valueMural)=> valueMural.id == value.muralId)
                 const groupPost = dataGroup.data.find((valueGroup)=> valueGroup.id == muralPost?.groupId)
                 const NameGroup = {
                     nameGroup: groupPost?.name!,
                     idMuralGroup: muralPost?.id!,
-                    category: muralPost?.category! 
-                };
+                    category: muralPost?.category!,
+                    idPost: value.id, 
+                }
                 console.log(NameGroup)
-                setGroupPubli(prevList => [...prevList, NameGroup]);
-                
-              }
+                setGroupPubli(prevList => [...prevList, NameGroup])
             }
-          });
+          })
         }
       };
 
     useEffect(()=>{
 
-        if(controlllll === 0){
-            var valorRecuperado = localStorage.getItem("userData");
+         var valorRecuperado = localStorage.getItem("userData");
             if (valorRecuperado) {
             const userData = JSON.parse(valorRecuperado);
             setInfor(userData.data);
@@ -89,20 +89,14 @@ const  Posts = () => {
             }
             
             }
-        }
 
+    }, [])
+
+    useEffect(()=>{
         if(dataMember.data.length !== 0 && dataGroup.data.length !== 0 && dataMember.data.length !== 0){
             updateWallPost(dataPost.data, infor);
         }
-
-
-        // if(groupPubli){
-        //     console.log(groupPubli)
-        // }
-
-        
-
-    }, [dataPost.data, infor, dataMember.data, dataGroup.data, dataMural.data])
+    },[dataPost.data, newAtu])
 
     const changeLupa = () =>{
         setUpLupa(false)
@@ -146,13 +140,13 @@ const  Posts = () => {
                 <>
                     {wallPost.slice().reverse().map((item) => (
                         <React.Fragment key={`${item.id}-${infor?.id}`}>
-                            {infor?.isAdmin === true ? (
+                            {infor?.isAdmin === true && group ? (
                                 <ShowPosts key={`${item.id}-${infor.id}`} img={group?.imgGroup || perfil.src} name={group?.name!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor.id!} idUserPost={infor.id!}/>
                             ) : (
                                 <React.Fragment>
                                     {groupPubli.map((element) => (
                                         <React.Fragment key={element.idMuralGroup}>
-                                            {element.idMuralGroup == item.muralId?(
+                                            {element.idMuralGroup == item.muralId && element.idPost == item.id?(
                                                 <ShowPosts key={`${item.id}-${infor?.id}`} img={infor?.profile_image || perfil.src} name={infor?.username!} text={item.content!} media={item.media} id={item.id} funct={handleSelection} idUser={infor!.id!} idUserPost={infor!.id!} secondName={element.nameGroup} PostData={item.created_at} />
                                             ):null}
                                         </React.Fragment>

@@ -1,7 +1,7 @@
 export const Checktoken = async (value:any) => {
     try {
         const token = value; // Substitua pelo token JWT real
-        const response = await fetch('http://localhost:4000/protected', {
+        const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/protected', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

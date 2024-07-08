@@ -10,7 +10,7 @@ export const useInforPost = ({load}: useInforPostProps) => {
 
   const getData = async () => {
     try {
-      const response = await fetch('https://projeto-web-full-stack-pm-devs-production-727d.up.railway.app/posts', {
+      const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/posts', {
         method: "GET",
         headers: {
           "Content-Type": "application/json"

@@ -57,7 +57,8 @@ const SeePost = ({post}:seepost) => {
               } else if (mediaType === "video" && !newVideos.includes(mediaValue)) {
                 newVideos.push(mediaValue);
               } else if (mediaType === "doc" && !newDocuments.includes(mediaValue)) {
-                newDocuments.push(mediaValue);
+                let docFile = mediaValue.split(",")
+                newDocuments.push(docFile[0]);
               }
             }
         
@@ -184,8 +185,8 @@ const SeePost = ({post}:seepost) => {
                                 docum.map((item) => (
                                     <>
                                         <Link href={item}>
-                                            <Document key={item} file={item}>
-                                                <Page pageNumber={1} scale={1.0} height={300} />
+                                            <Document key={item} file={item} >
+                                                <Page pageNumber={1} scale={1.0} height={400} width={400}/>
                                             </Document>
                                         </Link>
                                     </>

@@ -80,7 +80,7 @@
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background-color: rgba(92, 208, 97, 0.9);
+    /* background-color: rgba(92, 208, 97, 0.9); */
   }
 
   .profile_container > h2, .profile_container p {
