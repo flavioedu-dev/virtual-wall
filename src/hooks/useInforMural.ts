@@ -11,7 +11,7 @@ export const useInforMural = ({load}:useInforPostProps) =>{
 
   const getData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/murals', {
+      const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/murals', {
         method: "GET",
         headers: {
           "Content-Type": "application/json"

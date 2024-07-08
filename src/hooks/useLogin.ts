@@ -7,7 +7,7 @@ export const useLogin = () =>{
 
     useEffect(()=>{
       async function getData(){
-        const response = await fetch("http://localhost:8000/users", {
+        const response = await fetch("https://projeto-web-full-stack-pm-devs.onrender.com/users", {
         method: "GET",
         headers: {
           "Content-Type": "application/json"

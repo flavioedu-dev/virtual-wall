@@ -143,7 +143,7 @@ const CreatePost = ({name, img, idwall, idUser, idmember, functionTrue}:ShowPost
         
 
         try {
-          const response = await fetch('http://localhost:8000/posts', {
+          const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/posts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

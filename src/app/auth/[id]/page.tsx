@@ -28,7 +28,7 @@ const AuthGroup = () =>{
         console.log(idUser)
         console.log(cod)
         try {
-          const response = await fetch('http://localhost:8000/members/'+idUser, {
+          const response = await fetch('https://projeto-web-full-stack-pm-devs.onrender.com/members/'+idUser, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

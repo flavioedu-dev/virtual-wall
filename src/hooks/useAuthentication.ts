@@ -8,7 +8,7 @@ export function useAuthentication() {
 
   const createUser = async (userAdm: user) => {
     try {
-      const response = await fetch("http://localhost:8000/users/", {
+      const response = await fetch("https://projeto-web-full-stack-pm-devs.onrender.com/users/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
